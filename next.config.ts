@@ -16,9 +16,7 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
-  // Payload CMS specific configuration
-  transpilePackages: ['payload'],
-  // Next.js 15 App Router compatibility
+  // Next.js 15 App Router compatibility for Netlify
   output: 'standalone',
 };
 

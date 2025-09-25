@@ -5,6 +5,11 @@
 [build.environment]
   NODE_VERSION = "20.18.0"
   NEXT_TELEMETRY_DISABLED = "1"
+  # Payload CMS environment variables
+  PAYLOAD_SECRET = "your-secret-key-here-change-this-in-production"
+  DATABASE_URI = "postgresql://postgres.rrpzjktpdgpmmgmyxywn:j1l1fVqcyFAtmUFU@aws-1-eu-central-1.pooler.supabase.com:6543/postgres"
+  SUPABASE_URL = "https://rrpzjktpdgpmmgmyxywn.supabase.co"
+  SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJycHpqa3RwZGdwbW1nbXl4eXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwNDU5MTAsImV4cCI6MjA3MzYyMTkxMH0.F76Vxszfx4q_ZnDbEe2S7t8Dr8skHWgG0Af5BvQNi-8"
 
 # Payload CMS Headers
 [[headers]]

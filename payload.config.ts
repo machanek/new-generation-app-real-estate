@@ -107,11 +107,7 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
   plugins: [],
-  // Email configuration removed - using console logging for now
-  // email: {
-  //   fromName: 'Harmonia Rząska',
-  //   fromAddress: 'noreply@harmonia-rzaska.pl',
-  // },
+  // Email configuration removed - using console logging for development
   // Next.js 15 App Router compatibility
   cors: [
     'http://localhost:3000',
