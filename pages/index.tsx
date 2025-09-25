@@ -67,9 +67,30 @@ export default function Home({ units, buildings, gallery }: Props) {
           <div className="hero-inner">
           <div className="container">
               <div className="hero-gallery">
-                <img src="/images/uploads/hero-1.jpg" alt="Harmonia Rząska - widok osiedla" loading="eager" />
-                <img src="/images/uploads/hero-2.jpg" alt="Harmonia Rząska - dom" loading="lazy" />
-                <img src="/images/uploads/hero-3.jpg" alt="Harmonia Rząska - okolica" loading="lazy" />
+                <img 
+                  src="/images/uploads/hero-1.jpg" 
+                  alt="Harmonia Rząska - widok osiedla" 
+                  loading="eager" 
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                <img 
+                  src="/images/uploads/hero-2.jpg" 
+                  alt="Harmonia Rząska - dom" 
+                  loading="lazy" 
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                <img 
+                  src="/images/uploads/hero-3.jpg" 
+                  alt="Harmonia Rząska - okolica" 
+                  loading="lazy" 
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
               </div>
             <div className="hero-content">
                 <h1>Osiedla Harmonia Rząska</h1>
@@ -87,7 +108,14 @@ export default function Home({ units, buildings, gallery }: Props) {
           <div className="container">
             <h2>Plan osiedla</h2>
             <div className="plan-image">
-              <img src="/images/uploads/plan-osiedla.jpg" alt="Plan zagospodarowania osiedla Harmonia Rząska" />
+              <img 
+                src="/images/uploads/plan-osiedla.jpg" 
+                alt="Plan zagospodarowania osiedla Harmonia Rząska" 
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Plan osiedla będzie dostępny wkrótce</p>';
+                }}
+              />
             </div>
           </div>
         </section>

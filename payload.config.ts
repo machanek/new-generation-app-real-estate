@@ -64,6 +64,39 @@ export default buildConfig({
       forgot: '/admin/forgot',
       reset: '/admin/reset',
     },
+    meta: {
+      titleSuffix: '- Harmonia Rząska CMS',
+      favicon: '/favicon.ico',
+    },
+    components: {
+      beforeDashboard: [],
+      afterDashboard: [],
+      beforeNav: [],
+      afterNav: [],
+    },
+    // Fix for Next.js 15 App Router
+    livePreview: {
+      breakpoints: [
+        {
+          label: 'Mobile',
+          name: 'mobile',
+          width: 375,
+          height: 667,
+        },
+        {
+          label: 'Tablet',
+          name: 'tablet',
+          width: 768,
+          height: 1024,
+        },
+        {
+          label: 'Desktop',
+          name: 'desktop',
+          width: 1440,
+          height: 900,
+        },
+      ],
+    },
   },
   editor: lexicalEditor({}),
   collections: [Users, Media, Units, ContactMessages, SiteSettings],
@@ -74,6 +107,29 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
   plugins: [],
+  // Email configuration removed - using console logging for now
+  // email: {
+  //   fromName: 'Harmonia Rząska',
+  //   fromAddress: 'noreply@harmonia-rzaska.pl',
+  // },
+  // Next.js 15 App Router compatibility
+  cors: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://harmonia-rzaska.netlify.app',
+  ],
+  csrf: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://harmonia-rzaska.netlify.app',
+  ],
+  // Fix for Next.js 15 App Router
+  routes: {
+    admin: '/admin',
+    api: '/api',
+    graphQL: '/api/graphql',
+    graphQLPlayground: '/api/graphql-playground',
+  },
   db: postgresAdapter({
     pool: {
       connectionString: getDatabaseUri(),
