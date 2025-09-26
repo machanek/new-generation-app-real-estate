@@ -206,20 +206,20 @@ export async function getStaticProps() {
     });
 
     // Konwertuj dane z CMS do formatu Unit
-    const units: Unit[] = unitsFromCMS.docs.map((unit: any) => ({
-      id: unit.unitId || unit.id,
-      building: unit.building,
-      unit: unit.apartment,
-      floor: unit.floor,
-      area: unit.area,
-      price: unit.price,
-      pricePerM2: unit.pricePerSqm,
+    const units: Unit[] = unitsFromCMS.docs.map((unit: Record<string, unknown>) => ({
+      id: (unit.unitId as string) || (unit.id as string),
+      building: unit.building as string,
+      unit: unit.apartment as string,
+      floor: unit.floor as number,
+      area: unit.area as number,
+      price: unit.price as number,
+      pricePerM2: unit.pricePerSqm as number,
       status: unit.status === 'available' ? 'wolny' : 
               unit.status === 'sold' ? 'sprzedany' : 
               unit.status === 'reserved' ? 'zarezerwowany' : 'wolny',
-      planUrl: unit.planUrl,
-      extras: unit.extras ? [unit.extras] : null,
-      slug: unit.slug,
+      planUrl: unit.planUrl as string,
+      extras: unit.extras ? [unit.extras as string] : null,
+      slug: unit.slug as string,
     }));
 
     const buildings = listBuildings(units);

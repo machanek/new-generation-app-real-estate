@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import config from '@payload-config'
 
@@ -121,12 +122,12 @@ export default async function UnitPage({ params }: Props) {
               )}
               
               <div className="mt-4">
-                <a 
+                <Link 
                   href="/#kontakt" 
                   className="inline-block bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
                 >
                   Skontaktuj się w sprawie mieszkania
-                </a>
+                </Link>
               </div>
             </div>
           </div>
