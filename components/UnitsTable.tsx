@@ -37,7 +37,15 @@ export default function UnitsTable({ items }: Props) {
         <TableBody>
           {items.map((u) => (
             <TableRow key={u.id} sold={u.status?.toLowerCase().startsWith("sprzed") || false}>
-              <TableCell>{u.id}</TableCell>
+              <TableCell>
+                {u.slug ? (
+                  <a href={`/mieszkania/${u.slug}`} className="text-blue-600 hover:underline">
+                    {u.id}
+                  </a>
+                ) : (
+                  u.id
+                )}
+              </TableCell>
               <TableCell>{u.building ?? "—"}</TableCell>
               <TableCell>{u.unit ?? "—"}</TableCell>
               <TableCell>{u.floor ?? "—"}</TableCell>

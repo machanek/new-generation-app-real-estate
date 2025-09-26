@@ -14,6 +14,7 @@ export type Unit = {
   pricePerM2?: number | null;
   status?: string | null;    // wolny | zarezerwowany | sprzedany
   planUrl?: string | null;
+  slug?: string | null;      // SEO-friendly URL
   raw?: any;                 // oryginalny obiekt JSON (debug)
 };
 

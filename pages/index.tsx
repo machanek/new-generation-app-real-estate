@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { loadUnitsAll, listBuildings, type Unit } from "@/lib/loadUnits";
 import { applyFilters, type Filters } from "@/lib/filterSort";
 import { loadGallery, type GalleryItem } from "@/lib/loadGallery";
+import { getPayloadHMR } from '@payloadcms/next/utilities';
+import config from '@payload-config';
 import AboutSection from "@/components/AboutSection";
 import ArchitectureSection from "@/components/ArchitectureSection";
 import GalleryGrid from "@/components/GalleryGrid";
@@ -194,8 +196,45 @@ export default function Home({ units, buildings, gallery }: Props) {
 }
 
 export async function getStaticProps() {
-  const units = await loadUnitsAll();
-  const buildings = listBuildings(units);
-  const gallery = await loadGallery();
-  return { props: { units, buildings, gallery }, revalidate: 60 };
+  try {
+    // Pobierz dane z Payload CMS
+    const payload = await getPayloadHMR({ config });
+    const unitsFromCMS = await payload.find({
+      collection: 'units',
+      limit: 100,
+      sort: 'apartment',
+    });
+
+    // Konwertuj dane z CMS do formatu Unit
+    const units: Unit[] = unitsFromCMS.docs.map((unit: any) => ({
+      id: unit.unitId || unit.id,
+      building: unit.building,
+      unit: unit.apartment,
+      floor: unit.floor,
+      area: unit.area,
+      price: unit.price,
+      pricePerM2: unit.pricePerSqm,
+      status: unit.status === 'available' ? 'wolny' : 
+              unit.status === 'sold' ? 'sprzedany' : 
+              unit.status === 'reserved' ? 'zarezerwowany' : 'wolny',
+      planUrl: unit.planUrl,
+      extras: unit.extras ? [unit.extras] : null,
+      slug: unit.slug,
+    }));
+
+    const buildings = listBuildings(units);
+    const gallery = await loadGallery();
+    
+    return { 
+      props: { units, buildings, gallery }, 
+      revalidate: 60 
+    };
+  } catch (error) {
+    console.error('Error loading data from CMS:', error);
+    // Fallback do starych danych
+    const units = await loadUnitsAll();
+    const buildings = listBuildings(units);
+    const gallery = await loadGallery();
+    return { props: { units, buildings, gallery }, revalidate: 60 };
+  }
 }
