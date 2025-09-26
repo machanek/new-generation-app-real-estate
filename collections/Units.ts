@@ -15,12 +15,11 @@ export const Units: CollectionConfig = {
   },
   fields: [
     {
-      name: 'unitId',
+      name: 'unit',
       label: 'ID Mieszkania',
       type: 'text',
       required: true,
       unique: true,
-      dbName: 'unit', // Map to existing 'unit' column
     },
     {
       name: 'building',
