@@ -18,6 +18,16 @@ export const Units: CollectionConfig = {
   },
   fields: [
     {
+      name: 'id',
+      type: 'text',
+      required: true,
+      unique: true,
+      admin: {
+        readOnly: true,
+        description: 'Automatycznie generowane ID',
+      },
+    },
+    {
       name: 'unit',
       label: 'Numer Mieszkania',
       type: 'text',
@@ -103,7 +113,12 @@ export const Units: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      ({ data }) => {
+      ({ data, operation }) => {
+        // Auto-generate ID if creating new record
+        if (operation === 'create' && !data.id) {
+          data.id = `unit-${data.unit || Date.now()}`;
+        }
+        
         // Auto-calculate price per square meter
         if (data.area && data.price && data.area > 0) {
           data.pricePerM2 = Math.round(data.price / data.area);
