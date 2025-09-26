@@ -17,8 +17,8 @@ export async function generateStaticParams() {
     limit: 100,
   })
 
-  return units.docs.map((unit) => ({
-    slug: unit.slug,
+  return units.docs.map((unit, index) => ({
+    slug: `unit-${unit.unit || index}`, // Generate slug from unit number
   }))
 }
 
@@ -27,11 +27,14 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params
   const payload = await getPayloadHMR({ config })
   
+  // Parse unit number from slug (format: unit-{unitNumber})
+  const unitNumber = slug.replace('unit-', '')
+  
   const units = await payload.find({
     collection: 'units',
     where: {
-      slug: {
-        equals: slug,
+      unit: {
+        equals: unitNumber,
       },
     },
     limit: 1,
@@ -59,11 +62,14 @@ export default async function UnitPage({ params }: Props) {
   const { slug } = await params
   const payload = await getPayloadHMR({ config })
 
+  // Parse unit number from slug (format: unit-{unitNumber})
+  const unitNumber = slug.replace('unit-', '')
+
   const units = await payload.find({
     collection: 'units',
     where: {
-      slug: {
-        equals: slug,
+      unit: {
+        equals: unitNumber,
       },
     },
     limit: 1,

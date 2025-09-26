@@ -74,27 +74,6 @@ export const Units: CollectionConfig = {
       },
     },
     {
-      name: 'slug',
-      label: 'URL Slug',
-      type: 'text',
-      admin: {
-        position: 'sidebar',
-        readOnly: true,
-      },
-      hooks: {
-        beforeValidate: [
-          ({ data }) => {
-            if (data?.building && data?.unit && data?.area) {
-              return `mieszkanie-${data.building}-${data.unit}-${data.area}m2-rzaska`
-                .toLowerCase()
-                .replace(/\s+/g, '-')
-                .replace(/[^a-z0-9\-]/g, '');
-            }
-          },
-        ],
-      },
-    },
-    {
       name: 'images',
       type: 'relationship',
       relationTo: 'media',

@@ -219,7 +219,7 @@ export async function getStaticProps() {
               unit.status === 'reserved' ? 'zarezerwowany' : 'wolny',
       planUrl: unit.planUrl as string,
       extras: null, // Extras field removed due to database schema mismatch
-      slug: unit.slug as string,
+      slug: null, // Slug field removed due to database schema mismatch
     }));
 
     const buildings = listBuildings(units);
