@@ -60,14 +60,14 @@ export const Units: CollectionConfig = {
       type: 'number',
       required: true,
     },
-    {
-      name: 'pricePerM2',
-      label: 'Cena za m² (PLN)',
-      type: 'number',
-      admin: {
-        readOnly: true,
-      },
-    },
+    // {
+    //   name: 'pricePerM2',
+    //   label: 'Cena za m² (PLN)',
+    //   type: 'number',
+    //   admin: {
+    //     readOnly: true,
+    //   },
+    // },
     {
       name: 'status',
       label: 'Status',
@@ -89,15 +89,15 @@ export const Units: CollectionConfig = {
       },
     },
   ],
-  hooks: {
-    beforeChange: [
-      ({ data }) => {
-        // Auto-calculate price per sqm only
-        if (data.price && data.area) {
-          data.pricePerM2 = Math.round(data.price / data.area);
-        }
-        return data;
-      },
-    ],
-  },
+  // hooks: {
+  //   beforeChange: [
+  //     ({ data }) => {
+  //       // Auto-calculate price per sqm only
+  //       if (data.price && data.area) {
+  //         data.pricePerM2 = Math.round(data.price / data.area);
+  //       }
+  //       return data;
+  //     },
+  //   ],
+  // },
 }
