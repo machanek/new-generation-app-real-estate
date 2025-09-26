@@ -40,14 +40,6 @@ export const Units: CollectionConfig = {
       required: true,
     },
     {
-      name: 'extras',
-      label: 'Dodatki',
-      type: 'textarea',
-      admin: {
-        placeholder: 'np. Balkon, komórka lokatorska',
-      },
-    },
-    {
       name: 'price',
       label: 'Cena (PLN)',
       type: 'number',

@@ -218,7 +218,7 @@ export async function getStaticProps() {
               unit.status === 'sold' ? 'sprzedany' : 
               unit.status === 'reserved' ? 'zarezerwowany' : 'wolny',
       planUrl: unit.planUrl as string,
-      extras: unit.extras ? [unit.extras as string] : null,
+      extras: null, // Extras field removed due to database schema mismatch
       slug: unit.slug as string,
     }));
 

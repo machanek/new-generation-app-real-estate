@@ -102,9 +102,6 @@ export default async function UnitPage({ params }: Props) {
                      unit.status === 'sold' ? 'Sprzedane' : 'Rezerwacja'}
                   </span>
                 </li>
-                {unit.extras && (
-                  <li><strong>Dodatki:</strong> {unit.extras}</li>
-                )}
               </ul>
             </div>
             
