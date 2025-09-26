@@ -8,7 +8,7 @@ export const Units: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'id',
-    defaultColumns: ['id', 'area', 'price', 'status'],
+    defaultColumns: ['id', 'created_at'],
   },
   access: {
     read: () => true, // Public read for website
@@ -17,38 +17,6 @@ export const Units: CollectionConfig = {
     delete: () => true, // Allow delete for all authenticated users
   },
   fields: [
-    {
-      name: 'id',
-      label: 'ID',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Unikalny identyfikator mieszkania',
-      },
-    },
-    {
-      name: 'area',
-      label: 'Powierzchnia (m²)',
-      type: 'number',
-      required: true,
-    },
-    {
-      name: 'price',
-      label: 'Cena (PLN)',
-      type: 'number',
-      required: true,
-    },
-    {
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      required: true,
-      defaultValue: 'available',
-      options: [
-        { label: 'Wolne', value: 'available' },
-        { label: 'Sprzedane', value: 'sold' },
-        { label: 'Rezerwacja', value: 'reserved' },
-      ],
-    },
+    // Only auto-generated fields - no custom fields that might conflict with database
   ],
 }
