@@ -17,6 +17,11 @@ export const Units: CollectionConfig = {
     delete: () => true, // Allow delete for all authenticated users
   },
   fields: [
-    // Only auto-generated fields - no custom fields that might conflict with database
+    {
+      name: 'name',
+      label: 'Nazwa',
+      type: 'text',
+      required: true,
+    },
   ],
 }
