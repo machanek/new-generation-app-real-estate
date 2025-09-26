@@ -77,25 +77,15 @@ export const Units: CollectionConfig = {
         placeholder: '/assets/plans/1-a-1.pdf',
       },
     },
-    {
-      name: 'images',
-      type: 'relationship',
-      relationTo: 'media',
-      hasMany: true,
-    },
   ],
   hooks: {
-    beforeValidate: [
+    beforeChange: [
       ({ data }) => {
         // Auto-generate unit number from building and floor
         if (data.building && data.floor !== undefined) {
           data.unit = `${data.building}-${data.floor}`;
         }
-        return data;
-      },
-    ],
-    beforeChange: [
-      ({ data }) => {
+        
         // Auto-calculate price per sqm
         if (data.price && data.area) {
           data.pricePerM2 = Math.round(data.price / data.area);
