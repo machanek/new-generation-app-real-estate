@@ -20,6 +20,7 @@ export const Units: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      dbName: 'unit', // Map to existing 'unit' column
     },
     {
       name: 'building',

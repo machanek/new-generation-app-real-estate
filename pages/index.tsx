@@ -207,7 +207,7 @@ export async function getStaticProps() {
 
     // Konwertuj dane z CMS do formatu Unit
     const units: Unit[] = unitsFromCMS.docs.map((unit: Record<string, unknown>) => ({
-      id: (unit.unitId as string) || (unit.id as string),
+      id: (unit.unit as string) || (unit.id as string),
       building: unit.building as string,
       unit: unit.apartment as string,
       floor: unit.floor as number,
