@@ -46,13 +46,12 @@ export const Units: CollectionConfig = {
       required: true,
     },
     {
-      name: 'pricePerSqm',
+      name: 'pricePerM2',
       label: 'Cena za m² (PLN)',
       type: 'number',
       admin: {
         readOnly: true,
       },
-      dbName: 'price_per_m2', // Map to existing database column
     },
     {
       name: 'status',

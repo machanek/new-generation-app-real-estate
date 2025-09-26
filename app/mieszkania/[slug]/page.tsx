@@ -91,7 +91,7 @@ export default async function UnitPage({ params }: Props) {
                 <li><strong>Piętro:</strong> {unit.floor}</li>
                 <li><strong>Powierzchnia:</strong> {unit.area} m²</li>
                 <li><strong>Cena:</strong> {unit.price?.toLocaleString('pl-PL')} PLN</li>
-                <li><strong>Cena za m²:</strong> {unit.pricePerSqm?.toLocaleString('pl-PL')} PLN/m²</li>
+                    <li><strong>Cena za m²:</strong> {unit.pricePerM2?.toLocaleString('pl-PL')} PLN/m²</li>
                 <li><strong>Status:</strong> 
                   <span className={`ml-2 px-2 py-1 rounded text-sm ${
                     unit.status === 'available' ? 'bg-green-100 text-green-800' :

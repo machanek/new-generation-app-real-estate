@@ -213,7 +213,7 @@ export async function getStaticProps() {
       floor: unit.floor as number,
       area: unit.area as number,
       price: unit.price as number,
-      pricePerM2: unit.pricePerSqm as number,
+      pricePerM2: unit.pricePerM2 as number,
       status: unit.status === 'available' ? 'wolny' : 
               unit.status === 'sold' ? 'sprzedany' : 
               unit.status === 'reserved' ? 'zarezerwowany' : 'wolny',
