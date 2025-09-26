@@ -7,8 +7,8 @@ export const Units: CollectionConfig = {
     plural: 'Mieszkania',
   },
   admin: {
-    useAsTitle: 'unitNumber',
-    defaultColumns: ['unitNumber', 'area', 'price', 'status'],
+    useAsTitle: 'unit',
+    defaultColumns: ['unit', 'area', 'price', 'status'],
   },
   access: {
     read: () => true, // Public read for website
@@ -18,12 +18,11 @@ export const Units: CollectionConfig = {
   },
   fields: [
     {
-      name: 'unitNumber',
+      name: 'unit',
       label: 'Numer Mieszkania',
       type: 'text',
       required: true,
       unique: true,
-      dbName: 'unit', // Map to existing database column
       admin: {
         description: 'Unikalny numer mieszkania (np. A-1, B-2)',
         placeholder: 'A-1',
@@ -34,7 +33,6 @@ export const Units: CollectionConfig = {
       label: 'Budynek',
       type: 'text',
       required: true,
-      dbName: 'building', // Map to existing database column
       admin: {
         description: 'Nazwa lub numer budynku',
         placeholder: 'Budynek A',
@@ -45,7 +43,6 @@ export const Units: CollectionConfig = {
       label: 'Piętro',
       type: 'number',
       required: true,
-      dbName: 'floor', // Map to existing database column
       admin: {
         description: 'Numer piętra',
       },
@@ -55,7 +52,6 @@ export const Units: CollectionConfig = {
       label: 'Powierzchnia (m²)',
       type: 'number',
       required: true,
-      dbName: 'area', // Map to existing database column
       admin: {
         description: 'Powierzchnia mieszkania w metrach kwadratowych',
         placeholder: '50',
@@ -66,7 +62,6 @@ export const Units: CollectionConfig = {
       label: 'Cena (PLN)',
       type: 'number',
       required: true,
-      dbName: 'price', // Map to existing database column
       admin: {
         description: 'Cena mieszkania w złotych',
         placeholder: '500000',
@@ -76,7 +71,6 @@ export const Units: CollectionConfig = {
       name: 'pricePerM2',
       label: 'Cena za m² (PLN)',
       type: 'number',
-      dbName: 'price_per_m2', // Map to existing database column
       admin: {
         readOnly: true,
         description: 'Automatycznie obliczana cena za metr kwadratowy',
@@ -88,7 +82,6 @@ export const Units: CollectionConfig = {
       type: 'select',
       required: true,
       defaultValue: 'available',
-      dbName: 'status', // Map to existing database column
       options: [
         { label: 'Dostępne', value: 'available' },
         { label: 'Sprzedane', value: 'sold' },
@@ -102,7 +95,6 @@ export const Units: CollectionConfig = {
       name: 'planUrl',
       label: 'Link do planu (PDF)',
       type: 'text',
-      dbName: 'plan_url', // Map to existing database column
       admin: {
         description: 'Opcjonalny link do planu mieszkania',
         placeholder: '/assets/plans/mieszkanie-a-1.pdf',
