@@ -7,8 +7,8 @@ export const Units: CollectionConfig = {
     plural: 'Mieszkania',
   },
   admin: {
-    useAsTitle: 'apartment',
-    defaultColumns: ['apartment', 'area', 'price', 'status'],
+    useAsTitle: 'unit',
+    defaultColumns: ['unit', 'area', 'price', 'status'],
   },
   access: {
     read: () => true, // Public read for website
