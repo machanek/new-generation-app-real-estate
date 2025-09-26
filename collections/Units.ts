@@ -20,6 +20,10 @@ export const Units: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      admin: {
+        readOnly: true,
+        description: 'Automatycznie generowany z budynku i piętra',
+      },
     },
     {
       name: 'building',
@@ -81,11 +85,20 @@ export const Units: CollectionConfig = {
     },
   ],
   hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        // Auto-generate unit number from building and floor
+        if (data.building && data.floor !== undefined) {
+          data.unit = `${data.building}-${data.floor}`;
+        }
+        return data;
+      },
+    ],
     beforeChange: [
       ({ data }) => {
         // Auto-calculate price per sqm
         if (data.price && data.area) {
-          data.pricePerSqm = Math.round(data.price / data.area);
+          data.pricePerM2 = Math.round(data.price / data.area);
         }
         return data;
       },
