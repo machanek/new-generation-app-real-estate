@@ -23,6 +23,7 @@ export const Units: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      dbName: 'unit_id', // Map to existing database column
       admin: {
         description: 'Wprowadź numer mieszkania (np. A-1, B-2)',
       },
