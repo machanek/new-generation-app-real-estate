@@ -33,8 +33,7 @@ export const Units: CollectionConfig = {
       required: true,
       unique: true,
       admin: {
-        readOnly: true,
-        description: 'Automatycznie generowany z budynku i piętra',
+        description: 'Wprowadź numer mieszkania (np. A-1, B-2)',
       },
     },
     {
@@ -93,12 +92,7 @@ export const Units: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ data }) => {
-        // Auto-generate unit number from building and floor
-        if (data.building && data.floor !== undefined) {
-          data.unit = `${data.building}-${data.floor}`;
-        }
-        
-        // Auto-calculate price per sqm
+        // Auto-calculate price per sqm only
         if (data.price && data.area) {
           data.pricePerM2 = Math.round(data.price / data.area);
         }
