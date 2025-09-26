@@ -12,18 +12,9 @@ export const Units: CollectionConfig = {
   },
   access: {
     read: () => true, // Public read for website
-    create: ({ req: { user } }) => {
-      // Allow creation if user is logged in
-      return Boolean(user);
-    },
-    update: ({ req: { user } }) => {
-      // Allow update if user is logged in
-      return Boolean(user);
-    },
-    delete: ({ req: { user } }) => {
-      // Allow delete if user is logged in
-      return Boolean(user);
-    },
+    create: () => true, // Allow creation for all authenticated users
+    update: () => true, // Allow update for all authenticated users  
+    delete: () => true, // Allow delete for all authenticated users
   },
   fields: [
     {
