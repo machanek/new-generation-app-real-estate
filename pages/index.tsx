@@ -209,7 +209,7 @@ export async function getStaticProps() {
     const units: Unit[] = unitsFromCMS.docs.map((unit: Record<string, unknown>) => ({
       id: (unit.unit as string) || (unit.id as string),
       building: unit.building as string,
-      unit: unit.apartment as string,
+      unit: unit.unit as string,
       floor: unit.floor as number,
       area: unit.area as number,
       price: unit.price as number,

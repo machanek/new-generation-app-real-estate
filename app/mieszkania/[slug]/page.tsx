@@ -46,10 +46,10 @@ export async function generateMetadata({ params }: Props) {
   const unit = units.docs[0]
   
   return {
-    title: `Mieszkanie ${unit.apartment} - ${unit.area}m² - Harmonia Rząska`,
-    description: `Mieszkanie ${unit.apartment} o powierzchni ${unit.area}m² w budynku ${unit.building}. Cena: ${unit.price?.toLocaleString('pl-PL')} PLN. Osiedle Harmonia Rząska.`,
+    title: `Mieszkanie ${unit.unit} - ${unit.area}m² - Harmonia Rząska`,
+    description: `Mieszkanie ${unit.unit} o powierzchni ${unit.area}m² w budynku ${unit.building}. Cena: ${unit.price?.toLocaleString('pl-PL')} PLN. Osiedle Harmonia Rząska.`,
     openGraph: {
-      title: `Mieszkanie ${unit.apartment} - Harmonia Rząska`,
+      title: `Mieszkanie ${unit.unit} - Harmonia Rząska`,
       description: `${unit.area}m² | ${unit.price?.toLocaleString('pl-PL')} PLN | ${unit.status === 'available' ? 'Dostępne' : 'Sprzedane'}`,
     },
   }
@@ -79,7 +79,7 @@ export default async function UnitPage({ params }: Props) {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-6">
-          Mieszkanie {unit.apartment}
+          Mieszkanie {unit.unit}
         </h1>
         
         <div className="bg-white rounded-lg shadow-lg p-6">

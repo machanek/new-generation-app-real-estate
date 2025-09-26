@@ -16,7 +16,7 @@ export const Units: CollectionConfig = {
   fields: [
     {
       name: 'unit',
-      label: 'ID Mieszkania',
+      label: 'Numer Mieszkania',
       type: 'text',
       required: true,
       unique: true,
@@ -24,12 +24,6 @@ export const Units: CollectionConfig = {
     {
       name: 'building',
       label: 'Budynek',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'apartment',
-      label: 'Numer Mieszkania',
       type: 'text',
       required: true,
     },
@@ -98,8 +92,8 @@ export const Units: CollectionConfig = {
       hooks: {
         beforeValidate: [
           ({ data }) => {
-            if (data?.building && data?.apartment && data?.area) {
-              return `mieszkanie-${data.building}-${data.apartment}-${data.area}m2-rzaska`
+            if (data?.building && data?.unit && data?.area) {
+              return `mieszkanie-${data.building}-${data.unit}-${data.area}m2-rzaska`
                 .toLowerCase()
                 .replace(/\s+/g, '-')
                 .replace(/[^a-z0-9\-]/g, '');
