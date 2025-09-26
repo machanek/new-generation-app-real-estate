@@ -57,12 +57,12 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     routes: {
-      login: '/login',
-      logout: '/logout',
-      account: '/account',
-      createFirstUser: '/create-first-user',
-      forgot: '/forgot',
-      reset: '/reset',
+      login: '/admin/login',
+      logout: '/admin/logout',
+      account: '/admin/account',
+      createFirstUser: '/admin/create-first-user',
+      forgot: '/admin/forgot',
+      reset: '/admin/reset',
     },
     meta: {
       titleSuffix: '- Harmonia Rząska CMS',

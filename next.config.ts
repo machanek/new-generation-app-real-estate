@@ -3,21 +3,37 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  serverExternalPackages: ['sharp'],
+  
+  // Usunięcie konfliktów z Turbopack
   experimental: {
-    typedRoutes: false,
+    // Wyłączenie Turbopack dla kompatybilności z Payload
   },
+  
+  // TypeScript - tymczasowo ignoruj błędy
   typescript: {
     ignoreBuildErrors: true,
   },
+  
+  // Webpack konfiguracja
   webpack: (config, { isServer }) => {
+    // Externalizuj sharp tylko na serwerze
     if (isServer) {
       config.externals.push('sharp');
     }
+    
+    // Dodaj alias dla lepszej kompatybilności
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@payloadcms/next': '@payloadcms/next',
+    };
+    
     return config;
   },
-  // Next.js 15 App Router compatibility for Netlify
+  
+  // Dla Netlify deployment
   output: 'standalone',
+  
+  // Redirects usunięte - Payload CMS ma własny routing
 };
 
 export default withPayload(nextConfig);
