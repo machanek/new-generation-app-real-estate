@@ -7,8 +7,8 @@ export const Units: CollectionConfig = {
     plural: 'Mieszkania',
   },
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'area', 'price', 'status'],
+    useAsTitle: 'id',
+    defaultColumns: ['id', 'area', 'price', 'status'],
   },
   access: {
     read: () => true, // Public read for website
@@ -18,12 +18,12 @@ export const Units: CollectionConfig = {
   },
   fields: [
     {
-      name: 'title',
-      label: 'Tytuł',
+      name: 'id',
+      label: 'ID',
       type: 'text',
       required: true,
       admin: {
-        description: 'Nazwa mieszkania (np. Mieszkanie A-1)',
+        description: 'Unikalny identyfikator mieszkania',
       },
     },
     {
