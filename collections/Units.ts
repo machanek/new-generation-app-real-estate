@@ -52,6 +52,7 @@ export const Units: CollectionConfig = {
       admin: {
         readOnly: true,
       },
+      dbName: 'price_per_m2', // Map to existing database column
     },
     {
       name: 'status',
