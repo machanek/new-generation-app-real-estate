@@ -12,7 +12,6 @@ import {
   CheckboxLabel,
   FormActions,
   FormSubmitButton,
-  HiddenField,
 } from '@/components/ui/Form';
 
 interface ContactFormProps {
@@ -23,14 +22,8 @@ export default function ContactForm({ onSubmit }: ContactFormProps) {
   return (
     <Form
       id="contactForm"
-      name="contact"
-      method="POST"
       onSubmit={onSubmit}
     >
-      <input type="hidden" name="form-name" value="contact" />
-      <HiddenField>
-        <label>Nie wypełniaj tego pola: <input name="bot-field" /></label>
-      </HiddenField>
 
       <FormRow>
         <FormGroup>

@@ -1,0 +1,237 @@
+<!--
+  Szablon: sekcja szczegółów lokalu + powierzchnie pomieszczeń + historia cen + GALERIA RZUTÓW
+  Mobile‑first, zgodny z estetyką Twojej strony. Na DESKTOP tabele (lewa kolumna) mają max 30% szerokości,
+  po PRAWEJ jest galeria rzutów z zakładkami (Parter / Piętro 1 / ...).
+
+  Placeholdery {{...}} wypełnij w generatorze (np. podczas budowania stron statycznych).
+-->
+
+<style>
+  :root {
+    --ink: #0f1f1a;            /* kolor tekstu */
+    --muted: #556b5d;          /* etykiety, linie */
+    --bg: #ffffff;             /* tło kart */
+    --brand: #1f3d32;          /* zieleń motywu */
+    --radius: 14px;
+    --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
+    --space-5: 1.5rem; --space-6: 2rem; --space-8: 3rem;
+  }
+
+  .row.mt-60 { margin-top: var(--space-8); }
+  .unit-details { color: var(--ink); }
+
+  /* Layout 2‑kolumnowy: 30%/70% na desktopie */
+  .unit-layout { display: grid; gap: var(--space-6); }
+  @media (min-width: 992px) {
+    .unit-layout { grid-template-columns: minmax(280px, 30%) 1fr; align-items: start; column-gap: var(--space-6); row-gap: 0; }
+    .unit-sidebar { position: sticky; top: var(--space-6); }
+  }
+
+  .table-block { background: var(--bg); border-radius: var(--radius); padding: var(--space-5);
+                  box-shadow: 0 6px 24px rgba(0,0,0,.06); border: 1px solid rgba(0,0,0,.06); }
+  .investment-about__details-table { overflow: hidden; }
+  .mb-40 { margin-bottom: 40px; }
+
+  .section-title { margin: 0 0 var(--space-4); font-weight: 700; }
+  .section-title.h3 { font-size: 1.375rem; }
+  .section-title.h4 { font-size: 1.2rem; }
+
+  .details-table { width: 100%; border-collapse: collapse; }
+  .details-table caption { position: absolute; left: -9999px; }
+  .details-table th,
+  .details-table td { padding: .7rem .6rem; border-bottom: 1px solid rgba(0,0,0,.075); vertical-align: top; }
+  .details-table th { font-weight: 600; color: var(--muted); width: 36%; }
+  .details-table tfoot td, .details-table tfoot th { font-weight: 700; border-top: 2px solid rgba(0,0,0,.12); }
+  .details-table .sum td, .details-table .sum th { font-weight: 700; }
+
+  /* Tabela z nagłówkami (pokoje/historia) – mobile-first zachowanie kartowe */
+  .details-table.has-head thead th { text-transform: none; font-weight: 600; color: var(--muted); }
+  @media (max-width: 768px) {
+    .details-table.has-head thead { display: none; }
+    .details-table.has-head tr { display: block; padding: .35rem 0; border-bottom: 1px solid rgba(0,0,0,.08); }
+    .details-table.has-head td { display: flex; justify-content: space-between; gap: .75rem; padding: .5rem 0; }
+    .details-table.has-head td::before { content: attr(data-label); font-weight: 600; color: var(--muted); }
+    .details-table th { width: auto; }
+  }
+
+  /* Akcenty */
+  .chip { display: inline-block; padding: .25rem .5rem; border-radius: 999px; font-size: .85rem; }
+  .chip--ok { background: rgba(22,163,74,.12); color: #166534; border: 1px solid rgba(22,163,74,.3); }
+  .chip--hold { background: rgba(234,179,8,.12); color: #854d0e; border: 1px solid rgba(234,179,8,.3); }
+
+  /* CTA – przyciski */
+  .cta-row { margin-top: var(--space-4); display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; padding: .7rem 1rem; font-weight: 700; border-radius: 12px; border: 1px solid transparent; text-decoration: none; cursor: pointer; }
+  .btn--brand { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .btn--brand:hover { filter: brightness(0.95); }
+  .btn--ghost { background: transparent; color: var(--brand); border-color: var(--brand); }
+  .btn--block { width: 100%; }
+  @media (min-width: 768px) { .btn--block { width: auto; } }
+
+  /* GALERIA RZUTÓW */
+  .unit-gallery .plan-tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: var(--space-4); }
+  .unit-gallery .plan-tab { appearance: none; border: 1px solid rgba(0,0,0,.12); background: #fff; color: var(--ink);
+                             border-radius: 999px; padding: .4rem .9rem; font-weight: 600; cursor: pointer; }
+  .unit-gallery .plan-tab[aria-selected="true"] { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+  .unit-gallery .plan-image { width: 100%; background: #fff; padding: var(--space-4); border-radius: var(--radius);
+                               border: 1px solid rgba(0,0,0,.06); box-shadow: 0 6px 24px rgba(0,0,0,.05);
+                               aspect-ratio: 16/11; display: grid; place-items: center; }
+  .unit-gallery .plan-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+  /* Select na mobile jako alternatywa zakładek (lepsza dostępność) */
+  .unit-gallery .plan-select { width: 100%; padding: .55rem .75rem; border-radius: 10px; border: 1px solid rgba(0,0,0,.15);
+                                background: #fff; margin-bottom: var(--space-4); }
+  @media (min-width: 640px) {
+    .unit-gallery .plan-select { display: none; }
+  }
+  @media (max-width: 639px) {
+    .unit-gallery .plan-tabs { display: none; }
+  }
+  /* Historia ceny – wyrównana do galerii (100% mobile, kolumna prawa na desktopie) */
+  #unit-price-history { width: 100%; }
+  @media (min-width: 992px){
+    #unit-price-history { grid-column: 2 / -1; max-width: none; margin-left: 0; margin-right: 0; margin-top: 40px; }
+  }
+</style>
+
+<div class="row mt-60 unit-details">
+  <div class="unit-layout">
+
+    <!-- LEWA KOLUMNA (max 30% na desktopie) -->
+    <aside class="unit-sidebar">
+      <!-- SZCZEGÓŁY LOKALU -->
+      <section class="table-block investment-about__details-table mb-40" id="unit-specs">
+        <h2 class="section-title h3">Szczegóły lokalu</h2>
+        <table class="details-table">
+          <caption>Parametry lokalu {{lokal}}</caption>
+          <tbody>
+            <tr><th>Lokal</th><td>{{lokal}}</td></tr>
+            <tr><th>Bud.</th><td>{{budynek}}</td></tr>
+            <tr><th>Piętro</th><td>{{pietro}}</td></tr>
+            <tr><th>Powierzchnia</th><td>{{powierzchnia}}</td></tr>
+            <tr><th>Dodatki</th><td>{{dodatki}}</td></tr>
+            <tr><th>Status</th><td><span class="chip chip--ok">{{status}}</span></td></tr>
+            <tr><th>Cena</th><td>{{cena}}</td></tr>
+            <tr><th>Cena/m²</th><td>{{cena_m2}}</td></tr>
+          </tbody>
+        </table>
+      <div class="cta-row">
+        <!-- Uzupełnij {{pdf_url}} linkiem do karty lokalu w PDF; atrybut download opcjonalny -->
+        <a class="btn btn--brand btn--block" href="{{pdf_url}}" target="_blank" rel="noopener" download>
+          Pobierz kartę lokalu (PDF)
+        </a>
+      </div>
+      </section>
+
+      <!-- POWIERZCHNIA POMIESZCZEŃ -->
+      <section class="table-block investment-about__details-table mb-40" id="unit-rooms">
+        <h3 class="section-title h4">Powierzchnia pomieszczeń</h3>
+        <table class="details-table has-head">
+          <caption>Powierzchnie pomieszczeń lokalu {{lokal}}</caption>
+          <thead>
+            <tr>
+              <th>Pomieszczenie</th>
+              <th>Powierzchnia [m²]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- {{#rooms}} powtarzaj poniższy wiersz dla każdej pozycji -->
+            <tr>
+              <td data-label="Pomieszczenie">{{name}}</td>
+              <td data-label="Powierzchnia [m²]">{{area_m2}}</td>
+            </tr>
+            <!-- {{/rooms}} -->
+          </tbody>
+          <tfoot>
+            <tr class="sum">
+              <th>Suma</th>
+              <td>{{powierzchnia}}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+      <!-- HISTORIA CENY (przeniesiona niżej jako szeroka sekcja) -->
+    </aside>
+
+    <!-- PRAWA KOLUMNA: GALERIA RZUTÓW (70% na desktopie) -->
+    <section class="unit-gallery">
+      <h2 class="section-title h3">Rzut mieszkania</h2>
+
+      <!-- Select na mobile -->
+      <select class="plan-select" id="planSelect">
+        <!-- {{#floors}} -->
+        <option value="{{id}}">{{name}}</option>
+        <!-- {{/floors}} -->
+      </select>
+
+      <!-- Zakładki na >=640px -->
+      <div class="plan-tabs" role="tablist" aria-label="Wybierz poziom">
+        <!-- {{#floors}} -->
+        <button class="plan-tab" role="tab" aria-selected="false" aria-controls="panel-{{id}}" id="tab-{{id}}">{{name}}</button>
+        <!-- {{/floors}} -->
+      </div>
+
+      <!-- Panele ze zdjęciami -->
+      <div class="plan-panels">
+        <!-- {{#floors}} -->
+        <div id="panel-{{id}}" role="tabpanel" aria-labelledby="tab-{{id}}" hidden>
+          <div class="plan-image">
+            <img src="{{image_url}}" alt="Rzut: {{name}}" loading="lazy" />
+          </div>
+        </div>
+        <!-- {{/floors}} -->
+      </div>
+    </section>
+
+    <!-- HISTORIA CENY – szeroka (80% desktop, 100% mobile) -->
+    <section class="table-block investment-about__details-table mb-40" id="unit-price-history">
+      <h3 class="section-title h4">Historia ceny</h3>
+      <table class="details-table has-head">
+        <caption>Zmiany ceny lokalu {{lokal}}</caption>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Cena</th>
+            <th>Cena/m²</th>
+            <th>Uwagi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- {{#price_history}} powtarzaj wiersz dla każdej zmiany -->
+          <tr>
+            <td data-label="Data">{{date}}</td>
+            <td data-label="Cena">{{price}}</td>
+            <td data-label="Cena/m²">{{price_m2}}</td>
+            <td data-label="Uwagi">{{note}}</td>
+          </tr>
+          <!-- {{/price_history}} -->
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  // Minimalna obsługa zakładek/selektu – bez frameworka
+  (function () {
+    const tabs = Array.from(document.querySelectorAll('.unit-gallery .plan-tab'));
+    const panels = Array.from(document.querySelectorAll('.unit-gallery [role="tabpanel"]'));
+    const select = document.getElementById('planSelect');
+    if (!tabs.length && !select) return;
+
+    function show(id) {
+      panels.forEach(p => p.hidden = (p.id !== 'panel-' + id));
+      tabs.forEach(t => t.setAttribute('aria-selected', String(t.id === 'tab-' + id)));
+      if (select && select.value !== id) select.value = id;
+    }
+
+    // Aktywuj pierwszy panel domyślnie
+    const firstId = tabs.length ? tabs[0].id.replace('tab-','') : (select ? select.options[0]?.value : null);
+    if (firstId) show(firstId);
+
+    tabs.forEach(btn => btn.addEventListener('click', () => show(btn.id.replace('tab-',''))));
+    if (select) select.addEventListener('change', e => show(e.target.value));
+  })();
+</script>

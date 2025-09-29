@@ -168,6 +168,7 @@ export const TableHeaderCell = styled('th', {
   color: '$textDark',
   borderBottom: '1px solid $border',
   fontSize: '$2',
+  scope: 'col',
 });
 
 export const TableBody = styled('tbody', {});
@@ -202,7 +203,9 @@ export const TableCell = styled('td', {
 
 // Status Badge
 export const StatusBadge = styled('span', {
-  display: 'inline-block',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '$1',
   padding: '$1 $2',
   borderRadius: '$1',
   fontSize: '$1',
@@ -222,6 +225,25 @@ export const StatusBadge = styled('span', {
       },
       sold: {
         backgroundColor: '$textLight',
+        color: '$textWhite',
+      },
+    },
+  },
+});
+
+export const StatusIndicator = styled('span', {
+  fontSize: '$2',
+  lineHeight: 1,
+  
+  variants: {
+    status: {
+      free: {
+        color: '$textWhite',
+      },
+      reserved: {
+        color: '$textWhite',
+      },
+      sold: {
         color: '$textWhite',
       },
     },

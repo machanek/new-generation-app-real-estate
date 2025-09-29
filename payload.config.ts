@@ -1,6 +1,7 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -66,13 +67,10 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: '- Harmonia Rząska CMS',
-      favicon: '/favicon.ico',
     },
     components: {
       beforeDashboard: [],
       afterDashboard: [],
-      beforeNav: [],
-      afterNav: [],
     },
     // Fix for Next.js 15 App Router
     livePreview: {
@@ -107,7 +105,11 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
   plugins: [],
-  // Email configuration removed - using console logging for development
+  email: resendAdapter({
+    defaultFromAddress: process.env.RESEND_FROM_EMAIL || 'noreply@harmonia-rzaska.pl',
+    defaultFromName: 'Harmonia Rząska',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   // Next.js 15 App Router compatibility
   cors: [
     'http://localhost:3000',

@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
 import { useMemo, useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { loadUnitsAll, listBuildings, type Unit } from "@/lib/loadUnits";
+import { listBuildings, type Unit } from "@/lib/loadUnits";
 import { applyFilters, type Filters } from "@/lib/filterSort";
 import { loadGallery, type GalleryItem } from "@/lib/loadGallery";
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import AboutSection from "@/components/AboutSection";
 import ArchitectureSection from "@/components/ArchitectureSection";
 import GalleryGrid from "@/components/GalleryGrid";
-import ContactForm from "@/components/ContactForm";
+import AccessibleContactForm from "@/components/forms/AccessibleContactForm";
 import UnitsSectionComponent from "@/components/UnitsSectionComponent";
 
 type Props = {
@@ -20,29 +19,10 @@ type Props = {
 };
 
 export default function Home({ units, buildings, gallery }: Props) {
-  const router = useRouter();
   const [filters, setFilters] = useState<Filters>({ status: "", building: "", areaMin: null, areaMax: null, sort: "" });
   const [view, setView] = useState<"table"|"cards">("table");
   const filtered = useMemo(() => applyFilters(units, filters), [units, filters]);
 
-  async function handleContactSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    // dopilnuj form-name:
-    if (!fd.get("form-name")) fd.set("form-name", "contact");
-
-    const params = new URLSearchParams();
-    fd.forEach((value, key) => params.append(key, String(value)));
-
-    await fetch("/__forms.html", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params.toString(),
-    });
-
-    router.push("/success");
-  }
 
   useEffect(() => {
     if (process.env.NODE_ENV !== "development") return;
@@ -67,37 +47,17 @@ export default function Home({ units, buildings, gallery }: Props) {
       <main id="top">
         <section className="hero" id="hero">
           <div className="hero-inner">
-          <div className="container">
-              <div className="hero-gallery">
-                <img 
-                  src="/images/uploads/hero-1.jpg" 
-                  alt="Harmonia Rząska - widok osiedla" 
-                  loading="eager" 
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-                <img 
-                  src="/images/uploads/hero-2.jpg" 
-                  alt="Harmonia Rząska - dom" 
-                  loading="lazy" 
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-                <img 
-                  src="/images/uploads/hero-3.jpg" 
-                  alt="Harmonia Rząska - okolica" 
-                  loading="lazy" 
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
+            <div className="hero-gallery">
+              <img 
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=700&fit=crop&crop=center" 
+                alt="Harmonia Rząska - widok osiedla" 
+                loading="eager" 
+              />
+            </div>
+            <div className="hero-overlay"></div>
             <div className="hero-content">
-                <h1>Osiedla Harmonia Rząska</h1>
-                <p>Odkryj przestrzeń stworzoną dla Ciebie – nowoczesne domy w harmonii z otoczeniem.</p>
-              </div>
+              <h1>Osiedla Harmonia Rząska</h1>
+              <p>Odkryj przestrzeń stworzoną dla Ciebie – nowoczesne domy w harmonii z otoczeniem.</p>
             </div>
           </div>
         </section>
@@ -111,11 +71,13 @@ export default function Home({ units, buildings, gallery }: Props) {
             <h2>Plan osiedla</h2>
             <div className="plan-image">
               <img 
-                src="/images/uploads/plan-osiedla.jpg" 
+                src="https://images.unsplash.com/photo-1524813686514-a57563d77965?w=1200&h=800&fit=crop" 
                 alt="Plan zagospodarowania osiedla Harmonia Rząska" 
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Plan osiedla będzie dostępny wkrótce</p>';
+                  if (e.currentTarget.parentElement) {
+                    e.currentTarget.parentElement.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Plan osiedla będzie dostępny wkrótce</p>';
+                  }
                 }}
               />
             </div>
@@ -158,7 +120,7 @@ export default function Home({ units, buildings, gallery }: Props) {
             <div className="contact-form-section">
               <h3>Skontaktuj się z nami</h3>
               <p>Masz pytania o dostępne lokale? Chcesz umówić się na prezentację? Napisz do nas!</p>
-              <ContactForm onSubmit={handleContactSubmit} />
+              <AccessibleContactForm />
               </div>
           </div>
         </section>
@@ -198,7 +160,7 @@ export default function Home({ units, buildings, gallery }: Props) {
 export async function getStaticProps() {
   try {
     // Pobierz dane z Payload CMS
-    const payload = await getPayloadHMR({ config });
+    const payload = await getPayload({ config });
     const unitsFromCMS = await payload.find({
       collection: 'units',
       limit: 100,
@@ -206,21 +168,21 @@ export async function getStaticProps() {
     });
 
     // Konwertuj dane z CMS do formatu Unit
-    const units: Unit[] = unitsFromCMS.docs.map((unit: Record<string, unknown>) => ({
-      id: (unit.unit as string) || (unit.id as string),
-      building: unit.building as string,
-      unit: unit.unit as string,
-      floor: unit.floor as number,
-      area: unit.area as number,
-      price: unit.price as number,
-      pricePerM2: unit.pricePerM2 as number,
-      status: unit.status === 'available' ? 'wolny' : 
-              unit.status === 'sold' ? 'sprzedany' : 
-              unit.status === 'reserved' ? 'zarezerwowany' : 'wolny',
-      planUrl: unit.planUrl as string,
-      extras: null, // Extras field removed due to database schema mismatch
-      slug: null, // Slug field removed due to database schema mismatch
-    }));
+        const units: Unit[] = unitsFromCMS.docs.map((unit: Record<string, unknown>) => ({
+          id: (unit.unit as string) || (unit.id as string),
+          building: unit.building as string,
+          unit: unit.unit as string,
+          floor: unit.floor as number,
+          area: unit.area as number,
+          price: unit.price as number,
+          pricePerM2: unit.pricePerM2 as number || null,
+          status: unit.status === 'available' ? 'wolny' : 
+                  unit.status === 'sold' ? 'sprzedany' : 
+                  unit.status === 'reserved' ? 'zarezerwowany' : 'wolny',
+          planUrl: unit.planUrl as string,
+          extras: null, // Extras field removed due to database schema mismatch
+          slug: null, // Slug field removed due to database schema mismatch
+        }));
 
     const buildings = listBuildings(units);
     const gallery = await loadGallery();
@@ -231,10 +193,10 @@ export async function getStaticProps() {
     };
   } catch (error) {
     console.error('Error loading data from CMS:', error);
-    // Fallback do starych danych
-    const units = await loadUnitsAll();
-    const buildings = listBuildings(units);
-    const gallery = await loadGallery();
-    return { props: { units, buildings, gallery }, revalidate: 60 };
+    // Brak fallback - tylko dane z Payload CMS
+    return { 
+      props: { units: [], buildings: [], gallery: [] }, 
+      revalidate: 60 
+    };
   }
 }

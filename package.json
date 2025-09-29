@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.56.0",
+    "@payloadcms/email-resend": "3.56.0",
     "@payloadcms/next": "^3.56.0",
     "@payloadcms/richtext-lexical": "^3.56.0",
     "@stitches/react": "^1.2.8",
@@ -20,7 +21,9 @@
     "next": "^15.5.3",
     "payload": "^3.56.0",
     "react": "^19.1.0",
+    "react-aria-components": "^1.12.2",
     "react-dom": "^19.1.0",
+    "resend": "^6.1.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {

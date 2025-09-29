@@ -23,30 +23,8 @@ export const ContactMessages: CollectionConfig = {
     },
     {
       name: 'subject',
-      type: 'select',
-      options: [
-        {
-          label: 'Pytanie o mieszkanie',
-          value: 'Pytanie o mieszkanie',
-        },
-        {
-          label: 'Umówienie prezentacji',
-          value: 'Umówienie prezentacji',
-        },
-        {
-          label: 'Finansowanie',
-          value: 'Finansowanie',
-        },
-        {
-          label: 'Dokumenty i procedury',
-          value: 'Dokumenty i procedury',
-        },
-        {
-          label: 'Inne',
-          value: 'Inne',
-        },
-      ],
-      required: true,
+      type: 'text',
+      required: false,
     },
     {
       name: 'message',

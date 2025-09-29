@@ -6,6 +6,23 @@ import { styled } from "@/lib/stitches.config";
 import { ButtonLink } from "@/components/ui/Button";
 
 // Styled components
+const SkipLink = styled('a', {
+  position: 'absolute',
+  left: '-9999px',
+  zIndex: 999,
+  padding: '$2 $3',
+  backgroundColor: '$primary',
+  color: '$textWhite',
+  textDecoration: 'none',
+  borderRadius: '$2',
+  fontWeight: '$3',
+  
+  '&:focus': {
+    left: '$4',
+    top: '$4',
+  },
+});
+
 const Header = styled('header', {
   position: 'fixed',
   top: 0,
@@ -163,7 +180,9 @@ export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <Header>
+    <>
+      <SkipLink href="#main-content">Przejdź do głównej treści</SkipLink>
+      <Header>
       <HeaderInner>
         <Logo href="#top" aria-label="Harmonia Rząska — strona główna">
           <img src="/assets/logo-harmonia-rzaska.svg" alt="Harmonia Rząska" height={40} />
@@ -247,6 +266,7 @@ export default function SiteHeader() {
           </MobileMenuContainer>
         </MobileMenu>
       )}
-    </Header>
+      </Header>
+    </>
   );
 }

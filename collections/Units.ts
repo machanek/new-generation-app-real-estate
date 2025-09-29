@@ -18,16 +18,6 @@ export const Units: CollectionConfig = {
   },
   fields: [
     {
-      name: 'id',
-      type: 'text',
-      required: true,
-      unique: true,
-      admin: {
-        readOnly: true,
-        description: 'Automatycznie generowane ID',
-      },
-    },
-    {
       name: 'unit',
       label: 'Numer Mieszkania',
       type: 'text',
@@ -110,19 +100,30 @@ export const Units: CollectionConfig = {
         placeholder: '/assets/plans/mieszkanie-a-1.pdf',
       },
     },
+    {
+      name: 'unitPageUrl',
+      label: 'Link do strony mieszkania',
+      type: 'text',
+      admin: {
+        readOnly: true,
+        description: 'Automatycznie generowany link do strony mieszkania',
+        placeholder: '/mieszkania/unit-A-1',
+      },
+    },
   ],
   hooks: {
     beforeChange: [
-      ({ data, operation }) => {
-        // Auto-generate ID if creating new record
-        if (operation === 'create' && !data.id) {
-          data.id = `unit-${data.unit || Date.now()}`;
-        }
-        
+      ({ data }) => {
         // Auto-calculate price per square meter
         if (data.area && data.price && data.area > 0) {
-          data.pricePerM2 = Math.round(data.price / data.area);
+          data.pricePerM2  = Math.round(data.price / data.area);
         }
+        
+        // Auto-generate unit page URL
+        if (data.unit) {
+          data.unitPageUrl = `/mieszkania/unit-${data.unit}`;
+        }
+        
         return data;
       },
     ],
