@@ -110,16 +110,19 @@ export default buildConfig({
     defaultFromName: 'Harmonia Rząska',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
-  // Next.js 15 App Router compatibility
+  // Cookie settings dla Vercel
+  cookiePrefix: 'payload',
+  
+  // CORS dla admin panel
   cors: [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'https://harmonia-rzaska.netlify.app',
+    'https://new-generation-app-real-estate.vercel.app',
+    'http://localhost:3000'
   ],
+  
+  // CSRF dla Vercel
   csrf: [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'https://harmonia-rzaska.netlify.app',
+    'https://new-generation-app-real-estate.vercel.app',
+    'http://localhost:3000'
   ],
   // Fix for Next.js 15 App Router
   routes: {
@@ -128,6 +131,7 @@ export default buildConfig({
     graphQL: '/api/graphql',
     graphQLPlayground: '/api/graphql-playground',
   },
+  // WAŻNE: Database sessions zamiast memory
   db: postgresAdapter({
     pool: {
       connectionString: getDatabaseUri(),
