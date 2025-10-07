@@ -97,7 +97,8 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor({}),
-  collections: [Users, Media, Units, ContactMessages, SiteSettings],
+  collections: [Users, Media, Units, ContactMessages],
+  globals: [SiteSettings],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },

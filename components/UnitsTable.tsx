@@ -1,7 +1,8 @@
 // components/UnitsTable.tsx
 import React from "react";
-import type { Unit } from "@/lib/loadUnits";
+import type { Unit } from "@/types/unit";
 import { formatM2, formatPLN } from "@/lib/format";
+import { css } from "@/styled-system/css";
 import {
   TableContainer,
   UnitsTable as StyledUnitsTable,
@@ -21,24 +22,45 @@ export default function UnitsTable({ items }: Props) {
     <TableContainer>
       <StyledUnitsTable id="unitsTable" aria-label="Tabela jednostek">
         <TableHeader>
-          <tr>
-            <TableHeaderCell>ID</TableHeaderCell>
-            <TableHeaderCell>Budynek</TableHeaderCell>
-            <TableHeaderCell>Lokal</TableHeaderCell>
-            <TableHeaderCell>Piętro</TableHeaderCell>
-            <TableHeaderCell>Pow. (m²)</TableHeaderCell>
-            <TableHeaderCell>Dodatki</TableHeaderCell>
-            <TableHeaderCell>Cena (PLN)</TableHeaderCell>
-            <TableHeaderCell>Cena/m²</TableHeaderCell>
-            <TableHeaderCell>Status</TableHeaderCell>
-            <TableHeaderCell>Plan</TableHeaderCell>
-          </tr>
+          <TableHeaderCell>ID</TableHeaderCell>
+          <TableHeaderCell>Budynek</TableHeaderCell>
+          <TableHeaderCell>Lokal</TableHeaderCell>
+          <TableHeaderCell>Piętro</TableHeaderCell>
+          <TableHeaderCell>Pow. (m²)</TableHeaderCell>
+          <TableHeaderCell>Dodatki</TableHeaderCell>
+          <TableHeaderCell>Cena (PLN)</TableHeaderCell>
+          <TableHeaderCell>Cena/m²</TableHeaderCell>
+          <TableHeaderCell>Status</TableHeaderCell>
+          <TableHeaderCell>Plan</TableHeaderCell>
         </TableHeader>
         <TableBody>
-          {items.map((u) => (
-            <TableRow key={u.id} sold={u.status?.toLowerCase().startsWith("sprzed") || false}>
+          {items.length === 0 ? (
+            <TableRow>
+              <TableCell 
+                colSpan={10} 
+                className={css({
+                  textAlign: 'center',
+                  padding: '32px 0',
+                  color: 'textSecondary'
+                })}
+              >
+                Brak dostępnych mieszkań
+              </TableCell>
+            </TableRow>
+          ) : (
+            items.map((u) => (
+            <TableRow key={u.id}>
                   <TableCell>
-                    <a href={`/mieszkania/unit-${u.unit || u.id}`} className="text-blue-600 hover:underline">
+                    <a 
+                      href={`/mieszkania/unit-${u.unit || u.id}`} 
+                      className={css({
+                        color: 'primary',
+                        textDecoration: 'none',
+                        _hover: {
+                          textDecoration: 'underline'
+                        }
+                      })}
+                    >
                       {u.id}
                     </a>
                   </TableCell>
@@ -52,7 +74,8 @@ export default function UnitsTable({ items }: Props) {
               <TableCell><StatusBadgeComponent status={u.status} /></TableCell>
               <TableCell>{u.planUrl ? <PlanLink href={u.planUrl} target="_blank" rel="noopener noreferrer">Zobacz</PlanLink> : "—"}</TableCell>
             </TableRow>
-          ))}
+          ))
+          )}
         </TableBody>
       </StyledUnitsTable>
     </TableContainer>
@@ -61,14 +84,19 @@ export default function UnitsTable({ items }: Props) {
 
 function StatusBadgeComponent({ status }: { status?: string | null }) {
   const s = (status ?? "").toLowerCase();
+  
+  // Handle both Polish and English statuses from Payload CMS
   const statusType =
-    s === "wolny" ? "free" :
-    s.startsWith("zarezer") ? "reserved" :
-    s.startsWith("sprzed") ? "sold" :
+    s === "wolny" || s === "available" ? "free" :
+    s.startsWith("zarezer") || s === "reserved" ? "reserved" :
+    s.startsWith("sprzed") || s === "sold" ? "sold" :
     "free";
+    
   const label =
-    s === "wolny" ? "WOLNE" :
-    s.startsWith("zarezer") ? "ZAREZERWOWANE" :
-    s.startsWith("sprzed") ? "SPRZEDANE" : (status ?? "—");
+    s === "wolny" || s === "available" ? "WOLNE" :
+    s.startsWith("zarezer") || s === "reserved" ? "ZAREZERWOWANE" :
+    s.startsWith("sprzed") || s === "sold" ? "SPRZEDANE" : 
+    (status ?? "—");
+    
   return <StatusBadge status={statusType}>{label}</StatusBadge>;
 }

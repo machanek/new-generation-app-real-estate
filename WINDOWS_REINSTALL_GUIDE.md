@@ -35,7 +35,7 @@ npm install
 ### 3. Sprawdź konfigurację
 ```bash
 # Sprawdź czy wszystkie pliki są na miejscu
-ls data/units/          # Powinno być 9 plików JSON
+# Sprawdź czy Payload CMS działa
 ls data/site_settings/   # Powinien być site-settings.json
 ls data/contact_messages/ # Powinna być przykładowa wiadomość
 ```

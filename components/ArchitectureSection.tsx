@@ -22,10 +22,10 @@ export default function ArchitectureSection() {
   return (
     <StyledArchitectureSection id="architektura">
       <ArchitectureContainer>
+        <ArchitectureTitle>Architektura i bezpieczeństwo</ArchitectureTitle>
+        
         <ArchitectureGrid>
           <ArchitectureContent>
-            <ArchitectureTitle>Architektura i bezpieczeństwo</ArchitectureTitle>
-
             <ArchitectureText>
               Budynki zostały zaprojektowane w nowoczesnym stylu z wykorzystaniem wysokiej jakości
               materiałów. Elewacje łączą tynki mineralnych odcieni z elementami drewnianymi i szklanymi,

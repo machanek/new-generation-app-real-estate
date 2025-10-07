@@ -1,9 +1,10 @@
-import { CollectionConfig } from 'payload'
+import type { GlobalConfig } from 'payload'
 
-export const SiteSettings: CollectionConfig = {
+export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
-  admin: {
-    useAsTitle: 'siteName',
+  access: {
+    read: () => true,
+    update: ({ req: { user } }) => !!user,
   },
   fields: [
     {

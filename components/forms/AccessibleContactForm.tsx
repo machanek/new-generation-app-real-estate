@@ -1,390 +1,224 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Form, 
-  TextField, 
-  Button, 
-  Checkbox, 
+import {
+  Form,
+  TextField,
   TextArea,
+  Button,
+  Checkbox,
   Label,
   Input,
   FieldError,
   Group,
   Header
 } from 'react-aria-components';
-import { styled } from '@/lib/stitches.config';
 import { useContactForm } from '@/hooks/useContactForm';
-import type { ContactFormData } from '@/types/contact';
+// import type { ContactFormData } from '@/types/contact'; // Unused import removed
 
-// Styled components for React Aria
-const StyledForm = styled(Form, {
-  backgroundColor: '$background',
-  padding: '$6',
-  borderRadius: '$4',
-  boxShadow: '$2',
-  maxWidth: '600px',
+// Simple form styles
+const formStyles = {
+  maxWidth: '800px',
   margin: '0 auto',
-});
+  padding: '32px',
+  backgroundColor: 'white',
+  borderRadius: '8px',
+  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+};
 
-const FormHeader = styled(Header, {
-  marginBottom: '$6',
-  textAlign: 'center',
-});
+const fieldStyles = {
+  marginBottom: '24px'
+};
 
-const FormTitle = styled('h3', {
-  fontSize: '$6',
-  fontWeight: '$4',
-  color: '$textDark',
-  marginBottom: '$2',
-});
-
-const FormDescription = styled('p', {
-  fontSize: '$3',
-  color: '$textLight',
-  margin: 0,
-});
-
-const FormGrid = styled(Group, {
-  display: 'grid',
-  gridTemplateColumns: '1fr',
-  gap: '$4',
-  marginBottom: '$6',
-  
-  '@md': {
-    gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-});
-
-const FormField = styled(Group, {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
-});
-
-const FormLabel = styled(Label, {
-  fontSize: '$2',
-  fontWeight: '$2',
-  color: '$textDark',
+const labelStyles = {
   display: 'block',
-});
+  fontSize: '14px',
+  fontWeight: '600',
+  color: '#374151',
+  marginBottom: '8px'
+};
 
-const FormInput = styled(Input, {
-  padding: '$2 $3',
-  border: '1px solid $border',
-  borderRadius: '$2',
-  fontSize: '$3',
-  fontFamily: '$primary',
-  backgroundColor: '$background',
-  transition: 'all 0.3s ease',
+const inputStyles = {
   width: '100%',
-  
-  '&:focus': {
-    outline: 'none',
-    borderColor: '$primary',
-    boxShadow: '0 0 0 2px rgba(31, 61, 50, 0.1)',
-  },
-  
-  '&[aria-invalid="true"]': {
-    borderColor: '$error',
-  },
-});
+  padding: '12px 16px',
+  border: '1px solid #D1D5DB',
+  borderRadius: '6px',
+  fontSize: '16px',
+  color: '#1F2937',
+  backgroundColor: 'white',
+  transition: 'border-color 0.2s ease'
+};
 
-const FormTextArea = styled(TextArea, {
-  padding: '$2 $3',
-  border: '1px solid $border',
-  borderRadius: '$2',
-  fontSize: '$3',
-  fontFamily: '$primary',
-  backgroundColor: '$background',
+const textareaStyles = {
+  ...inputStyles,
   minHeight: '120px',
-  resize: 'vertical',
-  transition: 'all 0.3s ease',
-  width: '100%',
-  
-  '&:focus': {
-    outline: 'none',
-    borderColor: '$primary',
-    boxShadow: '0 0 0 2px rgba(31, 61, 50, 0.1)',
-  },
-  
-  '&[aria-invalid="true"]': {
-    borderColor: '$error',
-  },
-});
+  resize: 'vertical' as const
+};
 
-
-const FormCheckbox = styled(Checkbox, {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$2',
-  cursor: 'pointer',
-  fontSize: '$2',
-  color: '$textDark',
-  
-  '& [data-indicator]': {
-    width: '$4',
-    height: '$4',
-    border: '2px solid $border',
-    borderRadius: '$1',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'all 0.3s ease',
-  },
-  
-  '&[data-selected] [data-indicator]': {
-    backgroundColor: '$primary',
-    borderColor: '$primary',
-    color: '$textWhite',
-  },
-  
-  '&:focus [data-indicator]': {
-    boxShadow: '0 0 0 2px rgba(31, 61, 50, 0.1)',
-  },
-});
-
-const FormButton = styled(Button, {
-  backgroundColor: '$primary',
-  color: '$textWhite',
+const buttonStyles = {
+  padding: '12px 24px',
+  backgroundColor: '#065F46',
+  color: 'white',
   border: 'none',
-  borderRadius: '$2',
-  padding: '$3 $6',
-  fontSize: '$3',
-  fontWeight: '$3',
+  borderRadius: '6px',
+  fontSize: '16px',
+  fontWeight: '600',
   cursor: 'pointer',
-  transition: 'all 0.3s ease',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '$2',
-  minHeight: '44px',
-  
-  '&:hover': {
-    backgroundColor: '$primaryDark',
-  },
-  
-  '&:focus': {
-    outline: 'none',
-    boxShadow: '0 0 0 2px rgba(31, 61, 50, 0.1)',
-  },
-  
-  '&[data-pressed]': {
-    transform: 'translateY(1px)',
-  },
-  
-  '&[data-disabled]': {
-    opacity: 0.6,
-    cursor: 'not-allowed',
-  },
-});
+  transition: 'all 0.2s ease'
+};
 
-const ErrorMessage = styled(FieldError, {
-  color: '$error',
-  fontSize: '$1',
-  marginTop: '$1',
-});
+const errorStyles = {
+  color: '#EF4444',
+  fontSize: '14px',
+  marginTop: '4px'
+};
 
-const SuccessMessage = styled('div', {
-  backgroundColor: '$success',
-  color: '$textWhite',
-  padding: '$3 $4',
-  borderRadius: '$2',
-  marginBottom: '$4',
-  textAlign: 'center',
-  fontSize: '$2',
-  fontWeight: '$3',
-});
-
-const LoadingSpinner = styled('div', {
-  width: '$4',
-  height: '$4',
-  border: '2px solid transparent',
-  borderTop: '2px solid currentColor',
-  borderRadius: '50%',
-  animation: 'spin 1s linear infinite',
-  
-  '@keyframes spin': {
-    '0%': { transform: 'rotate(0deg)' },
-    '100%': { transform: 'rotate(360deg)' },
-  },
-});
-
-const CheckboxGroup = styled(Group, {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$3',
-  marginBottom: '$6',
-});
-
-const FormDivider = styled('hr', {
-  border: 'none',
-  borderTop: '1px solid $borderLight',
-  margin: '$4 0',
-});
+const successStyles = {
+  color: '#10B981',
+  fontSize: '14px',
+  marginTop: '4px'
+};
 
 export default function AccessibleContactForm() {
-  const { isSubmitting, isSuccess, error, submitForm, reset } = useContactForm();
-  const [formData, setFormData] = useState<ContactFormData>({
+  const { submitForm, isSubmitting, isSuccess, error } = useContactForm();
+  
+  const [formData, setFormData] = useState({
     name: '',
-    phone: '',
     email: '',
+    phone: '',
     subject: '',
     message: '',
     privacy: false,
-    marketing: false,
+    marketing: false
   });
 
+  const handleChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = await submitForm(formData);
-    if (success) {
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        subject: '',
-        message: '',
-        privacy: false,
-        marketing: false,
-      });
-    }
+    await submitForm(formData);
   };
-
-  const handleInputChange = (field: keyof ContactFormData, value: string | boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  if (isSuccess) {
-    return (
-      <StyledForm>
-        <SuccessMessage>
-          ✅ Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.
-        </SuccessMessage>
-        <FormButton onPress={reset}>
-          Wyślij kolejną wiadomość
-        </FormButton>
-      </StyledForm>
-    );
-  }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <FormHeader>
-        <FormTitle>Skontaktuj się z nami</FormTitle>
-        <FormDescription>
-          Masz pytania o dostępne lokale? Chcesz umówić się na prezentację? Napisz do nas!
-        </FormDescription>
-      </FormHeader>
+    <Form onSubmit={handleSubmit} style={formStyles}>
+      <Header>
+        <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1F2937', marginBottom: '8px' }}>
+          Skontaktuj się z nami
+        </h2>
+        <p style={{ fontSize: '16px', color: '#6B7280', marginBottom: '32px' }}>
+          Wypełnij formularz, a skontaktujemy się z Tobą w ciągu 24 godzin.
+        </p>
+      </Header>
 
-      <FormGrid>
-        <FormField>
-          <FormLabel>Imię i nazwisko *</FormLabel>
-          <TextField 
-            value={formData.name}
-            onChange={(value) => handleInputChange('name', value)}
-            isRequired
-            isInvalid={!formData.name && formData.name !== ''}
-          >
-            <FormInput placeholder="Jan Kowalski" />
-            <ErrorMessage />
-          </TextField>
-        </FormField>
+      <TextField name="name" isRequired>
+        <Label style={labelStyles}>Imię i nazwisko *</Label>
+        <Input
+          value={formData.name}
+          onChange={(e) => handleChange('name', e.target.value)}
+          style={inputStyles}
+          placeholder="Wprowadź swoje imię i nazwisko"
+          required
+        />
+        <FieldError style={errorStyles} />
+      </TextField>
 
-        <FormField>
-          <FormLabel>Telefon *</FormLabel>
-          <TextField 
-            value={formData.phone}
-            onChange={(value) => handleInputChange('phone', value)}
-            isRequired
-            isInvalid={!formData.phone && formData.phone !== ''}
-          >
-            <FormInput type="tel" placeholder="+48 600 000 000" />
-            <ErrorMessage />
-          </TextField>
-        </FormField>
+      <TextField name="email" type="email" isRequired>
+        <Label style={labelStyles}>Adres email *</Label>
+        <Input
+          value={formData.email}
+          onChange={(e) => handleChange('email', e.target.value)}
+          style={inputStyles}
+          placeholder="Wprowadź swój adres email"
+          required
+        />
+        <FieldError style={errorStyles} />
+      </TextField>
 
-        <FormField>
-          <FormLabel>E-mail *</FormLabel>
-          <TextField 
-            value={formData.email}
-            onChange={(value) => handleInputChange('email', value)}
-            isRequired
-            isInvalid={!formData.email && formData.email !== ''}
-          >
-            <FormInput type="email" placeholder="jan@example.com" />
-            <ErrorMessage />
-          </TextField>
-        </FormField>
+      <TextField name="phone">
+        <Label style={labelStyles}>Numer telefonu</Label>
+        <Input
+          value={formData.phone}
+          onChange={(e) => handleChange('phone', e.target.value)}
+          style={inputStyles}
+          placeholder="Wprowadź swój numer telefonu"
+        />
+        <FieldError style={errorStyles} />
+      </TextField>
 
-        <FormField>
-          <FormLabel>Temat (opcjonalnie)</FormLabel>
-          <TextField 
-            value={formData.subject}
-            onChange={(value) => handleInputChange('subject', value)}
-          >
-            <FormInput placeholder="Pytanie o mieszkanie" />
-            <ErrorMessage />
-          </TextField>
-        </FormField>
-      </FormGrid>
+      <TextField name="subject" isRequired>
+        <Label style={labelStyles}>Temat *</Label>
+        <Input
+          value={formData.subject}
+          onChange={(e) => handleChange('subject', e.target.value)}
+          style={inputStyles}
+          placeholder="Wprowadź temat wiadomości"
+          required
+        />
+        <FieldError style={errorStyles} />
+      </TextField>
 
-      <FormField>
-        <FormLabel>Wiadomość *</FormLabel>
-        <TextField 
+      <TextField name="message" isRequired>
+        <Label style={labelStyles}>Wiadomość *</Label>
+        <TextArea
           value={formData.message}
-          onChange={(value) => handleInputChange('message', value)}
-          isRequired
-          isInvalid={!formData.message && formData.message !== ''}
-        >
-          <FormTextArea placeholder="Treść wiadomości..." />
-          <ErrorMessage />
-        </TextField>
-      </FormField>
+          onChange={(e) => handleChange('message', e.target.value)}
+          style={textareaStyles}
+          placeholder="Wprowadź treść wiadomości"
+          required
+        />
+        <FieldError style={errorStyles} />
+      </TextField>
 
-      <FormDivider />
-
-      <CheckboxGroup>
-        <FormCheckbox
+      <Group style={fieldStyles}>
+        <Checkbox
           isSelected={formData.privacy}
-          onChange={(isSelected) => handleInputChange('privacy', isSelected)}
-          isRequired
+          onChange={(isSelected) => handleChange('privacy', isSelected)}
         >
-          <div data-indicator />
-          <div>
-            Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z Polityką prywatności w celu odpowiedzi na zapytanie. *
-          </div>
-        </FormCheckbox>
+          <Label style={{ fontSize: '14px', color: '#374151', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+            <span style={{ marginTop: '2px' }}>✓</span>
+            Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z polityką prywatności *
+          </Label>
+        </Checkbox>
+        <FieldError style={errorStyles} />
+      </Group>
 
-        <FormCheckbox
+      <Group style={fieldStyles}>
+        <Checkbox
           isSelected={formData.marketing}
-          onChange={(isSelected) => handleInputChange('marketing', isSelected)}
+          onChange={(isSelected) => handleChange('marketing', isSelected)}
         >
-          <div data-indicator />
-          <div>
-            Wyrażam zgodę na otrzymywanie informacji marketingowych o ofercie Harmonia Rząska.
-          </div>
-        </FormCheckbox>
-      </CheckboxGroup>
+          <Label style={{ fontSize: '14px', color: '#374151', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+            <span style={{ marginTop: '2px' }}>✓</span>
+            Chcę otrzymywać informacje marketingowe o nowych ofertach
+          </Label>
+        </Checkbox>
+      </Group>
 
       {error && (
-        <ErrorMessage>
+        <div style={errorStyles}>
           {error}
-        </ErrorMessage>
+        </div>
       )}
 
-      <FormButton 
-        type="submit" 
-        isDisabled={isSubmitting || !formData.privacy}
+      {isSuccess && (
+        <div style={successStyles}>
+          Wiadomość została wysłana pomyślnie!
+        </div>
+      )}
+
+      <Button
+        type="submit"
+        isDisabled={isSubmitting}
+        style={{
+          ...buttonStyles,
+          backgroundColor: isSubmitting ? '#9CA3AF' : '#065F46',
+          cursor: isSubmitting ? 'not-allowed' : 'pointer'
+        }}
       >
-        {isSubmitting && <LoadingSpinner />}
-        {isSubmitting ? 'Wysyłanie...' : 'WYŚLIJ WIADOMOŚĆ'}
-      </FormButton>
-    </StyledForm>
+        {isSubmitting ? 'Wysyłanie...' : 'Wyślij wiadomość'}
+      </Button>
+    </Form>
   );
 }

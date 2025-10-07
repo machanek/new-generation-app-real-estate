@@ -30,6 +30,7 @@ const nextConfig: NextConfig = {
     return config;
   },
   
+  
   // Dla Netlify deployment
   output: 'standalone',
   

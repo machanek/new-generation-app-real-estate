@@ -40,8 +40,6 @@
 
 html {
     scroll-behavior: smooth;
-    /* Prevent horizontal scroll on mobile */
-    overflow-x: hidden;
 }
 
 body {
@@ -49,8 +47,8 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background: var(--white);
-    /* Prevent horizontal scroll */
-    overflow-x: hidden;
+    min-width: 320px;
+    width: 100%;
 }
 
 /* Focus styles for accessibility */
@@ -98,7 +96,10 @@ p {
 /* Layout */
 .container {
     max-width: var(--container-max);
-    margin: 0 auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0;
+    margin-bottom: 0;
     padding: 0 1rem;
 }
 

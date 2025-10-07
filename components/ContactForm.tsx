@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import {
   Form,
@@ -15,14 +17,21 @@ import {
 } from '@/components/ui/Form';
 
 interface ContactFormProps {
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export default function ContactForm({ onSubmit }: ContactFormProps) {
+export default function ContactForm({ onSubmit }: ContactFormProps = {}) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (onSubmit) {
+      onSubmit(e);
+    }
+  };
+
   return (
     <Form
       id="contactForm"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
 
       <FormRow>

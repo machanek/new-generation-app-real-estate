@@ -1,425 +1,500 @@
-import { styled } from '@/lib/stitches.config';
+// Units section components with Panda CSS - ALL EXPORTS
+import { css } from '@/styled-system/css';
 
-// Section Container
-export const UnitsSection = styled('section', {
-  padding: '$16 0',
-  backgroundColor: '$backgroundLight',
-});
+export const UnitsSection = ({ children, id }: { children: React.ReactNode, id?: string }) => (
+  <section 
+    id={id}
+    className={css({
+      padding: '16',
+      backgroundColor: 'bgGray'
+    })}
+  >
+    {children}
+  </section>
+);
 
-export const SectionContainer = styled('div', {
-  maxWidth: '1200px',
-  margin: '0 auto',
-  padding: '0 $4',
-});
+export const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+  <h2 className={css({
+    fontSize: '4xl',
+    fontWeight: 'bold',
+    color: 'textPrimary',
+    textAlign: 'center',
+    marginBottom: '12'
+  })}>
+    {children}
+  </h2>
+);
 
-export const SectionTitle = styled('h2', {
-  fontSize: '$8',
-  fontWeight: '$4',
-  color: '$textDark',
-  marginBottom: '$8',
-  textAlign: 'center',
-});
+export const UnitsTable = ({ children, id, 'aria-label': ariaLabel }: { children: React.ReactNode, id?: string, 'aria-label'?: string }) => (
+  <div className={css({ overflowX: 'auto' })}>
+    <table 
+      id={id}
+      aria-label={ariaLabel}
+      className={css({
+        width: '100%',
+        borderCollapse: 'collapse',
+        backgroundColor: 'bgWhite',
+        borderRadius: 'md',
+        boxShadow: 'md'
+      })}
+    >
+      {children}
+    </table>
+  </div>
+);
 
-// Filters
-export const FiltersForm = styled('form', {
-  backgroundColor: '$background',
-  padding: '$6',
-  borderRadius: '$4',
-  boxShadow: '$2',
-  marginBottom: '$6',
-});
+export const TableHeader = ({ children }: { children: React.ReactNode }) => (
+  <thead className={css({
+    backgroundColor: '#F3F4F6',
+    borderBottom: '2px solid',
+    borderColor: 'border'
+  })}>
+    <tr>
+      {children}
+    </tr>
+  </thead>
+);
 
-export const FiltersGrid = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-  gap: '$4',
-  marginBottom: '$4',
-  
-  '@md': {
-    gridTemplateColumns: 'repeat(3, 1fr)',
-  },
-  
-  '@lg': {
-    gridTemplateColumns: 'repeat(5, 1fr)',
-  },
-});
+export const TableHeaderCell = ({ children }: { children: React.ReactNode }) => (
+  <th className={css({
+    padding: '16px',
+    textAlign: 'left',
+    fontWeight: 'semibold',
+    color: 'textPrimary',
+    fontSize: 'sm'
+  })}>
+    {children}
+  </th>
+);
 
-export const FilterGroup = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
-});
+export const TableBody = ({ children }: { children: React.ReactNode }) => (
+  <tbody>
+    {children}
+  </tbody>
+);
 
-export const FilterLabel = styled('label', {
-  fontSize: '$2',
-  fontWeight: '$2',
-  color: '$textDark',
-});
-
-export const FilterSelect = styled('select', {
-  padding: '$2 $3',
-  border: '1px solid $border',
-  borderRadius: '$2',
-  fontSize: '$3',
-  fontFamily: '$primary',
-  backgroundColor: '$background',
-  cursor: 'pointer',
-  
-  '&:focus': {
-    outline: 'none',
-    borderColor: '$primary',
-    boxShadow: '0 0 0 2px rgba(31, 61, 50, 0.1)',
-  },
-});
-
-export const FilterInput = styled('input', {
-  padding: '$2 $3',
-  border: '1px solid $border',
-  borderRadius: '$2',
-  fontSize: '$3',
-  fontFamily: '$primary',
-  
-  '&:focus': {
-    outline: 'none',
-    borderColor: '$primary',
-    boxShadow: '0 0 0 2px rgba(31, 61, 50, 0.1)',
-  },
-});
-
-export const FilterActions = styled('div', {
-  display: 'flex',
-  gap: '$3',
-  justifyContent: 'center',
-  marginTop: '$4',
-});
-
-// View Controls
-export const ViewControls = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginBottom: '$6',
-  flexWrap: 'wrap',
-  gap: '$4',
-});
-
-export const ViewSwitch = styled('div', {
-  display: 'flex',
-  gap: '$2',
-});
-
-export const ViewButton = styled('button', {
-  padding: '$2 $4',
-  border: '1px solid $border',
-  borderRadius: '$2',
-  backgroundColor: '$background',
-  color: '$textDark',
-  fontSize: '$2',
-  cursor: 'pointer',
-  transition: 'all 0.3s ease',
-  
-  '&:hover': {
-    backgroundColor: '$backgroundLight',
-  },
-  
-  variants: {
-    active: {
-      true: {
-        backgroundColor: '$primary',
-        color: '$textWhite',
-        borderColor: '$primary',
-      },
+export const TableRow = ({ children }: { children: React.ReactNode }) => (
+  <tr className={css({
+    borderBottom: '1px solid',
+    borderColor: '#F3F4F6',
+    _hover: { 
+      backgroundColor: '#F9FAFB'
     },
-  },
-});
+    transition: 'background-color 0.2s ease',
+    '&:last-child': {
+      borderBottom: 'none'
+    }
+  })}>
+    {children}
+  </tr>
+);
 
-export const ResultsInfo = styled('div', {
-  fontSize: '$3',
-  color: '$textDark',
-});
+export const TableCell = ({ children, colSpan, className }: { children: React.ReactNode, colSpan?: number, className?: string }) => (
+  <td 
+    colSpan={colSpan}
+    className={css({
+      padding: '16px',
+      color: 'textPrimary',
+      fontSize: 'sm'
+    })}
+  >
+    {children}
+  </td>
+);
 
-export const ResultsCount = styled('span', {
-  fontWeight: '$3',
-});
+export const StatusBadge = ({ children, status }: { children: React.ReactNode, status: string }) => {
+  const getStatusStyles = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'free':
+      case 'wolne': return {
+        backgroundColor: 'primary',  // Panda CSS token bez 'colors.'
+        color: 'white'
+      };
+      case 'reserved':
+      case 'zarezerwowane': return {
+        backgroundColor: 'bgGray',  // Panda CSS token bez 'colors.'
+        color: 'white'
+      };
+      case 'sold':
+      case 'sprzedane': return {
+        backgroundColor: 'bgGray',  // Panda CSS token bez 'colors.'
+        color: 'white'
+      };
+      default: return {
+        backgroundColor: 'bgGray',  // Panda CSS token bez 'colors.'
+        color: 'white'
+      };
+    }
+  };
 
-// Table
-export const TableContainer = styled('div', {
-  backgroundColor: '$background',
-  borderRadius: '$4',
-  boxShadow: '$2',
-  overflow: 'hidden',
-  marginBottom: '$6',
-});
-
-export const UnitsTable = styled('table', {
-  width: '100%',
-  borderCollapse: 'collapse',
-  fontSize: '$2',
-});
-
-export const TableHeader = styled('thead', {
-  backgroundColor: '$backgroundDark',
-});
-
-export const TableHeaderCell = styled('th', {
-  padding: '$3 $4',
-  textAlign: 'left',
-  fontWeight: '$3',
-  color: '$textDark',
-  borderBottom: '1px solid $border',
-  fontSize: '$2',
-  scope: 'col',
-});
-
-export const TableBody = styled('tbody', {});
-
-export const TableRow = styled('tr', {
-  borderBottom: '1px solid $borderLight',
-  transition: 'background-color 0.2s ease',
+  const styles = getStatusStyles(status);
   
-  '&:hover': {
-    backgroundColor: '$backgroundLight',
-  },
+  return (
+    <span className={css({
+      display: 'inline-block',
+      padding: '4px 12px',
+      borderRadius: 'base',
+      fontSize: 'xs',
+      fontWeight: 'semibold',
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px',
+      ...styles
+    })}>
+      {children}
+    </span>
+  );
+};
+
+export const ViewControls = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    display: 'flex',
+    gap: '2'
+  })}>
+    {children}
+  </div>
+);
+
+export const ViewButton = ({ children, active, onClick }: { children: React.ReactNode, active?: boolean, onClick?: () => void }) => (
+  <button
+    onClick={onClick}
+    className={css({
+      padding: '2 4',
+      border: '1px solid',
+      borderColor: 'borderDark',
+      borderRadius: 'base',
+      backgroundColor: active ? 'primary' : 'bgWhite',
+      color: active ? 'white' : 'textSecondary',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease'
+    })}
+  >
+    {children}
+  </button>
+);
+
+export const ResultsInfo = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+    {children}
+  </div>
+);
+
+export const ResultsCount = ({ children }: { children: React.ReactNode }) => (
+  <span style={{ fontSize: '14px', color: '#6B7280' }}>
+    Łącznie: <strong>{children}</strong>
+  </span>
+);
+
+export const StatusLegend = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+    {children}
+  </div>
+);
+
+export const StatusLegendItem = ({ children, color }: { children: React.ReactNode, color: string }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <span style={{
+      padding: '2px 6px',
+      borderRadius: '4px',
+      fontSize: '10px',
+      fontWeight: '600',
+      textTransform: 'uppercase',
+      backgroundColor: color,
+      color: 'white'
+    }}></span>
+    <span style={{ fontSize: '12px', color: '#6B7280' }}>{children}</span>
+  </div>
+);
+
+// Card components
+export const CardHeader = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    padding: '4',
+    borderBottom: '1px solid',
+    borderColor: 'border'
+  })}>
+    {children}
+  </div>
+);
+
+export const CardId = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    fontSize: 'sm',
+    fontWeight: 'semibold',
+    color: 'textPrimary'
+  })}>
+    {children}
+  </div>
+);
+
+export const CardInfo = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    padding: '4',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2'
+  })}>
+    {children}
+  </div>
+);
+
+export const CardField = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  })}>
+    {children}
+  </div>
+);
+
+export const FieldLabel = ({ children }: { children: React.ReactNode }) => (
+  <span className={css({
+    fontSize: 'sm',
+    color: 'textSecondary'
+  })}>
+    {children}
+  </span>
+);
+
+export const FieldValue = ({ children }: { children: React.ReactNode }) => (
+  <span className={css({
+    fontSize: 'sm',
+    fontWeight: 'medium',
+    color: 'textPrimary'
+  })}>
+    {children}
+  </span>
+);
+
+export const CardDetails = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    padding: '4',
+    borderTop: '1px solid',
+    borderColor: 'border'
+  })}>
+    {children}
+  </div>
+);
+
+export const CardActions = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    display: 'flex',
+    gap: '2',
+    marginTop: '2'
+  })}>
+    {children}
+  </div>
+);
+
+export const PlanLink = ({ children, href, ...props }: { children: React.ReactNode, href?: string } & React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <a 
+    href={href}
+    className={css({
+      fontSize: 'xs',
+      color: 'primary',
+      textDecoration: 'underline',
+      cursor: 'pointer'
+    })}
+    {...props}
+  >
+    {children}
+  </a>
+);
+
+export const MutedText = ({ children }: { children: React.ReactNode }) => (
+  <span className={css({
+    fontSize: 'xs',
+    color: 'textSecondary'
+  })}>
+    {children}
+  </span>
+);
+
+// Section components
+export const SectionContainer = ({ children }: { children: React.ReactNode }) => (
+  <div className="container">
+    {children}
+  </div>
+);
+
+export const ViewSwitch = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4',
+    marginBottom: '6'
+  })}>
+    {children}
+  </div>
+);
+
+export const LegendItem = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '2'
+  })}>
+    {children}
+  </div>
+);
+
+export const LegendBadge = ({ color, status }: { color?: string, status?: string }) => {
+  const getColor = () => {
+    if (color) return color;
+    switch (status) {
+      case 'free': return '#047857';
+      case 'reserved': return '#D97706';
+      case 'sold': return '#6B7280';
+      default: return '#6B7280';
+    }
+  };
   
-  '&:last-child': {
-    borderBottom: 'none',
-  },
-  
-  variants: {
-    sold: {
-      true: {
-        opacity: 0.6,
-        backgroundColor: '$backgroundLight',
-      },
-    },
-  },
-});
+  return (
+    <span className={css({
+      width: '8px',
+      height: '8px',
+      borderRadius: 'sm',
+      backgroundColor: getColor()
+    })} />
+  );
+};
 
-export const TableCell = styled('td', {
-  padding: '$3 $4',
-  color: '$textDark',
-  fontSize: '$2',
-});
+export const LegendLabel = ({ children }: { children: React.ReactNode }) => (
+  <span className={css({
+    fontSize: 'xs',
+    color: 'textSecondary'
+  })}>
+    {children}
+  </span>
+);
 
-// Status Badge
-export const StatusBadge = styled('span', {
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: '$1',
-  padding: '$1 $2',
-  borderRadius: '$1',
-  fontSize: '$1',
-  fontWeight: '$3',
-  textTransform: 'uppercase',
-  letterSpacing: '0.5px',
-  
-  variants: {
-    status: {
-      free: {
-        backgroundColor: '$success',
-        color: '$textWhite',
-      },
-      reserved: {
-        backgroundColor: '$warning',
-        color: '$textWhite',
-      },
-      sold: {
-        backgroundColor: '$textLight',
-        color: '$textWhite',
-      },
-    },
-  },
-});
+// Table components
+export const TableContainer = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    overflowX: 'auto',
+    borderRadius: 'md',
+    border: '1px solid',
+    borderColor: 'border'
+  })}>
+    {children}
+  </div>
+);
 
-export const StatusIndicator = styled('span', {
-  fontSize: '$2',
-  lineHeight: 1,
-  
-  variants: {
-    status: {
-      free: {
-        color: '$textWhite',
-      },
-      reserved: {
-        color: '$textWhite',
-      },
-      sold: {
-        color: '$textWhite',
-      },
-    },
-  },
-});
+// Filter components
+export const FiltersForm = ({ children, id, 'aria-label': ariaLabel, onSubmit }: { children: React.ReactNode, id?: string, 'aria-label'?: string, onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void }) => (
+  <form 
+    id={id}
+    aria-label={ariaLabel}
+    onSubmit={onSubmit}
+    className={css({
+      marginBottom: '6'
+    })}
+  >
+    {children}
+  </form>
+);
 
-// Legend
-export const StatusLegend = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  gap: '$6',
-  flexWrap: 'wrap',
-});
+export const FiltersGrid = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '4',
+    marginBottom: '4'
+  })}>
+    {children}
+  </div>
+);
 
-export const LegendItem = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$2',
-});
+export const FilterGroup = ({ children }: { children: React.ReactNode }) => (
+  <div>
+    {children}
+  </div>
+);
 
-export const LegendBadge = styled('span', {
-  width: '$3',
-  height: '$3',
-  borderRadius: '$1',
-  
-  variants: {
-    status: {
-      free: {
-        backgroundColor: '$success',
-      },
-      reserved: {
-        backgroundColor: '$warning',
-      },
-      sold: {
-        backgroundColor: '$textLight',
-      },
-    },
-  },
-});
+export const FilterLabel = ({ children, htmlFor }: { children: React.ReactNode, htmlFor?: string }) => (
+  <label 
+    htmlFor={htmlFor}
+    className={css({
+      display: 'block',
+      fontSize: 'sm',
+      fontWeight: 'medium',
+      color: 'textSecondary',
+      marginBottom: '2'
+    })}
+  >
+    {children}
+  </label>
+);
 
-export const LegendLabel = styled('span', {
-  fontSize: '$2',
-  color: '$textDark',
-  fontWeight: '$2',
-});
+export const FilterSelect = ({ children, ...props }: { children: React.ReactNode } & React.SelectHTMLAttributes<HTMLSelectElement>) => (
+  <select 
+    className={css({
+      width: '100%',
+      padding: '2 3',
+      border: '1px solid',
+      borderColor: 'borderDark',
+      borderRadius: 'base',
+      fontSize: 'sm',
+      color: 'textPrimary',
+      backgroundColor: 'bgWhite'
+    })}
+    {...props}
+  >
+    {children}
+  </select>
+);
 
-// Plan Link
-export const PlanLink = styled('a', {
-  display: 'inline-block',
-  padding: '$1 $2',
-  backgroundColor: '$primary',
-  color: '$textWhite',
-  textDecoration: 'none',
-  borderRadius: '$1',
-  fontSize: '$1',
-  fontWeight: '$2',
-  transition: 'all 0.3s ease',
-  
-  '&:hover': {
-    backgroundColor: '$primaryDark',
-    transform: 'translateY(-1px)',
-  },
-});
+export const FilterInput = ({ ...props }: React.InputHTMLAttributes<HTMLInputElement>) => (
+  <input 
+    className={css({
+      width: '100%',
+      padding: '2 3',
+      border: '1px solid',
+      borderColor: 'borderDark',
+      borderRadius: 'base',
+      fontSize: 'sm',
+      color: 'textPrimary',
+      backgroundColor: 'bgWhite'
+    })}
+    {...props}
+  />
+);
 
-// Cards Layout
-export const CardsContainer = styled('div', {
-  display: 'grid',
-  gap: '$4',
-  gridTemplateColumns: '1fr',
-  
-  '@sm': {
-    gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-  
-  '@md': {
-    gridTemplateColumns: 'repeat(3, 1fr)',
-  },
-  
-  '@lg': {
-    gridTemplateColumns: 'repeat(4, 1fr)',
-  },
-  
-  '@xl': {
-    gridTemplateColumns: 'repeat(5, 1fr)',
-  },
-});
+export const FilterActions = ({ children }: { children: React.ReactNode }) => (
+  <div className={css({
+    display: 'flex',
+    gap: '3',
+    justifyContent: 'flex-end'
+  })}>
+    {children}
+  </div>
+);
 
-// Unit Card
-export const UnitCard = styled('article', {
-  backgroundColor: '$background',
-  borderRadius: '$3',
-  padding: '$4',
-  boxShadow: '$2',
-  border: '1px solid $border',
-  transition: 'all 0.3s ease',
-  
-  '&:hover': {
-    boxShadow: '$3',
-    transform: 'translateY(-2px)',
-  },
-  
-  variants: {
-    sold: {
-      true: {
-        opacity: 0.6,
-        backgroundColor: '$backgroundLight',
-      },
-    },
-  },
-});
+// Card components
+export const CardsContainer = ({ children, id, 'aria-live': ariaLive }: { children: React.ReactNode, id?: string, 'aria-live'?: 'off' | 'assertive' | 'polite' }) => (
+  <div 
+    id={id}
+    aria-live={ariaLive}
+    className={css({
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+      gap: '4'
+    })}
+  >
+    {children}
+  </div>
+);
 
-// Card Header
-export const CardHeader = styled('header', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginBottom: '$3',
-  paddingBottom: '$2',
-  borderBottom: '1px solid $borderLight',
-});
-
-export const CardId = styled('div', {
-  fontSize: '$4',
-  fontWeight: '$4',
-  color: '$textDark',
-});
-
-// Card Info
-export const CardInfo = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
-  marginBottom: '$3',
-});
-
-export const CardField = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  fontSize: '$2',
-});
-
-export const FieldLabel = styled('span', {
-  color: '$textLight',
-  fontWeight: '$2',
-});
-
-export const FieldValue = styled('span', {
-  color: '$textDark',
-  fontWeight: '$3',
-  textAlign: 'right',
-  flex: 1,
-  marginLeft: '$2',
-});
-
-// Card Details
-export const CardDetails = styled('div', {
-  marginBottom: '$3',
-  padding: '$2',
-  backgroundColor: '$backgroundLight',
-  borderRadius: '$2',
-  fontSize: '$2',
-  color: '$textDark',
-});
-
-// Card Actions
-export const CardActions = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  paddingTop: '$2',
-  borderTop: '1px solid $borderLight',
-});
-
-// Muted Text
-export const MutedText = styled('span', {
-  color: '$textLight',
-  fontSize: '$2',
-  fontStyle: 'italic',
-});
+export const UnitCard = ({ children, sold }: { children: React.ReactNode, sold?: boolean }) => (
+  <div className={css({
+    backgroundColor: 'bgWhite',
+    borderRadius: 'md',
+    border: '1px solid',
+    borderColor: sold ? 'red.300' : 'border',
+    boxShadow: 'sm',
+    overflow: 'hidden',
+    opacity: sold ? 0.7 : 1
+  })}>
+    {children}
+  </div>
+);

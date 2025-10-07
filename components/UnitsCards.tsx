@@ -1,6 +1,6 @@
 // components/UnitsCards.tsx
 import React from "react";
-import type { Unit } from "@/lib/loadUnits";
+import type { Unit } from "@/types/unit";
 import { formatM2, formatPLN } from "@/lib/format";
 import {
   CardsContainer,
@@ -79,14 +79,19 @@ export default function UnitsCards({ items }: Props) {
 
 function StatusBadgeComponent({ status }: { status?: string | null }) {
   const s = (status ?? "").toLowerCase();
+  
+  // Handle both Polish and English statuses from Payload CMS
   const statusType =
-    s === "wolny" ? "free" :
-    s.startsWith("zarezer") ? "reserved" :
-    s.startsWith("sprzed") ? "sold" :
+    s === "wolny" || s === "available" ? "free" :
+    s.startsWith("zarezer") || s === "reserved" ? "reserved" :
+    s.startsWith("sprzed") || s === "sold" ? "sold" :
     "free";
+    
   const label =
-    s === "wolny" ? "WOLNE" :
-    s.startsWith("zarezer") ? "ZAREZERWOWANE" :
-    s.startsWith("sprzed") ? "SPRZEDANE" : (status ?? "—");
+    s === "wolny" || s === "available" ? "WOLNE" :
+    s.startsWith("zarezer") || s === "reserved" ? "ZAREZERWOWANE" :
+    s.startsWith("sprzed") || s === "sold" ? "SPRZEDANE" : 
+    (status ?? "—");
+    
   return <StatusBadge status={statusType}>{label}</StatusBadge>;
 }

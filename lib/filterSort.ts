@@ -1,8 +1,8 @@
 // lib/filterSort.ts
-import type { Unit } from "./loadUnits";
+import type { Unit } from "@/types/unit";
 
 export type Filters = {
-  status?: "" | "wolny" | "zarezerwowany" | "sprzedany";
+  status?: "" | "available" | "sold" | "reserved";
   building?: string | "";
   areaMin?: number | null;
   areaMax?: number | null;

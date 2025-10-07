@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Unit } from '@/lib/loadUnits';
+import type { Unit } from '@/types/unit';
 import type { Filters } from '@/lib/filterSort';
 import FiltersForm from '@/components/Filters';
 import UnitsTable from '@/components/UnitsTable';

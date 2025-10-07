@@ -60,7 +60,7 @@ SUPABASE_ANON_KEY=[ANON_KEY]
 3. Utwórz pierwszego użytkownika administracyjnego
 
 ### 3. Migracja danych
-1. **Lokale** - zaimportuj z `public/data/units/` do kolekcji Units
+1. **Lokale** - dane już w bazie PostgreSQL (Payload CMS)
 2. **Wiadomości** - zaimportuj z `data/contact_messages/` do ContactMessages
 3. **Ustawienia** - zaimportuj z `data/site_settings/` do SiteSettings
 4. **Media** - zaimportuj obrazy z `public/images/` do Media

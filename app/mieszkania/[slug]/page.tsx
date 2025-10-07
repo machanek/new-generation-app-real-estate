@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import UnitDetails from '@/components/ui/UnitDetails'
+import { css } from '@/styled-system/css'
 
 type Props = {
   params: Promise<{
@@ -123,16 +124,38 @@ export default async function UnitPage({ params }: Props) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
+    <div className={css({
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '32px 24px'
+    })}>
+      <div className={css({
+        maxWidth: '1280px',
+        margin: '0 auto'
+      })}>
+        <div className={css({
+          marginBottom: '32px'
+        })}>
           <Link 
             href="/" 
-            className="inline-flex items-center text-primary hover:text-primaryDark mb-4"
+            className={css({
+              display: 'inline-flex',
+              alignItems: 'center',
+              color: 'primary',
+              textDecoration: 'none',
+              marginBottom: '16px',
+              _hover: {
+                color: 'primaryLight'
+              }
+            })}
           >
             ← Powrót do oferty
           </Link>
-          <h1 className="text-4xl font-bold text-textDark">
+          <h1 className={css({
+            fontSize: '36px',
+            fontWeight: 'bold',
+            color: 'textPrimary'
+          })}>
             Mieszkanie {unit.unit}
           </h1>
         </div>

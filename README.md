@@ -37,7 +37,7 @@ public/
 ├── css/            # Legacy stylesheets
 ├── images/         # Obrazy (logo, ikony)
 ├── assets/         # Dodatkowe zasoby
-├── data/units/     # JSON z danymi jednostek
+├── data/           # Dane statyczne (site-settings, contact_messages)
 ├── robots.txt      # SEO
 ├── sitemap.xml     # SEO
 ├── sw.js          # Service Worker

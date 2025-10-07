@@ -3,43 +3,42 @@
 ## Problem: Kolekcje są puste w CMS
 
 ### Sprawdź czy pliki istnieją:
-- ✅ `data/units/` - 9 plików jednostek
 - ✅ `data/site_settings/site-settings.json` - ustawienia strony
 - ✅ `data/contact_messages/` - przykładowa wiadomość
+- ✅ Payload CMS - dane w bazie PostgreSQL
 
 ### Sprawdź konfigurację CMS:
-- ✅ Backend: `git-gateway`
-- ✅ Branch: `next-functional`
-- ✅ Local backend: `true`
+- ✅ Backend: Payload CMS v3
+- ✅ Database: PostgreSQL (Supabase)
+- ✅ Admin panel: `/admin`
 
 ### Możliwe przyczyny pustych kolekcji:
 
-## 1. Identity i Git Gateway nie są włączone
+## 1. Baza danych nie jest skonfigurowana
 
-**Sprawdź w Netlify Dashboard:**
-1. Przejdź do **Site settings** → **Identity**
-2. Sprawdź czy **Identity is enabled** (zielony status)
-3. Przejdź do **Identity** → **Services**
-4. Sprawdź czy **Git Gateway is enabled** (zielony status)
+**Sprawdź zmienne środowiskowe:**
+1. `DATABASE_URI` - połączenie z PostgreSQL
+2. `PAYLOAD_SECRET` - klucz szyfrowania
+3. `SUPABASE_URL` i `SUPABASE_ANON_KEY` - dane Supabase
 
-**Jeśli nie są włączone:**
-1. Kliknij **Enable Identity**
-2. Kliknij **Enable Git Gateway**
-3. Zapisz zmiany
+**Jeśli brakuje:**
+1. Sprawdź `netlify.toml` lub `.env.local`
+2. Upewnij się, że baza PostgreSQL działa
+3. Sprawdź logi w Netlify Functions
 
-## 2. Branch nie jest ustawiony jako główny
+## 2. Payload CMS nie jest poprawnie skonfigurowany
 
-**Sprawdź w Netlify Dashboard:**
-1. Przejdź do **Site settings** → **Build & deploy** → **Deploy settings**
-2. Sprawdź czy **Production branch** to `next-functional`
-3. Jeśli nie, zmień na `next-functional`
+**Sprawdź konfigurację:**
+1. Sprawdź `payload.config.ts` - czy kolekcje są zdefiniowane
+2. Sprawdź `collections/` - czy pliki kolekcji istnieją
+3. Sprawdź czy `getPayload` działa w `app/page.tsx`
 
-## 3. Repository access problem
+## 3. Problem z połączeniem do bazy danych
 
-**Sprawdź w Netlify Dashboard:**
-1. Przejdź do **Site settings** → **Build & deploy** → **Repository**
-2. Sprawdź czy Netlify ma dostęp do repozytorium
-3. Jeśli nie, połącz ponownie z GitHub
+**Sprawdź połączenie:**
+1. Sprawdź czy `DATABASE_URI` jest poprawny
+2. Sprawdź czy Supabase jest dostępny
+3. Sprawdź czy tabela `units` istnieje w bazie
 
 ## 4. Cache problem
 
@@ -47,60 +46,42 @@
 1. Wyczyść cache przeglądarki (Ctrl+F5)
 2. Spróbuj w trybie incognito
 3. Sprawdź czy nie ma błędów w konsoli przeglądarki
+4. Sprawdź czy Next.js cache nie blokuje danych
 
-## 5. Test z local backend
+## 5. Test lokalny
 
 **Jeśli nadal nie działa:**
-1. W `public/admin/config.yml` zmień:
-```yaml
-backend:
-  name: test-repo
-  branch: next-functional
-
-local_backend: true
-```
-
-2. Uruchom lokalnie: `npx netlify-cms-proxy-server`
-3. Przejdź do `http://localhost:8080/admin`
+1. Sprawdź czy `npm run dev` działa
+2. Sprawdź czy `/admin` jest dostępny
+3. Sprawdź czy dane są pobierane z bazy
+4. Sprawdź logi w terminalu
 
 ## 6. Sprawdź logi
 
-**W Netlify Dashboard:**
-1. Przejdź do **Functions**
-2. Sprawdź logi Identity i Git Gateway
-3. Sprawdź czy nie ma błędów w **Deploy logs**
+**W terminalu:**
+1. Sprawdź logi `npm run dev`
+2. Sprawdź czy `DATABASE_URI validation passed`
+3. Sprawdź czy `getPayload` działa
+4. Sprawdź czy `collections/units` jest dostępny
 
-## 7. Sprawdź pliki w repozytorium
+## 7. Sprawdź konfigurację Payload CMS
 
-**Sprawdź czy pliki są w repozytorium:**
-1. Przejdź do GitHub
-2. Sprawdź czy folder `data/` istnieje
-3. Sprawdź czy pliki są w branch `next-functional`
+**Sprawdź czy konfiguracja jest poprawna:**
+1. Sprawdź `payload.config.ts` - czy kolekcje są zdefiniowane
+2. Sprawdź `collections/Units.ts` - czy struktura jest poprawna
+3. Sprawdź czy `getPayload` działa w `app/page.tsx`
 
 ## 8. Test z prostą konfiguracją
 
 **Jeśli nadal nie działa, spróbuj prostej konfiguracji:**
-```yaml
-backend:
-  name: git-gateway
-  branch: next-functional
-
-collections:
-  - name: "units"
-    label: "Lokale"
-    folder: "data/units"
-    create: true
-    format: "json"
-    fields:
-      - {name: "id", label: "ID", widget: "string"}
-      - {name: "nr_budynku", label: "Budynek", widget: "string"}
-      - {name: "nr_lokalu", label: "Lokal", widget: "string"}
-      - {name: "status", label: "Status", widget: "string"}
-```
+1. Sprawdź czy `payload.config.ts` ma wszystkie kolekcje
+2. Sprawdź czy `collections/Units.ts` ma poprawną strukturę
+3. Sprawdź czy `getPayload` działa w `app/page.tsx`
+4. Sprawdź czy baza danych ma dane
 
 ## Kontakt
 
 Jeśli problem nadal występuje, sprawdź:
-- [Netlify CMS Documentation](https://www.netlifycms.org/docs/)
-- [Netlify Identity Documentation](https://docs.netlify.com/visitor-access/identity/)
-- [Git Gateway Documentation](https://docs.netlify.com/visitor-access/git-gateway/)
+- [Payload CMS Documentation](https://payloadcms.com/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Supabase Documentation](https://supabase.com/docs)

@@ -1,190 +1,168 @@
-import { styled } from '@/lib/stitches.config';
+// Simple form components with inline styles
+export const Form = ({ children, onSubmit, id }: { children: React.ReactNode, onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void, id?: string }) => (
+  <form 
+    id={id}
+    style={{ maxWidth: '800px', margin: '0 auto', padding: '32px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+    onSubmit={onSubmit}
+  >
+    {children}
+  </form>
+);
 
-// Form Container
-export const Form = styled('form', {
-  maxWidth: '800px',
-  margin: '0 auto',
-});
+export const FormGroup = ({ children, fullWidth }: { children: React.ReactNode, fullWidth?: boolean }) => (
+  <div style={{ marginBottom: '24px', flex: fullWidth ? '1' : 'none' }}>
+    {children}
+  </div>
+);
 
-// Form Row
-export const FormRow = styled('div', {
-  display: 'flex',
-  gap: '$5',
-  marginBottom: '$5',
-  
-  variants: {
-    direction: {
-      column: {
-        flexDirection: 'column',
-        gap: '$4',
-      },
-    },
-  },
-});
+export const FormRow = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+    {children}
+  </div>
+);
 
-// Form Group
-export const FormGroup = styled('div', {
-  flex: 1,
-  
-  variants: {
-    fullWidth: {
-      true: {
-        flex: '1 1 100%',
-      },
-    },
-  },
-});
+export const FormLabel = ({ children, htmlFor }: { children: React.ReactNode, htmlFor?: string }) => (
+  <label 
+    htmlFor={htmlFor}
+    style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}
+  >
+    {children}
+  </label>
+);
 
-// Label
-export const FormLabel = styled('label', {
-  display: 'block',
-  marginBottom: '$2',
-  fontWeight: '$2',
-  color: '$textDark',
-  fontSize: '$3',
-  cursor: 'pointer',
-});
+export const FormInput = ({ ...props }: React.InputHTMLAttributes<HTMLInputElement>) => (
+  <input
+    style={{
+      width: '100%',
+      padding: '12px 16px',
+      border: '1px solid #D1D5DB',
+      borderRadius: '6px',
+      fontSize: '16px',
+      color: '#1F2937',
+      backgroundColor: 'white',
+      transition: 'border-color 0.2s ease',
+      // Focus effects removed for Panda CSS compatibility
+    }}
+    {...props}
+  />
+);
 
-// Base Input Styles
-const baseInputStyles = {
-  width: '100%',
-  padding: '$3 $4',
-  border: '1px solid $border',
-  borderRadius: '$3',
-  fontSize: '$3',
-  fontFamily: '$primary',
-  transition: 'all 0.3s ease',
-  backgroundColor: '$background',
-  
-  '&:focus': {
-    outline: 'none',
-    borderColor: '$primary',
-    boxShadow: '0 0 0 3px rgba(31, 61, 50, 0.1)',
-  },
-  
-  '&::placeholder': {
-    color: '$textLight',
-  },
-};
+export const FormTextarea = ({ ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => (
+  <textarea
+    style={{
+      width: '100%',
+      padding: '12px 16px',
+      border: '1px solid #D1D5DB',
+      borderRadius: '6px',
+      fontSize: '16px',
+      color: '#1F2937',
+      backgroundColor: 'white',
+      minHeight: '120px',
+      resize: 'vertical',
+      transition: 'border-color 0.2s ease',
+      // Focus effects removed for Panda CSS compatibility
+    }}
+    {...props}
+  />
+);
 
-// Input
-export const FormInput = styled('input', {
-  ...baseInputStyles,
-});
+export const FormSelect = ({ children, ...props }: React.SelectHTMLAttributes<HTMLSelectElement> & { children: React.ReactNode }) => (
+  <select
+    style={{
+      width: '100%',
+      padding: '12px 16px',
+      border: '1px solid #D1D5DB',
+      borderRadius: '6px',
+      fontSize: '16px',
+      color: '#1F2937',
+      backgroundColor: 'white',
+      transition: 'border-color 0.2s ease',
+      // Focus effects removed for Panda CSS compatibility
+    }}
+    {...props}
+  >
+    {children}
+  </select>
+);
 
-// Select
-export const FormSelect = styled('select', {
-  ...baseInputStyles,
-  cursor: 'pointer',
-  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
-  backgroundPosition: 'right $3 center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: '16px 12px',
-  paddingRight: '$10',
-  appearance: 'none',
-});
+export const FormButton = ({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { children: React.ReactNode }) => (
+  <button
+    style={{
+      padding: '12px 24px',
+      backgroundColor: '#065F46',
+      color: 'white',
+      border: 'none',
+      borderRadius: '6px',
+      fontSize: '16px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+      // Hover and disabled effects removed for Panda CSS compatibility
+    }}
+    {...props}
+  >
+    {children}
+  </button>
+);
 
-// Textarea
-export const FormTextarea = styled('textarea', {
-  ...baseInputStyles,
-  resize: 'vertical',
-  minHeight: '120px',
-  fontFamily: '$primary',
-});
+export const FormError = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ color: '#EF4444', fontSize: '14px', marginTop: '4px' }}>
+    {children}
+  </div>
+);
 
-// Checkbox Container
-export const CheckboxGroup = styled('div', {
-  display: 'flex',
-  alignItems: 'flex-start',
-  gap: '$3',
-});
+export const FormSuccess = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ color: '#10B981', fontSize: '14px', marginTop: '4px' }}>
+    {children}
+  </div>
+);
 
-// Checkbox
-export const FormCheckbox = styled('input', {
-  width: 'auto',
-  margin: 0,
-  flexShrink: 0,
-  marginTop: '2px',
-  cursor: 'pointer',
-});
+export const CheckboxGroup = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    {children}
+  </div>
+);
 
-// Checkbox Label
-export const CheckboxLabel = styled('label', {
-  margin: 0,
-  fontSize: '$2',
-  lineHeight: '$5',
-  cursor: 'pointer',
-  color: '$textDark',
-});
+export const FormCheckbox = ({ ...props }: React.InputHTMLAttributes<HTMLInputElement>) => (
+  <input 
+    type="checkbox"
+    style={{ marginRight: '8px' }}
+    {...props}
+  />
+);
 
-// Form Actions
-export const FormActions = styled('div', {
-  marginTop: '$8',
-  textAlign: 'center',
-});
+export const CheckboxLabel = ({ children, htmlFor }: { children: React.ReactNode, htmlFor?: string }) => (
+  <label 
+    htmlFor={htmlFor}
+    style={{ display: 'flex', alignItems: 'center', fontSize: '14px', color: '#374151', cursor: 'pointer' }}
+  >
+    {children}
+  </label>
+);
 
-// Submit Button
-export const FormSubmitButton = styled('button', {
-  display: 'inline-block',
-  padding: '$4 $8',
-  backgroundColor: '$primary',
-  color: '$textWhite',
-  textDecoration: 'none',
-  border: 'none',
-  borderRadius: '$3',
-  fontSize: '$3',
-  fontWeight: '$3',
-  cursor: 'pointer',
-  transition: 'all 0.3s ease',
-  textTransform: 'uppercase',
-  letterSpacing: '0.5px',
-  fontFamily: '$primary',
-  
-  '&:hover': {
-    backgroundColor: '$primaryDark',
-    transform: 'translateY(-2px)',
-    boxShadow: '$4',
-  },
-  
-  '&:active': {
-    transform: 'translateY(0)',
-  },
-  
-  '&:disabled': {
-    opacity: 0.6,
-    cursor: 'not-allowed',
-    transform: 'none',
-  },
-  
-  variants: {
-    fullWidth: {
-      true: {
-        width: '100%',
-        padding: '$3 $6',
-      },
-    },
-  },
-});
+export const FormActions = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '16px', marginTop: '32px' }}>
+    {children}
+  </div>
+);
 
-// Hidden field
-export const HiddenField = styled('p', {
-  display: 'none',
-});
-
-// Form Error
-export const FormError = styled('span', {
-  display: 'block',
-  marginTop: '$1',
-  fontSize: '$1',
-  color: '$error',
-});
-
-// Form Success
-export const FormSuccess = styled('div', {
-  padding: '$4',
-  backgroundColor: '$success',
-  color: '$textWhite',
-  borderRadius: '$3',
-  marginBottom: '$4',
-  textAlign: 'center',
-});
+export const FormSubmitButton = ({ children, ...props }: { children: React.ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <button
+    type="submit"
+    style={{
+      padding: '12px 24px',
+      backgroundColor: '#065F46',
+      color: 'white',
+      border: 'none',
+      borderRadius: '6px',
+      fontSize: '16px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+      // Hover and disabled effects removed for Panda CSS compatibility
+    }}
+    {...props}
+  >
+    {children}
+  </button>
+);
