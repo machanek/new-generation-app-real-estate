@@ -21,10 +21,12 @@
 - Desktop/mobile responsive nav
 - CTA buttons (Prospekt, Phone)
 - Dropdown menu for mobile
+- Unified padding sizes (3 4 for nav links, 2 3 for mobile menu)
+- Mobile menu button uses Button.tsx (secondary variant, sm size)
 
 **Props:** None (self-contained)
 
-**Last Modified:** 2025-10-07 (Panda CSS migration)
+**Last Modified:** 2025-10-07 (Mobile menu button uses Button.tsx)
 
 **DO NOT:**
 - Change structure without approval
@@ -61,9 +63,15 @@
 - `md` - Medium (desktop)
 - `lg` - Large
 
+**Accessibility Features:**
+- Focus outline with 2px solid border
+- Focus-visible support for keyboard navigation
+- Proper disabled states with reduced opacity
+- High contrast focus indicators (WCAG 2.1 AA)
+
 **Export:** `Button`, `ButtonLink`
 
-**Last Modified:** 2025-10-07 (Panda CSS migration)
+**Last Modified:** 2025-10-07 (Added focus and disabled states)
 
 ---
 
@@ -85,7 +93,7 @@
 - `UnitsTable`, `TableHeader`, `TableRow`, etc.
 - `UnitCard`, `CardHeader`, `CardInfo`, etc.
 - `FiltersForm`, `FilterGroup`, `FilterSelect`, etc.
-- `StatusBadge`, `ViewButton`, etc.
+- `StatusBadge`, `ViewButton` (now uses Button.tsx), etc.
 
 **Features:**
 - Responsive table/card toggle
@@ -128,15 +136,33 @@
 
 ---
 
-### 🚧 ui/Form.tsx
-**Status:** WIP  
-**Styling:** Mixed  
-**Purpose:** Form components  
+### ✅ ui/Form.tsx
+**Status:** STABLE  
+**Styling:** Panda CSS  
+**Purpose:** Form components with full accessibility support  
 
-**TODO:**
-- Migrate to Panda CSS
-- Add validation styles
-- Improve accessibility
+**Features:**
+- Complete Panda CSS migration
+- Focus states with proper contrast
+- Form validation styles
+- WCAG 2.1 AA compliant
+- Hover and disabled states
+
+**Exports:**
+- `Form`, `FormGroup`, `FormRow`
+- `FormLabel`, `FormInput`, `FormTextarea`, `FormSelect`
+- `FormButton`, `FormSubmitButton`
+- `FormError`, `FormSuccess`
+- `CheckboxGroup`, `FormCheckbox`, `CheckboxLabel`
+- `FormActions`
+
+**Last Modified:** 2025-10-07 (Refactored FormButton to use Button.tsx)
+
+**Refactoring Benefits:**
+- Eliminated code duplication (30+ lines removed)
+- Consistent styling with main Button component
+- Better maintainability
+- Unified hover/focus states
 
 ---
 
@@ -259,7 +285,7 @@
 ### Medium Priority
 4. SiteFooter.tsx
 5. ui/Card.tsx
-6. ui/Form.tsx
+6. ~~ui/Form.tsx~~ ✅ COMPLETED
 
 ### Low Priority (Evaluate First)
 7. AboutSection.tsx
