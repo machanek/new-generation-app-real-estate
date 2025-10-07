@@ -1,0 +1,167 @@
+# Harmonia Rząska - Cursor AI Rules
+# Last updated: 2025-01-08
+# Version: 1.0
+
+## PROJECT IDENTITY
+- Name: Harmonia Rząska Real Estate
+- Type: Property listing website with CMS
+- Stack: Next.js 15 + Panda CSS + Payload CMS 3.x + Supabase PostgreSQL
+
+## CRITICAL ARCHITECTURE (IMMUTABLE - NEVER CHANGE WITHOUT EXPLICIT APPROVAL)
+
+### Tech Stack
+- **Framework**: Next.js 15.5.3 (App Router + Pages Router hybrid)
+- **Styling**: Panda CSS 1.4.1 (zero-runtime CSS-in-JS)
+- **CMS**: Payload CMS 3.56.0 (self-hosted, PostgreSQL)
+- **Database**: PostgreSQL via Supabase
+- **Language**: TypeScript (strict mode)
+
+### Styling Rules
+- ✅ USE: Panda CSS via `import { css } from '@/styled-system/css'`
+- ❌ NEVER: Stitches (removed, unmaintained)
+- ❌ NEVER: Tailwind (not used in this project)
+- ❌ NEVER: Inline styles (except for dynamic values)
+- ✅ Colors: Modern Green palette (hardcoded in panda.config.ts)
+- ❌ NO runtime theme switching (removed as over-engineered)
+
+### File Structure
+- `/app` - Next.js App Router routes
+- `/pages` - Legacy Pages Router (minimal, being phased out)
+- `/components` - React components (use Panda CSS)
+- `/collections` - Payload CMS collections
+- `/lib` - Utilities
+- `/public` - Static assets
+- `/docs` - Project documentation (READ BEFORE CODING)
+
+## MANDATORY WORKFLOW
+
+### Before Starting ANY Task:
+1. Read `docs/architecture/ARCHITECTURE.md`
+2. Read `docs/architecture/DECISIONS.md` (last 5 entries)
+3. If touching components, check `docs/architecture/COMPONENTS.md`
+4. Propose plan and WAIT FOR APPROVAL
+
+### During Task:
+1. ONE task per session (no scope creep)
+2. Modify ONLY files related to the task
+3. If uncertain, ASK before changing
+
+### After Task:
+1. Update `docs/architecture/DECISIONS.md` with what you did and why
+2. If new pattern, update `docs/architecture/COMPONENTS.md`
+3. Test: `npm run build` must pass
+
+## BANNED ACTIONS (NEVER DO WITHOUT EXPLICIT PERMISSION)
+
+❌ Installing new major dependencies
+❌ Changing CSS-in-JS library (stay with Panda CSS)
+❌ Modifying panda.config.ts theme colors
+❌ Removing or refactoring STABLE components (marked ✅ in COMPONENTS.md)
+❌ Changing database schema without migration plan
+❌ Modifying Payload collections without discussing
+❌ Adding runtime theme switching (decided against)
+❌ "Optimizing" code that works (premature optimization)
+
+## COMPONENT STABILITY MARKERS
+
+Components marked in COMPONENTS.md:
+- ✅ STABLE - DO NOT refactor without approval
+- 🔄 ACTIVE - Can be modified carefully
+- 🚧 WIP - Work in progress, OK to change
+
+## CODE STYLE
+
+### TypeScript
+- Strict mode enabled
+- No `any` types (use proper types)
+- Explicit return types for functions
+- Named exports preferred
+
+### React
+- Functional components only
+- Hooks at top level (follow Rules of Hooks)
+- Props destructuring
+- Explicit types for props
+
+### Panda CSS
+- Use `css()` for inline styles
+- Use patterns from `styled-system/patterns` when available
+- Responsive: `{ base: '...', md: '...', lg: '...' }`
+- NO `&:hover` syntax (use `_hover: {}`)
+
+### Naming
+- Components: PascalCase (Button.tsx)
+- Utilities: camelCase (filterUnits.ts)
+- CSS files: kebab-case (styles.css)
+- Types: PascalCase with descriptive names
+
+## ERROR HANDLING
+
+If you encounter errors:
+1. Check `docs/architecture/TROUBLESHOOTING.md` first
+2. Don't guess - ask for clarification
+3. Don't silently skip errors - report them
+
+## GIT WORKFLOW
+
+- Branch: `next-functional` (current working branch)
+- Commits: Descriptive messages following conventional commits
+- Before major changes: Suggest creating feature branch
+- Never force push without permission
+
+## DOCUMENTATION UPDATES
+
+When you make changes:
+- Update DECISIONS.md with date, decision, reason
+- If new pattern emerges, document it
+- Keep COMPONENTS.md inventory current
+
+## TESTING
+
+Before considering task complete:
+- `npm run build` passes
+- `npm run lint` passes (or explain warnings)
+- Manual testing in browser mentioned
+
+## WCAG COMPLIANCE
+
+- This project aims for WCAG 2.1 Level AA
+- Maintain keyboard navigation
+- Preserve skip links
+- Check color contrast (use existing palette)
+- Semantic HTML
+
+## QUESTIONS TO ASK YOURSELF
+
+Before coding:
+- [ ] Have I read the relevant docs?
+- [ ] Is this task clearly defined?
+- [ ] Am I modifying only necessary files?
+- [ ] Will this break existing functionality?
+- [ ] Should I ask for approval first?
+
+After coding:
+- [ ] Does `npm run build` pass?
+- [ ] Have I updated DECISIONS.md?
+- [ ] Is the solution maintainable?
+- [ ] Would another developer understand this?
+
+## REMEMBER
+
+You are an AI assistant, not the project owner. When in doubt:
+- ASK before changing
+- PROPOSE before implementing
+- DOCUMENT what you did
+
+The human developer makes final decisions. Your role is to:
+- Execute tasks as specified
+- Highlight potential issues
+- Suggest alternatives when appropriate
+- Never make architectural decisions unilaterally
+
+---
+
+Last reviewed: 2025-01-08
+Next review: When major changes occur
+
+
