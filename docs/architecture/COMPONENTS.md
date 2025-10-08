@@ -130,13 +130,23 @@
 
 ---
 
-### 🚧 ui/Card.tsx
-**Status:** WIP  
-**Styling:** Mixed (being refactored)  
+### ✅ ui/Card.tsx
+**Status:** STABLE (upgraded from ACTIVE - Panda CSS migration complete)  
+**Styling:** Panda CSS (hybrid approach)  
 **Purpose:** Generic card component  
+**Location:** components/ui/  
+**Last Modified:** 2025-10-07
 
-**TODO:**
-- Consolidate with UnitCard from UnitsSection
+**Migration:** 
+- Converted 8 inline styles to Panda CSS
+- Uses Panda CSS tokens consistently
+- Inline styles for custom borders/shadows only
+
+**Exports:**
+- `Card`, `CardHeader`, `CardTitle`, `CardSubtitle`, `CardContent`, `CardFooter`, `CardImage`, `CardActions`
+
+**TODO:** ✅ DONE
+- ~~Migrate to Panda CSS~~
 - Standardize API
 
 ---

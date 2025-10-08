@@ -1,16 +1,19 @@
+"use client";
 import React from 'react';
+import { css } from '@/styled-system/css';
 
-// Simple card components with inline styles
+// Simple card components migrated to Panda CSS (hybrid for custom borders/shadows)
 export const Card = ({ children, ...props }: React.HTMLAttributes<HTMLDivElement> & { children: React.ReactNode }) => (
   <div
-    style={{
+    className={css({
       backgroundColor: 'white',
-      borderRadius: '8px',
+      borderRadius: 'md',
+      overflow: 'hidden',
+      transition: 'all',
+    })}
+    style={{
       border: '1px solid #E5E7EB',
       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-      overflow: 'hidden',
-      transition: 'all 0.2s ease',
-      // Hover effects removed for Panda CSS compatibility
     }}
     {...props}
   >
@@ -19,31 +22,60 @@ export const Card = ({ children, ...props }: React.HTMLAttributes<HTMLDivElement
 );
 
 export const CardHeader = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ padding: '24px 24px 0 24px' }}>
+  <div
+    className={css({
+      paddingX: '6',
+      paddingTop: '6',
+      paddingBottom: '0',
+    })}
+  >
     {children}
   </div>
 );
 
 export const CardTitle = ({ children }: { children: React.ReactNode }) => (
-  <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1F2937', marginBottom: '8px' }}>
+  <h3
+    className={css({
+      fontSize: 'lg',
+      fontWeight: 'semibold',
+      color: 'gray.800',
+      marginBottom: '2',
+    })}
+  >
     {children}
   </h3>
 );
 
 export const CardSubtitle = ({ children }: { children: React.ReactNode }) => (
-  <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '16px' }}>
+  <p
+    className={css({
+      fontSize: 'sm',
+      color: 'gray.500',
+      marginBottom: '4',
+    })}
+  >
     {children}
   </p>
 );
 
 export const CardContent = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ padding: '24px' }}>
+  <div
+    className={css({
+      padding: '6',
+    })}
+  >
     {children}
   </div>
 );
 
 export const CardFooter = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ padding: '0 24px 24px 24px' }}>
+  <div
+    className={css({
+      paddingX: '6',
+      paddingTop: '0',
+      paddingBottom: '6',
+    })}
+  >
     {children}
   </div>
 );
@@ -52,18 +84,26 @@ export const CardImage = ({ src, alt, ...props }: { src: string, alt: string } &
   <img
     src={src}
     alt={alt}
+    className={css({
+      objectFit: 'cover',
+      display: 'block',
+    })}
     style={{
       width: '100%',
       height: '200px',
-      objectFit: 'cover',
-      display: 'block'
     }}
     {...props}
   />
 );
 
 export const CardActions = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+  <div
+    className={css({
+      display: 'flex',
+      gap: '3',
+      justifyContent: 'flex-end',
+    })}
+  >
     {children}
   </div>
 );
