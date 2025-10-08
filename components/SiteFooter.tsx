@@ -9,11 +9,14 @@ export function SiteFooter() {
       paddingY: '12'
     })}>
       <div 
-        style={{ maxWidth: '1200px', margin: '0 auto' }}
         className={css({
-        paddingX: '6',
-        paddingY: '0'
-      })}>
+          marginX: 'auto',
+          paddingX: '6',
+          paddingY: '0'
+        })}
+        style={{
+          maxWidth: '1200px'
+        }}>
         <div className={css({
           display: 'grid',
           gridTemplateColumns: { base: '1fr', md: 'repeat(3, 1fr)' },
@@ -71,14 +74,16 @@ export function SiteFooter() {
         </div>
         
         <div 
-          style={{ borderTop: '1px solid' }}
           className={css({
           borderColor: 'gray.700',
           marginTop: '8',
           paddingTop: '8',
           textAlign: 'center',
           color: 'gray.400'
-        })}>
+        })}
+        style={{
+          borderTop: '1px solid'
+        }}>
           <p>&copy; 2024 Harmonia Rząska. Wszystkie prawa zastrzeżone.</p>
         </div>
       </div>

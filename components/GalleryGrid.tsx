@@ -15,16 +15,25 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
       aria-label="Galeria zdjęć osiedla"
     >
       <div 
-        style={{ width: '100%', height: '400px' }}
         className={css({
-        overflow: 'hidden',
-        borderRadius: 'base'
-      })}>
+          overflow: 'hidden',
+          borderRadius: 'base'
+        })}
+        style={{
+          width: '100%',
+          height: '400px'
+        }}>
         <img 
           src={items[0]?.src} 
           alt={items[0]?.alt ?? "Zdjęcie 1"} 
           loading="eager"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          className={css({
+            objectFit: 'cover'
+          })}
+          style={{
+            width: '100%',
+            height: '100%'
+          }}
         />
       </div>
       <div className={css({
@@ -37,7 +46,6 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
         {items.map((it, i) => (
           <div 
             key={i} 
-            style={{ width: '80px', height: '60px' }}
             className={css({
               flexShrink: 0,
               borderRadius: 'base',
@@ -48,12 +56,22 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
                 opacity: 1
               }
             })}
+            style={{
+              width: '80px',
+              height: '60px'
+            }}
           >
             <img 
               src={it.src} 
               alt={it.alt ?? `Zdjęcie ${i+1}`} 
               loading="lazy"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              className={css({
+                objectFit: 'cover'
+              })}
+              style={{
+                width: '100%',
+                height: '100%'
+              }}
             />
           </div>
         ))}
