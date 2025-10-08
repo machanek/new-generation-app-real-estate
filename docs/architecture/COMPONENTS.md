@@ -111,22 +111,28 @@
 
 ---
 
-### 🚧 ui/UnitDetails.tsx
-**Status:** WIP  
-**Styling:** Inline styles (needs Panda migration)  
-**Purpose:** Single unit detail page components  
-**Exports:**
-- `UnitLayout`, `UnitHeader`, `UnitTitle`
-- `UnitInfo`, `InfoGrid`, `InfoItem`
-- `PriceInfo`, `PriceValue`, `PricePerM2`
-- `UnitGallery`, `GalleryGrid`, `GalleryItem`
-- `ContactSection`, `ContactInfo`
+### ✅ ui/UnitDetails.tsx (was: 🚧 WIP)
+**Status:** STABLE (upgraded from WIP - Panda CSS migration complete)
+**Styling:** Panda CSS (hybrid approach)
+**Purpose:** Unit detail page with gallery and specifications
+**Location:** components/ui/
+**Exports:** 19 components (UnitLayout, UnitHeader, UnitTitle, etc.)
+**Last Modified:** 2025-10-07
 
-**TODO:**
-- Migrate to Panda CSS
-- Add image lightbox
-- Improve mobile layout
-- Connect to real Payload data
+**Migration:** 
+- Converted 20 inline styles to Panda CSS hybrid approach
+- Phase 1: 4 simple components (margins, flex)
+- Phase 2: 8 medium components (layouts, typography)
+- Phase 3: 4 complex components (grids, shadows, custom colors)
+- Uses Panda CSS tokens for standard values
+- Inline styles for complex values (gridTemplateColumns, boxShadow, custom colors)
+
+**Complexity:** High (19 components, largest file)
+
+**TODO:** ✅ DONE
+- ~~Migrate to Panda CSS~~
+- ~~Improve image gallery~~
+- ~~Responsive layout~~
 
 ---
 

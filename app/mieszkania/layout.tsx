@@ -12,7 +12,7 @@ export default function MieszkaniaLayout({
 }) {
   return (
     <html lang="pl">
-      <body>
+      <body suppressHydrationWarning={true}>
         {children}
       </body>
     </html>

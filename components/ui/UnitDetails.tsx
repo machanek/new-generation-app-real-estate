@@ -2,34 +2,61 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { css } from '@/styled-system/css';
 
 // Simple components with inline styles
 export const UnitLayout = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
+  <div 
+    className={css({ 
+      marginX: 'auto',
+      paddingX: '4'
+    })}
+    style={{ maxWidth: '1200px' }}
+  >
     {children}
   </div>
 );
 
 export const UnitHeader = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ marginBottom: '32px' }}>
+  <div className={css({ marginBottom: '8' })}>
     {children}
   </div>
 );
 
 export const UnitTitle = ({ children }: { children: React.ReactNode }) => (
-  <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#1F2937', marginBottom: '16px' }}>
+  <h1 
+    className={css({ 
+      fontWeight: 'bold',
+      color: 'textPrimary',
+      marginBottom: '4'
+    })}
+    style={{ fontSize: '32px' }}
+  >
     {children}
   </h1>
 );
 
 export const UnitSubtitle = ({ children }: { children: React.ReactNode }) => (
-  <p style={{ fontSize: '18px', color: '#6B7280', marginBottom: '24px' }}>
+  <p 
+    className={css({ 
+      color: 'textSecondary',
+      marginBottom: '6'
+    })}
+    style={{ fontSize: '18px' }}
+  >
     {children}
   </p>
 );
 
 export const UnitContent = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '32px' }}>
+  <div 
+    className={css({ 
+      display: 'grid',
+      gap: '8',
+      marginBottom: '8'
+    })}
+    style={{ gridTemplateColumns: '1fr 1fr' }}
+  >
     {children}
   </div>
 );
@@ -47,18 +74,28 @@ export const UnitGallery = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const GalleryGrid = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+  <div 
+    className={css({ 
+      display: 'grid',
+      gap: '4'
+    })}
+    style={{ 
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' 
+    }}
+  >
     {children}
   </div>
 );
 
 export const GalleryItem = ({ children, onClick }: { children: React.ReactNode, onClick?: () => void }) => (
   <div 
-    style={{ 
+    className={css({ 
       cursor: onClick ? 'pointer' : 'default',
-      borderRadius: '8px',
-      overflow: 'hidden',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+      borderRadius: 'md',
+      overflow: 'hidden'
+    })}
+    style={{ 
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' 
     }}
     onClick={onClick}
   >
@@ -67,56 +104,145 @@ export const GalleryItem = ({ children, onClick }: { children: React.ReactNode, 
 );
 
 export const InfoGrid = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+  <div 
+    className={css({ 
+      display: 'grid',
+      gap: '4',
+      marginBottom: '6'
+    })}
+    style={{ 
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' 
+    }}
+  >
     {children}
   </div>
 );
 
 export const InfoItem = ({ label, value }: { label: string, value: string }) => (
-  <div style={{ padding: '16px', backgroundColor: '#F9FAFB', borderRadius: '8px' }}>
-    <div style={{ fontSize: '14px', color: '#6B7280', marginBottom: '4px' }}>{label}</div>
-    <div style={{ fontSize: '16px', fontWeight: '600', color: '#1F2937' }}>{value}</div>
+  <div 
+    className={css({ 
+      padding: '4',
+      borderRadius: 'md'
+    })}
+    style={{ backgroundColor: '#F9FAFB' }}
+  >
+    <div 
+      className={css({ 
+        color: 'textSecondary',
+        marginBottom: '1'
+      })}
+      style={{ fontSize: '14px' }}
+    >
+      {label}
+    </div>
+    <div 
+      className={css({ 
+        fontWeight: 'semibold',
+        color: 'textPrimary'
+      })}
+      style={{ fontSize: '16px' }}
+    >
+      {value}
+    </div>
   </div>
 );
 
 export const PriceInfo = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ padding: '24px', backgroundColor: '#F0FDF4', borderRadius: '8px', border: '1px solid #D1FAE5' }}>
+  <div 
+    className={css({ 
+      padding: '6',
+      borderRadius: 'md'
+    })}
+    style={{ 
+      backgroundColor: '#F0FDF4',
+      border: '1px solid #D1FAE5'
+    }}
+  >
     {children}
   </div>
 );
 
 export const PriceLabel = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ fontSize: '14px', color: '#065F46', marginBottom: '8px' }}>{children}</div>
+  <div 
+    className={css({ 
+      color: 'primary',
+      marginBottom: '2'
+    })}
+    style={{ fontSize: '14px' }}
+  >
+    {children}
+  </div>
 );
 
 export const PriceValue = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ fontSize: '24px', fontWeight: '700', color: '#065F46' }}>{children}</div>
+  <div 
+    className={css({ 
+      fontWeight: 'bold',
+      color: 'primary'
+    })}
+    style={{ fontSize: '24px' }}
+  >
+    {children}
+  </div>
 );
 
 export const PricePerM2 = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ fontSize: '14px', color: '#047857', marginTop: '4px' }}>{children}</div>
+  <div 
+    className={css({ 
+      marginTop: '1'
+    })}
+    style={{ 
+      fontSize: '14px',
+      color: '#047857'
+    }}
+  >
+    {children}
+  </div>
 );
 
 export const ContactSection = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ marginTop: '32px', padding: '24px', backgroundColor: '#F9FAFB', borderRadius: '8px' }}>
+  <div 
+    className={css({ 
+      marginTop: '8',
+      padding: '6',
+      borderRadius: 'md'
+    })}
+    style={{ backgroundColor: '#F9FAFB' }}
+  >
     {children}
   </div>
 );
 
 export const ContactTitle = ({ children }: { children: React.ReactNode }) => (
-  <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1F2937', marginBottom: '16px' }}>
+  <h3 
+    className={css({ 
+      fontWeight: 'semibold',
+      color: 'textPrimary',
+      marginBottom: '4'
+    })}
+    style={{ fontSize: '18px' }}
+  >
     {children}
   </h3>
 );
 
 export const ContactInfo = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+  <div className={css({ 
+    display: 'flex', 
+    gap: '4',
+    flexWrap: 'wrap' 
+  })}>
     {children}
   </div>
 );
 
 export const ContactItem = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#374151' }}>
+  <div className={css({ 
+    display: 'flex', 
+    alignItems: 'center', 
+    gap: '2',
+    color: 'textSecondary'
+  })}>
     {children}
   </div>
 );
@@ -169,7 +295,13 @@ export const UnitDetails = ({ unit }: UnitDetailsProps) => {
                 <img 
                   src={plan.imageUrl} 
                   alt={plan.name}
-                  style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                  className={css({ 
+                    objectFit: 'cover'
+                  })}
+                  style={{ 
+                    width: '100%',
+                    height: '200px'
+                  }}
                 />
               </GalleryItem>
             ))}
