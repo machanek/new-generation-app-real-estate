@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(find:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfix: mobile responsive for Hero and UnitsSection (2/3 critical)\n\nPHASE 1: Hero Section\n- Added responsive height: { base: ''400px'', md: ''500px'', lg: ''600px'' }\n- Added responsive fontSize for h1: { base: ''32px'', md: ''40px'', lg: ''48px'' }\n- Added responsive fontSize for p: { base: ''16px'', md: ''18px'', lg: ''20px'' }\n- Mobile-first approach\n\nPHASE 2: UnitsSection (partial)\n- Mobile (< 768px): Cards view by default\n- Desktop (≥ 768px): Table view by default with toggle\n- Hidden toggle buttons on mobile\n- Responsive breakpoints: { base: ''none'', md: ''flex'' }\n\nTODO Tomorrow:\n- Add expand/collapse to UnitsCards\n- Fix ContactForm responsive\n- Fix remaining 8 components responsive\n- Full mobile test\n\nProgress: 2/3 critical components fixed (Hero ✅, UnitsSection 🔄, ContactForm ⏳)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

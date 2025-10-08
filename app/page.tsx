@@ -6,6 +6,7 @@ import UnitsSectionWithState from '@/components/UnitsSectionWithState'
 import AboutSection from '@/components/AboutSection'
 import ArchitectureSection from '@/components/ArchitectureSection'
 import ContactForm from '@/components/ContactForm'
+import { HeroSection } from '@/components/HeroSection'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
@@ -21,6 +22,11 @@ export default async function HomePage() {
   const unitsResult = await payload.find({
     collection: 'units',
     limit: 100, // Get all units
+  })
+
+  // Fetch site settings for hero images
+  const siteSettings = await payload.findGlobal({
+    slug: 'site-settings',
   })
   
   // Map Payload CMS data to Unit type
@@ -39,6 +45,12 @@ export default async function HomePage() {
     updatedAt: String(unit.updatedAt || new Date().toISOString())
   }))
 
+  // Prepare hero image from site settings
+  const heroImage = siteSettings?.heroImages?.[0] ? {
+    url: siteSettings.heroImages[0].url || '',
+    alt: siteSettings.heroImages[0].alt || 'Harmonia Rząska'
+  } : undefined
+
   return (
     <div 
       style={{ minHeight: '100vh' }}
@@ -48,39 +60,14 @@ export default async function HomePage() {
     >
       <SiteHeader />
       
+      <HeroSection heroImage={heroImage} />
+      
       <main 
         style={{ maxWidth: '1200px', margin: '0 auto' }}
         className={css({
         paddingX: '6',
         paddingY: '8'
       })}>
-        <section className={css({
-          marginBottom: '16'
-        })}>
-          <div className={css({
-            textAlign: 'center',
-            marginBottom: '12'
-          })}>
-            <h1 className={css({
-              fontSize: { base: '4xl', md: '5xl' },
-              fontWeight: 'bold',
-              color: 'textPrimary',
-              marginBottom: '6'
-            })}>
-              Harmonia Rząska
-            </h1>
-            <p 
-              style={{ maxWidth: '768px', margin: '0 auto' }}
-              className={css({
-                fontSize: 'xl',
-                color: 'textSecondary'
-              })}
-            >
-              Nowoczesne osiedle mieszkaniowe, gdzie komfort spotyka się z naturą. 
-              Odkryj swoje wymarzone miejsce do życia.
-            </p>
-          </div>
-        </section>
 
         <UnitsSectionWithState units={units} />
         

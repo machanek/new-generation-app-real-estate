@@ -12,6 +12,37 @@
 
 ## Layout Components
 
+### ✅ HeroSection.tsx
+**Status:** STABLE
+**Styling:** Panda CSS (hybrid approach)
+**Purpose:** Main hero section with background image
+**Location:** components/
+**Created:** 2025-10-07
+
+**Features:**
+- Full-width hero with background image
+- Dark gradient overlay
+- Centered content (h1 + p)
+- Next.js Image optimization
+- Fetches heroImages from Payload CMS (site-settings)
+- Fallback to Unsplash default image
+
+**Props:**
+- `heroImage?: { url: string, alt?: string }` - Hero image from CMS
+
+**Styling:**
+- Height: 600px (inline - custom value)
+- Background: Image with gradient overlay
+- Text: White with text shadow
+- Responsive: Full-width on all devices
+
+**TODO:** ✅ DONE
+- ~~Create hero section~~
+- ~~Add Payload CMS integration~~
+- ~~Add fallback image~~
+
+---
+
 ### ✅ SiteHeader.tsx
 **Status:** STABLE  
 **Styling:** Panda CSS  

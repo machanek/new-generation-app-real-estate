@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Unit } from '@/types/unit';
 import type { Filters } from '@/lib/filterSort';
+import { css } from '@/styled-system/css';
 import FiltersForm from '@/components/Filters';
 import UnitsTable from '@/components/UnitsTable';
 import UnitsCards from '@/components/UnitsCards';
@@ -49,20 +50,22 @@ function UnitsSectionComponent({
         />
 
         <ViewControls>
-          <ViewSwitch>
-            <ViewButton 
-              active={view === "table"} 
-              onClick={() => setView("table")}
-            >
-              Tabela
-            </ViewButton>
-            <ViewButton 
-              active={view === "cards"} 
-              onClick={() => setView("cards")}
-            >
-              Karty
-            </ViewButton>
-          </ViewSwitch>
+          <div className={css({ display: { base: 'none', md: 'flex' } })}>
+            <ViewSwitch>
+              <ViewButton
+                active={view === "table"}
+                onClick={() => setView("table")}
+              >
+                Tabela
+              </ViewButton>
+              <ViewButton
+                active={view === "cards"}
+                onClick={() => setView("cards")}
+              >
+                Karty
+              </ViewButton>
+            </ViewSwitch>
+          </div>
           <ResultsInfo>
             <ResultsCount>Łącznie: <strong>{filtered.length}</strong></ResultsCount>
           </ResultsInfo>

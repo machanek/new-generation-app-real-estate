@@ -19,7 +19,9 @@ export default function UnitsSectionWithState({ units }: UnitsSectionWithStatePr
     sort: ""
   });
   
-  const [view, setView] = useState<'table' | 'cards'>('table');
+  const [view, setView] = useState<'table' | 'cards'>(
+    typeof window !== 'undefined' && window.innerWidth < 768 ? 'cards' : 'table'
+  );
 
   // Get unique buildings from units
   const buildings = useMemo(() => {

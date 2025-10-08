@@ -14,19 +14,29 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
   
+  // Next.js Image optimization
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
+
   // Webpack konfiguracja
   webpack: (config, { isServer }) => {
     // Externalizuj sharp tylko na serwerze
     if (isServer) {
       config.externals.push('sharp');
     }
-    
+
     // Dodaj alias dla lepszej kompatybilności
     config.resolve.alias = {
       ...config.resolve.alias,
       '@payloadcms/next': '@payloadcms/next',
     };
-    
+
     return config;
   },
   
