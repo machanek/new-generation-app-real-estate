@@ -41,12 +41,20 @@ const labelStyles = {
 const inputStyles = {
   width: '100%',
   padding: '12px 16px',
+  fontSize: '16px',
   border: '1px solid #D1D5DB',
   borderRadius: '6px',
-  fontSize: '16px',
-  color: '#1F2937',
-  backgroundColor: 'white',
-  transition: 'border-color 0.2s ease'
+  transition: 'border-color 0.2s ease',
+  
+  // ✅ DODAJ FOCUS STATES (WCAG compliance)
+  ':focus': {
+    outline: '2px solid #065F46',      // primary color
+    outlineOffset: '2px',
+    borderColor: '#065F46'
+  },
+  
+  // ✅ DODAJ ERROR STATES (WCAG compliance)
+  // To będzie kontrolowane przez aria-invalid
 };
 
 const textareaStyles = {
@@ -56,21 +64,38 @@ const textareaStyles = {
 };
 
 const buttonStyles = {
+  width: '100%',
   padding: '12px 24px',
-  backgroundColor: '#065F46',
-  color: 'white',
-  border: 'none',
-  borderRadius: '6px',
   fontSize: '16px',
   fontWeight: '600',
+  color: '#FFFFFF',
+  backgroundColor: '#065F46',
+  border: 'none',
+  borderRadius: '6px',
   cursor: 'pointer',
-  transition: 'all 0.2s ease'
+  transition: 'all 0.2s ease',
+  
+  // ✅ DODAJ FOCUS STATES (WCAG compliance)
+  ':focus': {
+    outline: '2px solid #065F46',
+    outlineOffset: '2px',
+    boxShadow: '0 0 0 4px rgba(6, 95, 70, 0.1)'
+  },
+  
+  ':hover': {
+    backgroundColor: '#047857'
+  },
+  
+  ':disabled': {
+    backgroundColor: '#9CA3AF',
+    cursor: 'not-allowed'
+  }
 };
 
 const errorStyles = {
-  color: '#EF4444',
+  marginTop: '8px',
   fontSize: '14px',
-  marginTop: '4px'
+  color: '#DC2626'  // ✅ Ciemniejszy czerwony - lepszy kontrast WCAG AA
 };
 
 const successStyles = {
