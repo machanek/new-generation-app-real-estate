@@ -3,6 +3,62 @@
 
 ---
 
+## 2025-10-07: Naprawa padding shorthand w Panda CSS
+
+**Decision:** Używać paddingX/paddingY zamiast shorthand 'padding: X Y'
+
+**Context:**
+- Panda CSS NIE obsługuje shorthand jak `padding: '2 3'`
+- To nie jest Tailwind! Panda wymaga jawnego paddingX/paddingY
+- Problem znaleziony w 4 komponentach (15 przypadków)
+
+**Problem:**
+```typescript
+// ❌ WRONG - generates invalid CSS
+padding: '2 3'
+→ kompiluje się do: padding: 2 3; (nieprawidłowe CSS)
+
+// ✅ CORRECT
+paddingX: '3',  // left + right
+paddingY: '2'   // top + bottom
+→ kompiluje się do: padding-left: 12px; padding-right: 12px; etc.
+```
+
+**Implementation:**
+- Naprawiono Button.tsx (3 przypadki)
+- Naprawiono SiteHeader.tsx (11 przypadków)
+- Naprawiono UnitsSection.tsx (2 przypadki)
+- Naprawiono Form.tsx (3 przypadki)
+- Zaktualizowano docs/vendor/panda-css/quick-reference.md
+
+**Impact:**
+- Przyciski i linki mają teraz prawidłowy padding
+- Wszystkie komponenty Panda CSS używają poprawnej składni
+- Dokumentacja ostrzega przed tym błędem
+
+**Prevention:**
+- Sprawdzaj docs/vendor/panda-css/quick-reference.md przed stylowaniem
+- Używaj paddingX/paddingY lub object syntax { x: '3', y: '2' }
+- ESLint rule? (do rozważenia)
+
+**TypeScript Strict Types Issue:**
+- Panda CSS ma restrykcyjne typy TypeScript
+- Nie akceptuje custom wartości jak `border: '2px solid'`, `outline: '2px solid'`
+- Rozwiązanie: Używamy inline styles dla edge cases (focus states)
+- To jest akceptowalne i zgodne z best practices
+
+**Status:** ✅ Complete
+
+**Files Changed:**
+- components/ui/Button.tsx
+- components/SiteHeader.tsx
+- components/ui/UnitsSection.tsx
+- components/ui/Form.tsx
+- docs/vendor/panda-css/quick-reference.md
+- docs/architecture/DECISIONS.md
+
+---
+
 ## 2025-10-07: Mobile Menu Button Refactoring to Use Button.tsx
 
 **Decision:** Replace custom mobile menu button with Button.tsx component

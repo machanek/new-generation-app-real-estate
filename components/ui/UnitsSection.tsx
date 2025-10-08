@@ -1,5 +1,6 @@
 // Units section components with Panda CSS - ALL EXPORTS
 import { css } from '@/styled-system/css';
+import { Button } from './Button';
 
 export const UnitsSection = ({ children, id }: { children: React.ReactNode, id?: string }) => (
   <section 
@@ -31,12 +32,14 @@ export const UnitsTable = ({ children, id, 'aria-label': ariaLabel }: { children
       id={id}
       aria-label={ariaLabel}
       className={css({
-        width: '100%',
         borderCollapse: 'collapse',
-        backgroundColor: 'bgWhite',
+        backgroundColor: 'white',
         borderRadius: 'md',
         boxShadow: 'md'
       })}
+      style={{
+        width: '100%',
+      }}
     >
       {children}
     </table>
@@ -45,10 +48,13 @@ export const UnitsTable = ({ children, id, 'aria-label': ariaLabel }: { children
 
 export const TableHeader = ({ children }: { children: React.ReactNode }) => (
   <thead className={css({
+    borderColor: 'border'
+  })}
+  style={{
     backgroundColor: '#F3F4F6',
     borderBottom: '2px solid',
-    borderColor: 'border'
-  })}>
+  }}
+  >
     <tr>
       {children}
     </tr>
@@ -57,12 +63,15 @@ export const TableHeader = ({ children }: { children: React.ReactNode }) => (
 
 export const TableHeaderCell = ({ children }: { children: React.ReactNode }) => (
   <th className={css({
-    padding: '16px',
     textAlign: 'left',
     fontWeight: 'semibold',
     color: 'textPrimary',
     fontSize: 'sm'
-  })}>
+  })}
+  style={{
+    padding: '16px',
+  }}
+  >
     {children}
   </th>
 );
@@ -75,28 +84,37 @@ export const TableBody = ({ children }: { children: React.ReactNode }) => (
 
 export const TableRow = ({ children }: { children: React.ReactNode }) => (
   <tr className={css({
-    borderBottom: '1px solid',
-    borderColor: '#F3F4F6',
-    _hover: { 
-      backgroundColor: '#F9FAFB'
-    },
-    transition: 'background-color 0.2s ease',
+    transition: 'all',
     '&:last-child': {
       borderBottom: 'none'
     }
-  })}>
+  })}
+  style={{
+    borderBottom: '1px solid',
+    borderColor: '#F3F4F6',
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.backgroundColor = '#F9FAFB';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.backgroundColor = '';
+  }}
+  >
     {children}
   </tr>
 );
 
-export const TableCell = ({ children, colSpan, className }: { children: React.ReactNode, colSpan?: number, className?: string }) => (
+export const TableCell = ({ children, colSpan, className, style }: { children: React.ReactNode, colSpan?: number, className?: string, style?: React.CSSProperties }) => (
   <td 
     colSpan={colSpan}
     className={css({
-      padding: '16px',
       color: 'textPrimary',
       fontSize: 'sm'
     })}
+    style={{
+      padding: '16px',
+      ...style,
+    }}
   >
     {children}
   </td>
@@ -107,21 +125,21 @@ export const StatusBadge = ({ children, status }: { children: React.ReactNode, s
     switch (status.toLowerCase()) {
       case 'free':
       case 'wolne': return {
-        backgroundColor: 'primary',  // Panda CSS token bez 'colors.'
+        backgroundColor: 'primary',
         color: 'white'
       };
       case 'reserved':
       case 'zarezerwowane': return {
-        backgroundColor: 'bgGray',  // Panda CSS token bez 'colors.'
+        backgroundColor: 'bgGray',
         color: 'white'
       };
       case 'sold':
       case 'sprzedane': return {
-        backgroundColor: 'bgGray',  // Panda CSS token bez 'colors.'
+        backgroundColor: 'bgGray',
         color: 'white'
       };
       default: return {
-        backgroundColor: 'bgGray',  // Panda CSS token bez 'colors.'
+        backgroundColor: 'bgGray',
         color: 'white'
       };
     }
@@ -132,14 +150,18 @@ export const StatusBadge = ({ children, status }: { children: React.ReactNode, s
   return (
     <span className={css({
       display: 'inline-block',
-      padding: '4px 12px',
       borderRadius: 'base',
       fontSize: 'xs',
       fontWeight: 'semibold',
       textTransform: 'uppercase',
+    })}
+    style={{
+      padding: '4px 12px',
       letterSpacing: '0.5px',
-      ...styles
-    })}>
+      backgroundColor: styles.backgroundColor,
+      color: styles.color,
+    }}
+    >
       {children}
     </span>
   );
@@ -155,21 +177,13 @@ export const ViewControls = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const ViewButton = ({ children, active, onClick }: { children: React.ReactNode, active?: boolean, onClick?: () => void }) => (
-  <button
+  <Button
+    variant={active ? "primary" : "secondary"}
+    size="sm"
     onClick={onClick}
-    className={css({
-      padding: '2 4',
-      border: '1px solid',
-      borderColor: 'borderDark',
-      borderRadius: 'base',
-      backgroundColor: active ? 'primary' : 'bgWhite',
-      color: active ? 'white' : 'textSecondary',
-      cursor: 'pointer',
-      transition: 'all 0.2s ease'
-    })}
   >
     {children}
-  </button>
+  </Button>
 );
 
 export const ResultsInfo = ({ children }: { children: React.ReactNode }) => (
@@ -209,9 +223,12 @@ export const StatusLegendItem = ({ children, color }: { children: React.ReactNod
 export const CardHeader = ({ children }: { children: React.ReactNode }) => (
   <div className={css({
     padding: '4',
-    borderBottom: '1px solid',
     borderColor: 'border'
-  })}>
+  })}
+  style={{
+    borderBottom: '1px solid',
+  }}
+  >
     {children}
   </div>
 );
@@ -269,9 +286,12 @@ export const FieldValue = ({ children }: { children: React.ReactNode }) => (
 export const CardDetails = ({ children }: { children: React.ReactNode }) => (
   <div className={css({
     padding: '4',
-    borderTop: '1px solid',
     borderColor: 'border'
-  })}>
+  })}
+  style={{
+    borderTop: '1px solid',
+  }}
+  >
     {children}
   </div>
 );
@@ -351,11 +371,14 @@ export const LegendBadge = ({ color, status }: { color?: string, status?: string
   
   return (
     <span className={css({
+      borderRadius: 'sm',
+    })}
+    style={{
       width: '8px',
       height: '8px',
-      borderRadius: 'sm',
       backgroundColor: getColor()
-    })} />
+    }}
+    />
   );
 };
 
@@ -373,9 +396,12 @@ export const TableContainer = ({ children }: { children: React.ReactNode }) => (
   <div className={css({
     overflowX: 'auto',
     borderRadius: 'md',
-    border: '1px solid',
     borderColor: 'border'
-  })}>
+  })}
+  style={{
+    border: '1px solid',
+  }}
+  >
     {children}
   </div>
 );
@@ -429,15 +455,18 @@ export const FilterLabel = ({ children, htmlFor }: { children: React.ReactNode, 
 export const FilterSelect = ({ children, ...props }: { children: React.ReactNode } & React.SelectHTMLAttributes<HTMLSelectElement>) => (
   <select 
     className={css({
-      width: '100%',
-      padding: '2 3',
-      border: '1px solid',
+      paddingX: '3',
+      paddingY: '2',
       borderColor: 'borderDark',
       borderRadius: 'base',
       fontSize: 'sm',
       color: 'textPrimary',
-      backgroundColor: 'bgWhite'
+      backgroundColor: 'white'
     })}
+    style={{
+      width: '100%',
+      border: '1px solid',
+    }}
     {...props}
   >
     {children}
@@ -447,15 +476,18 @@ export const FilterSelect = ({ children, ...props }: { children: React.ReactNode
 export const FilterInput = ({ ...props }: React.InputHTMLAttributes<HTMLInputElement>) => (
   <input 
     className={css({
-      width: '100%',
-      padding: '2 3',
-      border: '1px solid',
+      paddingX: '3',
+      paddingY: '2',
       borderColor: 'borderDark',
       borderRadius: 'base',
       fontSize: 'sm',
       color: 'textPrimary',
-      backgroundColor: 'bgWhite'
+      backgroundColor: 'white'
     })}
+    style={{
+      width: '100%',
+      border: '1px solid',
+    }}
     {...props}
   />
 );
@@ -487,14 +519,17 @@ export const CardsContainer = ({ children, id, 'aria-live': ariaLive }: { childr
 
 export const UnitCard = ({ children, sold }: { children: React.ReactNode, sold?: boolean }) => (
   <div className={css({
-    backgroundColor: 'bgWhite',
+    backgroundColor: 'white',
     borderRadius: 'md',
-    border: '1px solid',
     borderColor: sold ? 'red.300' : 'border',
     boxShadow: 'sm',
     overflow: 'hidden',
     opacity: sold ? 0.7 : 1
-  })}>
+  })}
+  style={{
+    border: '1px solid',
+  }}
+  >
     {children}
   </div>
 );

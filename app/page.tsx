@@ -40,38 +40,42 @@ export default async function HomePage() {
   }))
 
   return (
-    <div className={css({
-      minHeight: '100vh',
-      backgroundColor: 'white'
-    })}>
+    <div 
+      style={{ minHeight: '100vh' }}
+      className={css({
+        backgroundColor: 'white'
+      })}
+    >
       <SiteHeader />
       
-      <main className={css({
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '32px 24px'
+      <main 
+        style={{ maxWidth: '1200px', margin: '0 auto' }}
+        className={css({
+        paddingX: '6',
+        paddingY: '8'
       })}>
         <section className={css({
-          marginBottom: '64px'
+          marginBottom: '16'
         })}>
           <div className={css({
             textAlign: 'center',
-            marginBottom: '48px'
+            marginBottom: '12'
           })}>
             <h1 className={css({
-              fontSize: { base: '36px', md: '48px' },
+              fontSize: { base: '4xl', md: '5xl' },
               fontWeight: 'bold',
               color: 'textPrimary',
-              marginBottom: '24px'
+              marginBottom: '6'
             })}>
               Harmonia Rząska
             </h1>
-            <p className={css({
-              fontSize: 'xl',
-              color: 'textSecondary',
-              maxWidth: '768px',
-              margin: '0 auto'
-            })}>
+            <p 
+              style={{ maxWidth: '768px', margin: '0 auto' }}
+              className={css({
+                fontSize: 'xl',
+                color: 'textSecondary'
+              })}
+            >
               Nowoczesne osiedle mieszkaniowe, gdzie komfort spotyka się z naturą. 
               Odkryj swoje wymarzone miejsce do życia.
             </p>
@@ -85,17 +89,17 @@ export default async function HomePage() {
         <ArchitectureSection />
         
         <section className={css({
-          padding: '64px 0'
+          paddingX: '0',
+          paddingY: '16'
         })}>
-          <div className={css({
-            maxWidth: '896px',
-            margin: '0 auto'
-          })}>
+          <div 
+            style={{ maxWidth: '896px', margin: '0 auto' }}
+          >
             <h2 className={css({
-              fontSize: '30px',
+              fontSize: '3xl',
               fontWeight: 'bold',
               textAlign: 'center',
-              marginBottom: '32px'
+              marginBottom: '8'
             })}>Skontaktuj się z nami</h2>
              <ContactForm />
           </div>

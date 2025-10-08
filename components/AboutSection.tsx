@@ -8,17 +8,19 @@ export default function AboutSection() {
       id="o-nas" 
       aria-labelledby="about-title"
       className={css({
-        padding: '64px 0',
+        paddingX: '0',
+        paddingY: '16',
         backgroundColor: 'white'
       })}
     >
-      <div className={css({
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 24px',
+      <div 
+        style={{ maxWidth: '1200px', margin: '0 auto' }}
+        className={css({
+        paddingX: '6',
+        paddingY: '0',
         display: 'grid',
         gridTemplateColumns: { base: '1fr', lg: '1fr 1fr' },
-        gap: '48px',
+        gap: '12',
         alignItems: 'center'
       })}>
         <div className={css({
@@ -49,11 +51,11 @@ export default function AboutSection() {
           <h2 
             id="about-title" 
             className={css({
-              fontSize: { base: '48px', md: '64px' },
+              fontSize: { base: '5xl', md: '6xl' },
               fontWeight: 'bold',
               color: 'primary',
               lineHeight: 'tight',
-              marginBottom: '16px'
+              marginBottom: '4'
             })}
           >
             <span>TARASY</span><br />

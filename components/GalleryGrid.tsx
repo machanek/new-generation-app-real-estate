@@ -10,13 +10,13 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
       className={css({
         display: 'flex',
         flexDirection: 'column',
-        gap: '16px'
+        gap: '4'
       })}
       aria-label="Galeria zdjęć osiedla"
     >
-      <div className={css({
-        width: '100%',
-        height: '400px',
+      <div 
+        style={{ width: '100%', height: '400px' }}
+        className={css({
         overflow: 'hidden',
         borderRadius: 'base'
       })}>
@@ -24,26 +24,22 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
           src={items[0]?.src} 
           alt={items[0]?.alt ?? "Zdjęcie 1"} 
           loading="eager"
-          className={css({
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
-          })}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
       </div>
       <div className={css({
         display: 'flex',
-        gap: '8px',
+        gap: '2',
         overflowX: 'auto',
-        padding: '8px 0'
+        paddingX: '0',
+        paddingY: '2'
       })}>
         {items.map((it, i) => (
           <div 
             key={i} 
+            style={{ width: '80px', height: '60px' }}
             className={css({
               flexShrink: 0,
-              width: '80px',
-              height: '60px',
               borderRadius: 'base',
               overflow: 'hidden',
               opacity: i === 0 ? 1 : 0.7,
@@ -57,11 +53,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
               src={it.src} 
               alt={it.alt ?? `Zdjęcie ${i+1}`} 
               loading="lazy"
-              className={css({
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover'
-              })}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
         ))}

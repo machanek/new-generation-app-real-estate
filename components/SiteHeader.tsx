@@ -4,7 +4,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import { Menu, Download, Phone } from "lucide-react";
-import { ButtonLink } from "@/components/ui/Button";
+import { ButtonLink, Button } from "@/components/ui/Button";
 import { css } from "../styled-system/css";
 
 export default function SiteHeader() {
@@ -14,53 +14,55 @@ export default function SiteHeader() {
     <>
       <a 
         href="#main-content" 
-        style={{
+        style={{ left: '-9999px' }}
+        className={css({
           position: 'absolute',
-          left: '-9999px',
           zIndex: 999,
-          padding: '8px 12px',
-          backgroundColor: '#065F46',
-          color: '#FFFFFF',
+          paddingX: '3',
+          paddingY: '2',
+          backgroundColor: 'primary',
+          color: 'white',
           textDecoration: 'none',
-          borderRadius: '6px',
-          fontWeight: '600',
-        }}
-        onFocus={(e) => {
-          e.target.style.left = '16px';
-          e.target.style.top = '16px';
-        }}
+          borderRadius: 'base',
+          fontWeight: 'semibold',
+          transition: 'all',
+          _focus: {
+            left: '4',
+            top: '4'
+          }
+        })}
       >
         Przejdź do głównej treści
       </a>
       
-      <header style={{
+      <header 
+        style={{ top: 0, left: 0, width: '100%', borderBottom: '1px solid' }}
+        className={css({
         position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        backgroundColor: '#FFFFFF',
-        borderBottom: '1px solid #E5E7EB',
+        backgroundColor: 'bgWhite',
+        borderColor: 'border',
         zIndex: 999,
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      }}>
-        <div style={{
+        transition: 'all',
+      })}>
+        <div 
+          style={{ maxWidth: '1200px', margin: '0 auto' }}
+          className={css({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '80px',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 16px',
-        }}>
+          height: '20',
+          paddingX: '4',
+          paddingY: '0',
+        })}>
           <a 
             href="#top" 
             aria-label="Harmonia Rząska — strona główna" 
-            style={{
+            className={css({
               display: 'flex',
               alignItems: 'center',
               textDecoration: 'none',
-              transition: 'all 0.3s ease',
-            }}
+              transition: 'all',
+            })}
           >
             <img 
               src="/assets/logo-harmonia-rzaska.svg" 
@@ -68,11 +70,7 @@ export default function SiteHeader() {
               className={css({
                 height: '10',
                 width: 'auto',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  filter: 'brightness(1.1)',
-                  transform: 'scale(1.02)'
-                }
+                transition: 'all'
               })}
             />
           </a>
@@ -92,8 +90,9 @@ export default function SiteHeader() {
                 color: 'textPrimary',
                 textDecoration: 'none',
                 fontWeight: 'medium',
-                padding: '8px 16px',
-                transition: 'color 0.3s ease',
+                paddingX: '4',
+                paddingY: '3',
+                transition: 'colors',
                 position: 'relative',
                 _hover: {
                   color: 'primary'
@@ -108,8 +107,9 @@ export default function SiteHeader() {
                 color: 'textPrimary',
                 textDecoration: 'none',
                 fontWeight: 'medium',
-                padding: '8px 16px',
-                transition: 'color 0.3s ease',
+                paddingX: '4',
+                paddingY: '3',
+                transition: 'colors',
                 position: 'relative',
                 _hover: {
                   color: 'primary'
@@ -124,8 +124,9 @@ export default function SiteHeader() {
                 color: 'textPrimary',
                 textDecoration: 'none',
                 fontWeight: 'medium',
-                padding: '8px 16px',
-                transition: 'color 0.3s ease',
+                paddingX: '4',
+                paddingY: '3',
+                transition: 'colors',
                 position: 'relative',
                 _hover: {
                   color: 'primary'
@@ -140,8 +141,9 @@ export default function SiteHeader() {
                 color: 'textPrimary',
                 textDecoration: 'none',
                 fontWeight: 'medium',
-                padding: '8px 16px',
-                transition: 'color 0.3s ease',
+                paddingX: '4',
+                paddingY: '3',
+                transition: 'colors',
                 position: 'relative',
                 _hover: {
                   color: 'primary'
@@ -197,35 +199,26 @@ export default function SiteHeader() {
               <Phone size={16} />
               730 090 030
             </ButtonLink>
-            <button 
+            <Button 
               type="button"
+              variant="secondary"
+              size="sm"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Menu"
               aria-expanded={isMenuOpen}
-              style={{
-                background: 'none',
-                border: '1px solid #065F46',
-                borderRadius: '4px',
-                padding: '8px',
-                cursor: 'pointer',
-                color: '#065F46',
-                transition: 'all 0.3s ease',
-              }}
             >
               <Menu size={24} />
-            </button>
+            </Button>
           </nav>
         </div>
 
         {/* MOBILE DROPDOWN */}
         {isMenuOpen && (
-          <div className={css({
+          <div 
+            style={{ top: '100%', left: 0, width: '100%', borderTop: '1px solid' }}
+            className={css({
             position: 'absolute',
-            top: '100%',
-            left: 0,
-            width: '100%',
-            backgroundColor: 'bg-white',
-            borderTop: '1px solid',
+            backgroundColor: 'bgWhite',
             borderColor: 'border',
             boxShadow: 'md',
             zIndex: 'max',
@@ -233,73 +226,92 @@ export default function SiteHeader() {
               display: 'none'
             }
           })}>
-            <div style={{
-              maxWidth: '1200px',
-              margin: '0 auto',
-              padding: '16px',
-            }}>
-              <nav style={{
+            <div 
+              style={{ maxWidth: '1200px', margin: '0 auto' }}
+              className={css({
+              padding: '4',
+            })}>
+              <nav className={css({
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px',
-              }}>
+                gap: '4',
+              })}>
                 <a 
                   href="#o-nas" 
                   onClick={() => setIsMenuOpen(false)} 
-                  style={{
+                  style={{ borderBottom: '1px solid' }}
+                  className={css({
                     display: 'block',
-                    padding: '12px 0',
-                    color: '#1F2937',
+                    paddingX: '4',
+                paddingY: '3',
+                    color: 'textPrimary',
                     textDecoration: 'none',
-                    fontWeight: '500',
-                    borderBottom: '1px solid #F3F4F6',
-                    transition: 'color 0.3s ease',
-                  }}
+                    fontWeight: 'medium',
+                    borderColor: 'borderLight',
+                    transition: 'colors',
+                    _hover: {
+                      color: 'primary'
+                    }
+                  })}
                 >
                   O nas
                 </a>
                 <a 
                   href="#lokale" 
                   onClick={() => setIsMenuOpen(false)} 
-                  style={{
+                  style={{ borderBottom: '1px solid' }}
+                  className={css({
                     display: 'block',
-                    padding: '12px 0',
-                    color: '#1F2937',
+                    paddingX: '4',
+                paddingY: '3',
+                    color: 'textPrimary',
                     textDecoration: 'none',
-                    fontWeight: '500',
-                    borderBottom: '1px solid #F3F4F6',
-                    transition: 'color 0.3s ease',
-                  }}
+                    fontWeight: 'medium',
+                    borderColor: 'borderLight',
+                    transition: 'colors',
+                    _hover: {
+                      color: 'primary'
+                    }
+                  })}
                 >
                   Lokale
                 </a>
                 <a 
                   href="#galeria" 
                   onClick={() => setIsMenuOpen(false)} 
-                  style={{
+                  style={{ borderBottom: '1px solid' }}
+                  className={css({
                     display: 'block',
-                    padding: '12px 0',
-                    color: '#1F2937',
+                    paddingX: '4',
+                paddingY: '3',
+                    color: 'textPrimary',
                     textDecoration: 'none',
-                    fontWeight: '500',
-                    borderBottom: '1px solid #F3F4F6',
-                    transition: 'color 0.3s ease',
-                  }}
+                    fontWeight: 'medium',
+                    borderColor: 'borderLight',
+                    transition: 'colors',
+                    _hover: {
+                      color: 'primary'
+                    }
+                  })}
                 >
                   Galeria
                 </a>
                 <a 
                   href="#kontakt" 
                   onClick={() => setIsMenuOpen(false)} 
-                  style={{
+                  className={css({
                     display: 'block',
-                    padding: '12px 0',
-                    color: '#1F2937',
+                    paddingX: '4',
+                paddingY: '3',
+                    color: 'textPrimary',
                     textDecoration: 'none',
-                    fontWeight: '500',
+                    fontWeight: 'medium',
                     borderBottom: 'none',
-                    transition: 'color 0.3s ease',
-                  }}
+                    transition: 'colors',
+                    _hover: {
+                      color: 'primary'
+                    }
+                  })}
                 >
                   Kontakt
                 </a>

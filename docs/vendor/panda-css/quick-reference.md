@@ -168,6 +168,28 @@ css({
 
 ---
 
+## Gotchas (Things That Tripped Us Up)
+
+❌ **Don't use shorthand padding/margin**
+```typescript
+// WRONG - Panda CSS doesn't understand this
+padding: '2 3'
+
+// CORRECT - use paddingX/paddingY
+paddingX: '3',  // left + right
+paddingY: '2'   // top + bottom
+
+// OR - use object syntax
+padding: { x: '3', y: '2' }
+
+// OR - use pixel values directly
+padding: '8px 12px'
+
+Why: Panda CSS is NOT Tailwind. It doesn't support space-separated tokens.
+```
+
+---
+
 ## When to Check Official Docs
 
 **Use this quick reference for:**

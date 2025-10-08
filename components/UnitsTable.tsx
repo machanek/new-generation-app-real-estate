@@ -40,9 +40,11 @@ export default function UnitsTable({ items }: Props) {
                 colSpan={10} 
                 className={css({
                   textAlign: 'center',
-                  padding: '32px 0',
                   color: 'textSecondary'
                 })}
+                style={{
+                  padding: '32px 0',
+                }}
               >
                 Brak dostępnych mieszkań
               </TableCell>

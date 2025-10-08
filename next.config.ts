@@ -31,8 +31,8 @@ const nextConfig: NextConfig = {
   },
   
   
-  // Dla Netlify deployment
-  output: 'standalone',
+  // Dla Netlify deployment - tylko w production
+  ...(process.env.NODE_ENV === 'production' && { output: 'standalone' }),
   
   // Redirects usunięte - Payload CMS ma własny routing
 };

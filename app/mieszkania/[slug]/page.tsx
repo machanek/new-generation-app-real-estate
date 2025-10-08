@@ -124,17 +124,18 @@ export default async function UnitPage({ params }: Props) {
   }
 
   return (
-    <div className={css({
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '32px 24px'
-    })}>
-      <div className={css({
-        maxWidth: '1280px',
-        margin: '0 auto'
-      })}>
+    <div 
+      style={{ maxWidth: '1200px', margin: '0 auto' }}
+      className={css({
+        paddingX: '6',
+        paddingY: '8'
+      })}
+    >
+      <div 
+        style={{ maxWidth: '1280px', margin: '0 auto' }}
+      >
         <div className={css({
-          marginBottom: '32px'
+          marginBottom: '8'
         })}>
           <Link 
             href="/" 
@@ -143,7 +144,7 @@ export default async function UnitPage({ params }: Props) {
               alignItems: 'center',
               color: 'primary',
               textDecoration: 'none',
-              marginBottom: '16px',
+              marginBottom: '4',
               _hover: {
                 color: 'primaryLight'
               }
@@ -152,7 +153,7 @@ export default async function UnitPage({ params }: Props) {
             ← Powrót do oferty
           </Link>
           <h1 className={css({
-            fontSize: '36px',
+            fontSize: '4xl',
             fontWeight: 'bold',
             color: 'textPrimary'
           })}>

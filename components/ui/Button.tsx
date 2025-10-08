@@ -15,15 +15,21 @@ const buttonBaseStyles = css({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '2',
-  border: 'none',
-  borderRadius: 'base',
-  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif',
-  fontWeight: 'medium',
-  textDecoration: 'none',
+  fontWeight: 'semibold',
+  borderRadius: 'md',
   cursor: 'pointer',
-  transition: 'all 0.2s',
-  whiteSpace: 'nowrap',
-  width: 'auto',
+  transition: 'all', // Panda akceptuje tylko 'all', nie '0.2s'
+  textDecoration: 'none',
+  _hover: {
+    transform: 'translateY(-1px)',
+  },
+  _focus: {
+    // Focus styles będą inline (zbyt custom dla Panda)
+  },
+  _disabled: {
+    opacity: 0.5,
+    cursor: 'not-allowed',
+  },
 });
 
 // Variant styles
@@ -33,19 +39,45 @@ const buttonPrimaryStyles = css({
   _hover: {
     backgroundColor: 'primaryLight',
     transform: 'translateY(-1px)',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+    boxShadow: 'md',
+  },
+  _focus: {
+    backgroundColor: 'primaryLight',
+  },
+  _focusVisible: {
+    backgroundColor: 'primaryLight',
+  },
+  _disabled: {
+    opacity: 0.6,
+    cursor: 'not-allowed',
+    transform: 'none',
+    backgroundColor: 'primary',
   },
 });
 
 const buttonSecondaryStyles = css({
   backgroundColor: 'transparent',
   color: 'primary',
-  border: '2px solid',
   borderColor: 'primary',
   _hover: {
     backgroundColor: 'primary',
     color: 'white',
     transform: 'scale(1.05)',
+  },
+  _focus: {
+    backgroundColor: 'primary',
+    color: 'white',
+  },
+  _focusVisible: {
+    backgroundColor: 'primary',
+    color: 'white',
+  },
+  _disabled: {
+    opacity: 0.6,
+    cursor: 'not-allowed',
+    transform: 'none',
+    backgroundColor: 'transparent',
+    color: 'primary',
   },
 });
 
@@ -55,31 +87,39 @@ const buttonGhostStyles = css({
   _hover: {
     color: 'primary',
   },
+  _focus: {
+    color: 'primary',
+  },
+  _focusVisible: {
+    color: 'primary',
+  },
+  _disabled: {
+    opacity: 0.6,
+    cursor: 'not-allowed',
+    color: 'textPrimary',
+  },
 });
 
 // Size styles
 const buttonSizeStyles = {
   sm: css({
-    padding: '2 3',
+    paddingX: '3',      // 12px (left+right)
+    paddingY: '2',      // 8px (top+bottom)
     fontSize: 'xs',
-    minHeight: '8',
   }),
   md: css({
-    padding: '3 4',
+    paddingX: '4',      // 16px (left+right)
+    paddingY: '3',      // 12px (top+bottom)
     fontSize: 'sm',
-    minHeight: '10',
   }),
   lg: css({
-    padding: '4 6',
+    paddingX: '6',      // 24px (left+right)
+    paddingY: '4',      // 16px (top+bottom)
     fontSize: 'base',
-    minHeight: '12',
   }),
 };
 
-// Full width style
-const buttonFullWidthStyles = css({
-  width: '100%',
-});
+// Full width style - moved to inline styles due to Panda CSS strict typing
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant = 'primary', size = 'md', fullWidth = false, className, ...props }, ref) => {
@@ -100,14 +140,33 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       return buttonSizeStyles[size];
     };
 
-    const getFullWidthStyles = () => {
-      return fullWidth ? buttonFullWidthStyles : '';
+    const getMinHeight = () => {
+      switch (size) {
+        case 'sm': return '32px';
+        case 'md': return '40px';
+        case 'lg': return '48px';
+        default: return '40px';
+      }
     };
 
     return (
       <button 
         ref={ref} 
-        className={`${buttonBaseStyles} ${getVariantStyles()} ${getSizeStyles()} ${getFullWidthStyles()} ${className || ''}`}
+        className={`${buttonBaseStyles} ${getVariantStyles()} ${getSizeStyles()} ${className || ''}`}
+        style={{
+          // Inline styles dla wartości których Panda nie akceptuje
+          border: variant === 'secondary' ? '2px solid' : '2px solid transparent',
+          minHeight: getMinHeight(),
+          width: fullWidth ? '100%' : 'auto',
+        }}
+        onFocus={(e) => {
+          // Focus outline - inline bo Panda strict
+          e.currentTarget.style.outline = '2px solid #065F46';
+          e.currentTarget.style.outlineOffset = '2px';
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.outline = 'none';
+        }}
         {...props}
       >
         {children}
@@ -138,14 +197,31 @@ export const ButtonLink = React.forwardRef<HTMLAnchorElement, { children: React.
       return buttonSizeStyles[size];
     };
 
-    const getFullWidthStyles = () => {
-      return fullWidth ? buttonFullWidthStyles : '';
+    const getMinHeight = () => {
+      switch (size) {
+        case 'sm': return '32px';
+        case 'md': return '40px';
+        case 'lg': return '48px';
+        default: return '40px';
+      }
     };
 
     return (
       <a 
         ref={ref} 
-        className={`${buttonBaseStyles} ${getVariantStyles()} ${getSizeStyles()} ${getFullWidthStyles()} ${className || ''}`}
+        className={`${buttonBaseStyles} ${getVariantStyles()} ${getSizeStyles()} ${className || ''}`}
+        style={{
+          border: variant === 'secondary' ? '2px solid' : '2px solid transparent',
+          minHeight: getMinHeight(),
+          width: fullWidth ? '100%' : 'auto',
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.outline = '2px solid #065F46';
+          e.currentTarget.style.outlineOffset = '2px';
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.outline = 'none';
+        }}
         {...props}
       >
         {children}
