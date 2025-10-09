@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button } from 'react-aria-components';
 import Image from 'next/image';
 import { css } from '@/styled-system/css';
 
@@ -24,38 +25,38 @@ export const UnitHeader = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const UnitTitle = ({ children }: { children: React.ReactNode }) => (
-  <h1 
-    className={css({ 
+  <h1
+    className={css({
       fontWeight: 'bold',
       color: 'textPrimary',
-      marginBottom: '4'
+      marginBottom: '4',
+      fontSize: { base: '24px', md: '32px', lg: '36px' }
     })}
-    style={{ fontSize: '32px' }}
   >
     {children}
   </h1>
 );
 
 export const UnitSubtitle = ({ children }: { children: React.ReactNode }) => (
-  <p 
-    className={css({ 
+  <p
+    className={css({
       color: 'textSecondary',
-      marginBottom: '6'
+      marginBottom: '6',
+      fontSize: { base: '14px', md: '16px', lg: '18px' }
     })}
-    style={{ fontSize: '18px' }}
   >
     {children}
   </p>
 );
 
 export const UnitContent = ({ children }: { children: React.ReactNode }) => (
-  <div 
-    className={css({ 
+  <div
+    className={css({
       display: 'grid',
+      gridTemplateColumns: { base: '1fr', md: '1fr 1fr' },
       gap: '8',
       marginBottom: '8'
     })}
-    style={{ gridTemplateColumns: '1fr 1fr' }}
   >
     {children}
   </div>
@@ -87,21 +88,53 @@ export const GalleryGrid = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-export const GalleryItem = ({ children, onClick }: { children: React.ReactNode, onClick?: () => void }) => (
-  <div 
-    className={css({ 
-      cursor: onClick ? 'pointer' : 'default',
-      borderRadius: 'md',
-      overflow: 'hidden'
-    })}
-    style={{ 
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' 
-    }}
-    onClick={onClick}
-  >
-    {children}
-  </div>
-);
+export const GalleryItem = ({ children, onPress, ariaLabel }: { children: React.ReactNode, onPress?: () => void, ariaLabel?: string }) => {
+  if (!onPress) {
+    return (
+      <div
+        className={css({
+          borderRadius: 'md',
+          overflow: 'hidden'
+        })}
+        style={{
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <Button
+      onPress={onPress}
+      aria-label={ariaLabel}
+      className={css({
+        cursor: 'pointer',
+        borderRadius: 'md',
+        overflow: 'hidden',
+        border: 'none',
+        padding: '0',
+        background: 'none',
+        transition: 'all',
+        _hover: {
+          transform: 'scale(1.05)',
+          boxShadow: 'lg'
+        },
+        _focusVisible: {
+          outline: '2px solid',
+          outlineColor: 'primary',
+          outlineOffset: '2px'
+        }
+      })}
+      style={{
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+      }}
+    >
+      {children}
+    </Button>
+  );
+};
 
 export const InfoGrid = ({ children }: { children: React.ReactNode }) => (
   <div 
