@@ -1,8 +1,9 @@
 import React from 'react';
+import { Button as AriaButton, type ButtonProps as AriaButtonProps } from 'react-aria-components';
 import { css } from '@/styled-system/css';
 
-// Button component with Panda CSS
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+// Button component with React Aria + Panda CSS
+export interface ButtonProps extends AriaButtonProps {
   variant?: 'primary' | 'secondary' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
@@ -18,13 +19,10 @@ const buttonBaseStyles = css({
   fontWeight: 'semibold',
   borderRadius: 'md',
   cursor: 'pointer',
-  transition: 'all', // Panda akceptuje tylko 'all', nie '0.2s'
+  transition: 'all',
   textDecoration: 'none',
   _hover: {
     transform: 'translateY(-1px)',
-  },
-  _focus: {
-    // Focus styles będą inline (zbyt custom dla Panda)
   },
   _disabled: {
     opacity: 0.5,
@@ -46,6 +44,9 @@ const buttonPrimaryStyles = css({
   },
   _focusVisible: {
     backgroundColor: 'primaryLight',
+    outline: '2px solid',
+    outlineColor: 'primary',
+    outlineOffset: '2px',
   },
   _disabled: {
     opacity: 0.6,
@@ -71,6 +72,9 @@ const buttonSecondaryStyles = css({
   _focusVisible: {
     backgroundColor: 'primary',
     color: 'white',
+    outline: '2px solid',
+    outlineColor: 'primary',
+    outlineOffset: '2px',
   },
   _disabled: {
     opacity: 0.6,
@@ -92,6 +96,9 @@ const buttonGhostStyles = css({
   },
   _focusVisible: {
     color: 'primary',
+    outline: '2px solid',
+    outlineColor: 'primary',
+    outlineOffset: '2px',
   },
   _disabled: {
     opacity: 0.6,
@@ -103,23 +110,21 @@ const buttonGhostStyles = css({
 // Size styles
 const buttonSizeStyles = {
   sm: css({
-    paddingX: '3',      // 12px (left+right)
-    paddingY: '2',      // 8px (top+bottom)
+    paddingX: '3',
+    paddingY: '2',
     fontSize: 'xs',
   }),
   md: css({
-    paddingX: '4',      // 16px (left+right)
-    paddingY: '3',      // 12px (top+bottom)
+    paddingX: '4',
+    paddingY: '3',
     fontSize: 'sm',
   }),
   lg: css({
-    paddingX: '6',      // 24px (left+right)
-    paddingY: '4',      // 16px (top+bottom)
+    paddingX: '6',
+    paddingY: '4',
     fontSize: 'base',
   }),
 };
-
-// Full width style - moved to inline styles due to Panda CSS strict typing
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant = 'primary', size = 'md', fullWidth = false, className, ...props }, ref) => {
@@ -150,35 +155,36 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     return (
-      <button 
-        ref={ref} 
+      <AriaButton
+        ref={ref}
         className={`${buttonBaseStyles} ${getVariantStyles()} ${getSizeStyles()} ${className || ''}`}
         style={{
-          // Inline styles dla wartości których Panda nie akceptuje
           border: variant === 'secondary' ? '2px solid' : '2px solid transparent',
           minHeight: getMinHeight(),
           width: fullWidth ? '100%' : 'auto',
         }}
-        onFocus={(e) => {
-          // Focus outline - inline bo Panda strict
-          e.currentTarget.style.outline = '2px solid #065F46';
-          e.currentTarget.style.outlineOffset = '2px';
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.outline = 'none';
-        }}
         {...props}
       >
         {children}
-      </button>
+      </AriaButton>
     );
   }
 );
 
 Button.displayName = 'Button';
 
-// Link variant for navigation
-export const ButtonLink = React.forwardRef<HTMLAnchorElement, { children: React.ReactNode; variant?: 'primary' | 'secondary' | 'ghost'; size?: 'sm' | 'md' | 'lg'; fullWidth?: boolean; className?: string; href: string; target?: string; rel?: string }>(
+// Link variant for navigation (using native <a> with button styles)
+export const ButtonLink = React.forwardRef<HTMLAnchorElement, {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
+  className?: string;
+  href: string;
+  target?: string;
+  rel?: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}>(
   ({ children, variant = 'primary', size = 'md', fullWidth = false, className, ...props }, ref) => {
     const getVariantStyles = () => {
       switch (variant) {
@@ -207,20 +213,13 @@ export const ButtonLink = React.forwardRef<HTMLAnchorElement, { children: React.
     };
 
     return (
-      <a 
-        ref={ref} 
+      <a
+        ref={ref}
         className={`${buttonBaseStyles} ${getVariantStyles()} ${getSizeStyles()} ${className || ''}`}
         style={{
           border: variant === 'secondary' ? '2px solid' : '2px solid transparent',
           minHeight: getMinHeight(),
           width: fullWidth ? '100%' : 'auto',
-        }}
-        onFocus={(e) => {
-          e.currentTarget.style.outline = '2px solid #065F46';
-          e.currentTarget.style.outlineOffset = '2px';
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.outline = 'none';
         }}
         {...props}
       >

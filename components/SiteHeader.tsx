@@ -76,7 +76,9 @@ export default function SiteHeader() {
           </a>
 
           {/* DESKTOP NAV */}
-          <nav className={css({
+          <nav
+            aria-label="Główna nawigacja"
+            className={css({
             display: 'none',
             alignItems: 'center',
             gap: '6',
@@ -173,7 +175,9 @@ export default function SiteHeader() {
           </nav>
 
           {/* MOBILE NAV */}
-          <nav className={css({
+          <nav
+            aria-label="Nawigacja mobilna"
+            className={css({
             display: 'flex',
             alignItems: 'center',
             gap: '3',
@@ -199,13 +203,14 @@ export default function SiteHeader() {
               <Phone size={16} />
               730 090 030
             </ButtonLink>
-            <Button 
+            <Button
               type="button"
               variant="secondary"
               size="sm"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Menu"
+              onPress={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
               <Menu size={24} />
             </Button>
@@ -214,7 +219,10 @@ export default function SiteHeader() {
 
         {/* MOBILE DROPDOWN */}
         {isMenuOpen && (
-          <div 
+          <div
+            id="mobile-menu"
+            role="dialog"
+            aria-label="Menu nawigacyjne"
             style={{ top: '100%', left: 0, width: '100%', borderTop: '1px solid' }}
             className={css({
             position: 'absolute',
@@ -226,12 +234,14 @@ export default function SiteHeader() {
               display: 'none'
             }
           })}>
-            <div 
+            <div
               style={{ maxWidth: '1200px', margin: '0 auto' }}
               className={css({
               padding: '4',
             })}>
-              <nav className={css({
+              <nav
+                aria-label="Menu mobilne"
+                className={css({
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '4',
