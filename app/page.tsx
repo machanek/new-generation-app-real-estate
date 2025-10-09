@@ -62,10 +62,10 @@ export default async function HomePage() {
       
       <HeroSection heroImage={heroImage} />
       
-      <main 
+      <main
         style={{ maxWidth: '1200px', margin: '0 auto' }}
         className={css({
-        paddingX: '6',
+        paddingX: { base: '4', md: '6' },
         paddingY: '8'
       })}>
 
