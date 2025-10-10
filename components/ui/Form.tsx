@@ -3,10 +3,10 @@ import { css } from '../../styled-system/css';
 import { Button } from './Button';
 
 export const Form = ({ children, onSubmit, id }: { children: React.ReactNode, onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void, id?: string }) => (
-  <form 
+  <form
     id={id}
     className={css({
-      padding: '8',
+      padding: { base: '4', md: '6', lg: '8' },
       backgroundColor: 'white',
       borderRadius: 'md',
       boxShadow: 'md'
@@ -14,6 +14,7 @@ export const Form = ({ children, onSubmit, id }: { children: React.ReactNode, on
     style={{
       maxWidth: '800px',
       margin: '0 auto',
+      width: '100%',
     }}
     onSubmit={onSubmit}
   >
@@ -33,7 +34,8 @@ export const FormGroup = ({ children, fullWidth }: { children: React.ReactNode, 
 export const FormRow = ({ children }: { children: React.ReactNode }) => (
   <div className={css({
     display: 'flex',
-    gap: '4',
+    flexDirection: { base: 'column', md: 'row' },
+    gap: { base: '0', md: '4' },
     marginBottom: '6'
   })}>
     {children}
