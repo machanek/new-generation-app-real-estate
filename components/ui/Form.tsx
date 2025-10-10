@@ -174,7 +174,8 @@ export const FormSuccess = ({ children }: { children: React.ReactNode }) => (
 export const CheckboxGroup = ({ children }: { children: React.ReactNode }) => (
   <div className={css({
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     gap: '2'
   })}>
     {children}
@@ -182,25 +183,30 @@ export const CheckboxGroup = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const FormCheckbox = ({ ...props }: React.InputHTMLAttributes<HTMLInputElement>) => (
-  <input 
+  <input
     type="checkbox"
     className={css({
-      marginRight: '2',
-      accentColor: 'primary'
+      marginTop: '1',
+      accentColor: 'primary',
+      flexShrink: 0,
+      cursor: 'pointer'
     })}
+    style={{
+      width: '18px',
+      height: '18px'
+    }}
     {...props}
   />
 );
 
 export const CheckboxLabel = ({ children, htmlFor }: { children: React.ReactNode, htmlFor?: string }) => (
-  <label 
+  <label
     htmlFor={htmlFor}
     className={css({
-      display: 'flex',
-      alignItems: 'center',
       fontSize: 'sm',
       color: 'textSecondary',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      lineHeight: 'relaxed'
     })}
   >
     {children}
