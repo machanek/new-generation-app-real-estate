@@ -2,9 +2,10 @@
 import { css } from '../../styled-system/css';
 import { Button } from './Button';
 
-export const Form = ({ children, onSubmit, id }: { children: React.ReactNode, onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void, id?: string }) => (
+export const Form = ({ children, onSubmit, id, 'aria-label': ariaLabel }: { children: React.ReactNode, onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void, id?: string, 'aria-label'?: string }) => (
   <form
     id={id}
+    aria-label={ariaLabel}
     className={css({
       padding: { base: '4', md: '6', lg: '8' },
       backgroundColor: 'white',
@@ -189,7 +190,12 @@ export const FormCheckbox = ({ ...props }: React.InputHTMLAttributes<HTMLInputEl
       marginTop: '1',
       accentColor: 'primary',
       flexShrink: 0,
-      cursor: 'pointer'
+      cursor: 'pointer',
+      _focusVisible: {
+        outline: '2px solid',
+        outlineColor: 'primary',
+        outlineOffset: '2px',
+      }
     })}
     style={{
       width: '18px',
@@ -199,9 +205,10 @@ export const FormCheckbox = ({ ...props }: React.InputHTMLAttributes<HTMLInputEl
   />
 );
 
-export const CheckboxLabel = ({ children, htmlFor }: { children: React.ReactNode, htmlFor?: string }) => (
+export const CheckboxLabel = ({ children, htmlFor, id }: { children: React.ReactNode, htmlFor?: string, id?: string }) => (
   <label
     htmlFor={htmlFor}
+    id={id}
     className={css({
       fontSize: 'sm',
       color: 'textSecondary',
