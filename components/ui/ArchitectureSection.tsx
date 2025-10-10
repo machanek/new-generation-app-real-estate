@@ -1,19 +1,39 @@
 // Simple architecture section components with inline styles - ALL EXPORTS
 import { css } from '../../styled-system/css';
 export const ArchitectureSection = ({ children, id }: { children: React.ReactNode, id?: string }) => (
-  <section id={id} style={{ padding: '64px 0', backgroundColor: 'white' }}>
+  <section
+    id={id}
+    className={css({
+      paddingY: { base: '8', md: '12', lg: '16' },
+      backgroundColor: 'white'
+    })}
+  >
     {children}
   </section>
 );
 
 export const ArchitectureContainer = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
+  <div
+    className={css({
+      maxWidth: '1200px',
+      marginX: 'auto',
+      paddingX: { base: '4', md: '6' }
+    })}
+  >
     {children}
   </div>
 );
 
 export const ArchitectureTitle = ({ children }: { children: React.ReactNode }) => (
-  <h2 style={{ fontSize: '2rem', fontWeight: '700', color: '#1F3D32', textAlign: 'center', marginBottom: '1rem' }}>
+  <h2
+    className={css({
+      fontSize: { base: '2xl', md: '3xl', lg: '4xl' },
+      fontWeight: 'bold',
+      color: 'primary',
+      textAlign: 'center',
+      marginBottom: { base: '4', md: '6', lg: '8' }
+    })}
+  >
     {children}
   </h2>
 );
@@ -27,16 +47,9 @@ export const ArchitectureSubtitle = ({ children }: { children: React.ReactNode }
 export const ArchitectureGrid = ({ children }: { children: React.ReactNode }) => (
   <div className={css({
     display: 'grid',
-    gridTemplateColumns: '2fr 1fr',
-    gap: '16',
-    alignItems: 'start',
-    md: {
-      gridTemplateColumns: '2fr 1fr'
-    },
-    sm: {
-      gridTemplateColumns: '1fr',
-      gap: '8'
-    }
+    gridTemplateColumns: { base: '1fr', md: '2fr 1fr' },
+    gap: { base: '8', md: '12', lg: '16' },
+    alignItems: 'start'
   })}>
     {children}
   </div>
@@ -69,7 +82,11 @@ export const ArchitectureImage = ({ src, alt }: { src: string, alt: string }) =>
 );
 
 export const ArchitectureContent = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ padding: '24px' }}>
+  <div
+    className={css({
+      padding: { base: '0', md: '4' }
+    })}
+  >
     {children}
   </div>
 );
@@ -88,56 +105,98 @@ export const ArchitectureCardDescription = ({ children }: { children: React.Reac
 
 // Additional exports that are being imported
 export const ArchitectureText = ({ children }: { children: React.ReactNode }) => (
-  <p style={{ textAlign: 'left', marginBottom: '1.5rem', fontSize: '1.125rem', lineHeight: '1.6', color: '#2C2C2C' }}>
+  <p
+    className={css({
+      textAlign: 'left',
+      marginBottom: { base: '4', md: '6' },
+      fontSize: { base: 'base', md: 'lg' },
+      lineHeight: 'relaxed',
+      color: 'textPrimary'
+    })}
+  >
     {children}
   </p>
 );
 
-export const MetricsCard = ({ children }: { children: React.ReactNode }) => (
-  <div style={{
-    backgroundColor: '#FFFFFF',
-    border: '1px solid #E5E5E5',
-    borderRadius: '16px',
-    padding: '2rem',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-  }}>
+export const MetricsCard = ({ children, 'aria-labelledby': ariaLabelledBy }: { children: React.ReactNode, 'aria-labelledby'?: string }) => (
+  <div
+    aria-labelledby={ariaLabelledBy}
+    className={css({
+      backgroundColor: 'white',
+      borderColor: 'border',
+      borderRadius: { base: 'md', md: 'lg' },
+      padding: { base: '4', md: '6', lg: '8' },
+      boxShadow: 'sm'
+    })}
+    style={{
+      border: '1px solid'
+    }}
+  >
     {children}
   </div>
 );
 
 export const MetricsTitle = ({ children, id }: { children: React.ReactNode, id?: string }) => (
-  <h4 id={id} style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1F3D32', marginBottom: '1.5rem' }}>
+  <h4
+    id={id}
+    className={css({
+      fontSize: { base: 'lg', md: 'xl' },
+      fontWeight: 'semibold',
+      color: 'primary',
+      marginBottom: { base: '4', md: '6' }
+    })}
+  >
     {children}
   </h4>
 );
 
 export const MetricsList = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+  <div
+    className={css({
+      display: 'flex',
+      flexDirection: 'column',
+      gap: { base: '3', md: '4' }
+    })}
+  >
     {children}
   </div>
 );
 
 export const MetricPill = ({ children }: { children: React.ReactNode }) => (
-  <div style={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1rem',
-    backgroundColor: '#F8F9FA',
-    borderRadius: '8px'
-  }}>
+  <div
+    className={css({
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: { base: '3', md: '4' },
+      backgroundColor: 'bgGray',
+      borderRadius: 'base'
+    })}
+  >
     {children}
   </div>
 );
 
 export const MetricCode = ({ children }: { children: React.ReactNode }) => (
-  <span style={{ fontFamily: 'monospace', fontWeight: '600', color: '#2C2C2C' }}>
+  <span
+    className={css({
+      fontFamily: 'mono',
+      fontWeight: 'semibold',
+      fontSize: { base: 'sm', md: 'base' },
+      color: 'textPrimary'
+    })}
+  >
     {children}
   </span>
 );
 
 export const MetricValue = ({ children }: { children: React.ReactNode }) => (
-  <span style={{ color: '#666666', fontSize: '0.9rem' }}>
+  <span
+    className={css({
+      color: 'textSecondary',
+      fontSize: { base: 'xs', md: 'sm' }
+    })}
+  >
     {children}
   </span>
 );
