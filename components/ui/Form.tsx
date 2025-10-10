@@ -69,6 +69,7 @@ export const FormInput = ({ ...props }: React.InputHTMLAttributes<HTMLInputEleme
       color: 'textPrimary',
       backgroundColor: 'white',
       transition: 'all',
+      scrollMarginTop: '24',
       _focus: {
         borderColor: 'primary',
         outline: 'none',
@@ -98,6 +99,7 @@ export const FormTextarea = ({ ...props }: React.TextareaHTMLAttributes<HTMLText
       backgroundColor: 'white',
       resize: 'vertical',
       transition: 'all',
+      scrollMarginTop: '24',
       _focus: {
         borderColor: 'primary',
         outline: 'none',
@@ -127,6 +129,7 @@ export const FormSelect = ({ children, ...props }: React.SelectHTMLAttributes<HT
       color: 'textPrimary',
       backgroundColor: 'white',
       transition: 'all',
+      scrollMarginTop: '24',
       _focus: {
         borderColor: 'primary',
         outline: 'none',
@@ -177,7 +180,8 @@ export const CheckboxGroup = ({ children }: { children: React.ReactNode }) => (
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: '2'
+    gap: '3',
+    scrollMarginTop: '24'
   })}>
     {children}
   </div>
@@ -198,8 +202,10 @@ export const FormCheckbox = ({ ...props }: React.InputHTMLAttributes<HTMLInputEl
       }
     })}
     style={{
-      width: '18px',
-      height: '18px'
+      width: '24px',
+      height: '24px',
+      minWidth: '24px',
+      minHeight: '24px',
     }}
     {...props}
   />
